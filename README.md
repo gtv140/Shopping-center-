@@ -2,87 +2,104 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SHOPPING CENTER</title>
+<title>SHOPPING CENTER - Trending</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#111}
-header{background:#fff;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-header h1{color:#333;font-size:32px;margin:0}
+body{margin:0;font-family:Arial,sans-serif;background:#111;color:#fff}
+header{background:#000;padding:20px;text-align:center;box-shadow:0 2px 15px rgba(255,255,255,0.1)}
+header h1{color:#0ff;font-size:36px;margin:0;text-shadow:0 0 5px #0ff}
+header p{color:#aaa;margin-top:5px}
 .search-bar{margin:15px auto;text-align:center}
-.search-bar input{padding:10px;width:80%;border-radius:8px;border:1px solid #ccc;outline:none}
+.search-bar input{padding:12px;width:80%;border-radius:12px;border:1px solid #0ff;background:#111;color:#fff;outline:none}
 .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px}
-.card{background:#fff;border-radius:10px;padding:15px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1);transition:0.3s;position:relative}
-.card:hover{transform:scale(1.03)}
-.card img{width:100%;height:220px;object-fit:cover;border-radius:8px}
-.price{color:#2a9d8f;font-weight:bold;font-size:18px;margin:10px 0}
-.badge{position:absolute;top:10px;left:10px;background:#e76f51;color:#fff;padding:5px 10px;border-radius:5px;font-size:12px}
-.btns button, .btns a{display:block;margin:5px 0;padding:10px;border-radius:6px;text-decoration:none;color:#fff;font-weight:bold;cursor:pointer;border:none}
-.btn-add{background:#2a9d8f}
-.btn-wish{background:#264653}
+.card{background:#1a1a1a;border-radius:12px;padding:15px;text-align:center;box-shadow:0 2px 15px rgba(0,255,255,0.1);transition:0.3s;position:relative}
+.card:hover{transform:scale(1.05);box-shadow:0 0 20px #0ff}
+.card img{width:100%;height:220px;object-fit:cover;border-radius:10px}
+.price{color:#0ff;font-weight:bold;font-size:18px;margin:10px 0}
+.badge{position:absolute;top:10px;left:10px;background:#e76f51;color:#fff;padding:5px 10px;border-radius:6px;font-size:12px;text-transform:uppercase; font-weight:bold;}
+.btns button, .btns a{display:block;margin:5px 0;padding:10px;border-radius:8px;text-decoration:none;color:#fff;font-weight:bold;cursor:pointer;border:none}
+.btn-add{background:#0ff;color:#000}
+.btn-wish{background:#e76f51}
 .btns a{background:#333;text-align:center}
-.about{background:#fff;margin:20px;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-.bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:flex-end;align-items:center;padding:10px 20px;box-shadow:0 -2px 10px rgba(0,0,0,0.1);z-index:1000}
+.about{background:#222;margin:20px;padding:20px;border-radius:12px;box-shadow:0 2px 15px rgba(0,255,255,0.1)}
+.bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#000;display:flex;justify-content:flex-end;align-items:center;padding:10px 20px;box-shadow:0 -2px 15px rgba(0,255,255,0.1);z-index:1000}
 .menu-dropdown{position:relative;display:inline-block;}
-.menu-btn{background:#333;color:#fff;padding:10px 15px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
-.menu-content{display:none;position:absolute;bottom:50px;right:0;background:#fff;min-width:180px;box-shadow:0 2px 10px rgba(0,0,0,0.2);border-radius:8px;z-index:1001}
-.menu-content a{color:#333;padding:10px;display:block;text-decoration:none;font-weight:bold;}
-.menu-content a:hover{background:#f1f1f1}
+.menu-btn{background:#0ff;color:#000;padding:10px 15px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;}
+.menu-content{display:none;position:absolute;bottom:50px;right:0;background:#111;min-width:200px;box-shadow:0 2px 15px rgba(0,255,255,0.3);border-radius:10px;z-index:1001}
+.menu-content a{color:#0ff;padding:12px;display:block;text-decoration:none;font-weight:bold;}
+.menu-content a:hover{background:#222}
 .show{display:block;}
-.ads-bar{background:#264653;color:#fff;text-align:center;padding:10px;margin:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);font-weight:bold;}
+.ads-bar{background:#0ff;color:#000;text-align:center;padding:12px;margin:20px;border-radius:10px;box-shadow:0 2px 15px rgba(255,255,255,0.1);font-weight:bold;font-size:16px;}
 </style>
 </head>
 <body>
 
 <header>
 <h1>SHOPPING CENTER</h1>
-<p style="color:#555;">Premium Online Shop – Click & Order</p>
+<p>Top Trending Items – Premium Online Shop</p>
 <div class="search-bar">
 <input type="text" id="searchInput" placeholder="Search products...">
 </div>
 </header>
 
+<!-- Ads Bar Top -->
+<div class="ads-bar" id="adsBarTop">🔥 20% OFF on Wireless Earbuds! 🔥</div>
+
 <section class="products" id="productContainer">
 
-<!-- 20 Product Cards -->
-<div class="card" data-category="Men">
+<!-- Example Products (30+ total) -->
+<div class="card">
 <div class="badge">New</div>
-<img src="images/men_wallet.jpg" alt="Men Leather Wallet">
-<h3>Men Leather Wallet</h3>
-<p class="price">Rs 1,299</p>
-<div class="btns">
-<button class="btn-add" onclick="addToCart('Men Leather Wallet',1299)">Add to Cart</button>
-<button class="btn-wish" onclick="addToWish('Men Leather Wallet')">❤ Wishlist</button>
-<a href="https://instagram.com/shoppingcenter664" target="_blank">Instagram</a>
-<a href="https://m.me/61581475052443" target="_blank">Facebook</a>
-<a href="mailto:rock.earn92@gmail.com?subject=Order Men Leather Wallet&body=I want to order Men Leather Wallet Rs 1,299">Gmail</a>
-</div>
-</div>
-
-<div class="card" data-category="Women">
-<div class="badge">Hot</div>
-<img src="images/women_handbag.jpg" alt="Elegant Women Handbag">
-<h3>Elegant Women Handbag</h3>
+<img src="https://images.unsplash.com/photo-1580894908361-23c9b00ffbb5?auto=format&w=400&q=80" alt="Wireless Earbuds">
+<h3>Wireless Earbuds</h3>
 <p class="price">Rs 2,499</p>
 <div class="btns">
-<button class="btn-add" onclick="addToCart('Elegant Women Handbag',2499)">Add to Cart</button>
-<button class="btn-wish" onclick="addToWish('Elegant Women Handbag')">❤ Wishlist</button>
+<button class="btn-add" onclick="addToCart('Wireless Earbuds',2499)">Add to Cart</button>
+<button class="btn-wish" onclick="addToWish('Wireless Earbuds')">❤ Wishlist</button>
+<a href="mailto:rock.earn92@gmail.com?subject=Order Wireless Earbuds&body=I want this">Gmail</a>
 <a href="https://instagram.com/shoppingcenter664" target="_blank">Instagram</a>
 <a href="https://m.me/61581475052443" target="_blank">Facebook</a>
-<a href="mailto:rock.earn92@gmail.com?subject=Order Women Handbag&body=I want to order Elegant Women Handbag Rs 2,499">Gmail</a>
 </div>
 </div>
 
-<!-- Repeat the same structure for remaining 18 products with correct filenames from /images folder -->
+<div class="card">
+<div class="badge">Hot</div>
+<img src="https://images.unsplash.com/photo-1581070754818-85fa60fbcade?auto=format&w=400&q=80" alt="Smart LED Lamp">
+<h3>Smart LED Lamp</h3>
+<p class="price">Rs 1,999</p>
+<div class="btns">
+<button class="btn-add" onclick="addToCart('Smart LED Lamp',1999)">Add to Cart</button>
+<button class="btn-wish" onclick="addToWish('Smart LED Lamp')">❤ Wishlist</button>
+<a href="mailto:rock.earn92@gmail.com?subject=Order Smart LED Lamp&body=I want this">Gmail</a>
+<a href="https://instagram.com/shoppingcenter664" target="_blank">Instagram</a>
+<a href="https://m.me/61581475052443" target="_blank">Facebook</a>
+</div>
+</div>
+
+<div class="card">
+<div class="badge">Trending</div>
+<img src="https://images.unsplash.com/photo-1580910051077-10985e19a637?auto=format&w=400&q=80" alt="Portable Power Bank">
+<h3>Portable Power Bank</h3>
+<p class="price">Rs 1,299</p>
+<div class="btns">
+<button class="btn-add" onclick="addToCart('Portable Power Bank',1299)">Add to Cart</button>
+<button class="btn-wish" onclick="addToWish('Portable Power Bank')">❤ Wishlist</button>
+<a href="mailto:rock.earn92@gmail.com?subject=Order Portable Power Bank&body=I want this">Gmail</a>
+<a href="https://instagram.com/shoppingcenter664" target="_blank">Instagram</a>
+<a href="https://m.me/61581475052443" target="_blank">Facebook</a>
+</div>
+</div>
+
+<!-- Repeat similar structure for all remaining trending products up to 30+ -->
 
 </section>
 
-<!-- Ads / Promotions Section -->
-<div class="ads-bar" id="adsBar">🔥 Get 20% OFF on Men Leather Wallet! 🔥</div>
+<!-- Ads Bar Bottom -->
+<div class="ads-bar" id="adsBarBottom">🔥 Buy 1 Get 1 Free on Bluetooth Speaker! 🔥</div>
 
-<!-- About Section -->
 <div class="about">
 <h2>About SHOPPING CENTER</h2>
-<p>Welcome to SHOPPING CENTER – your premium destination for quality products. Browse, order, and enjoy our simple, elegant online shopping experience. Cart and wishlist fully functional. Shop smart, shop premium!</p>
+<p>Welcome to SHOPPING CENTER – your destination for top trending products. Browse, add to cart, wishlist your favorites, and enjoy a professional premium shopping experience. Live discounts and rotating ads keep the shopping exciting!</p>
 </div>
 
 <!-- Bottom Menu -->
@@ -101,7 +118,7 @@ header h1{color:#333;font-size:32px;margin:0}
 </div>
 
 <footer>
-<p style="text-align:center;padding:10px;color:#555;">© 2026 SHOPPING CENTER</p>
+<p style="text-align:center;padding:10px;color:#aaa;">© 2026 SHOPPING CENTER</p>
 </footer>
 
 <script>
@@ -144,16 +161,17 @@ document.getElementById('searchInput').addEventListener('keyup',function(){
 
 // Random Ads Rotation
 const ads = [
-"🔥 Get 20% OFF on Men Leather Wallet! 🔥",
-"🎉 15% Discount on Elegant Women Handbag! 🎉",
-"💥 Buy 1 Get 1 Free on Men Shoes! 💥",
-"✨ Flat 10% OFF on Women Accessories! ✨",
-"🔥 Hot Sale: 25% OFF on Gadgets! 🔥"
+"🔥 20% OFF on Wireless Earbuds! 🔥",
+"🎉 15% OFF on Smart LED Lamp! 🎉",
+"💥 Buy 1 Get 1 Free on Bluetooth Speaker! 💥",
+"✨ Flat 10% OFF on Mini Projector! ✨",
+"🔥 Hot Sale: 25% OFF on Portable Power Bank! 🔥"
 ];
 let adIndex=0;
 setInterval(()=>{
     adIndex=(adIndex+1)%ads.length;
-    document.getElementById('adsBar').innerText=ads[adIndex];
+    document.getElementById('adsBarTop').innerText=ads[adIndex];
+    document.getElementById('adsBarBottom').innerText=ads[adIndex];
 },5000);
 
 </script>
