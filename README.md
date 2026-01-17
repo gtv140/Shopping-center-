@@ -43,7 +43,6 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff}
 </div>
 </header>
 
-<!-- Products Section -->
 <section class="products" id="productContainer">
 
 <!-- Men Products -->
@@ -77,11 +76,10 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff}
 </div>
 </div>
 
-<!-- Add more products here with same structure, hosted images -->
+<!-- Add more products with same structure, hosted images -->
 
 </section>
 
-<!-- Cart -->
 <div class="cart-container" id="cartContainer">
 <h3>My Cart</h3>
 <div id="cartItems"></div>
@@ -89,7 +87,6 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff}
 <button onclick="clearCart()">Clear Cart</button>
 </div>
 
-<!-- Wishlist -->
 <div class="wish-container" id="wishContainer">
 <h3>My Wishlist</h3>
 <div id="wishItems"></div>
@@ -139,10 +136,8 @@ function updateWish(){
     });
 }
 
-// Load Cart & Wishlist
 updateCart(); updateWish();
 
-// Search Filter
 document.getElementById('searchInput').addEventListener('keyup',function(){
     let filter=this.value.toLowerCase();
     document.querySelectorAll('.card').forEach(card=>{
