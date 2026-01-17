@@ -46,9 +46,9 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff}
 <!-- Products Section -->
 <section class="products" id="productContainer">
 
-<!-- Men Product Example -->
+<!-- Men Products -->
 <div class="card" data-category="Men">
-<img src="https://cdn.pixabay.com/photo/2016/11/19/14/00/wallet-1838071_640.jpg" alt="Men Leather Wallet">
+<img src="https://i.imgur.com/6V9xk3H.jpg" alt="Men Leather Wallet">
 <h3>Men Leather Wallet</h3>
 <p class="price">Rs 1,299</p>
 <img class="qr" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://instagram.com/shoppingcenter664&choe=UTF-8" alt="Instagram QR">
@@ -62,9 +62,8 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff}
 </div>
 </div>
 
-<!-- Women Product Example -->
 <div class="card" data-category="Women">
-<img src="https://cdn.pixabay.com/photo/2016/11/21/15/49/handbag-1845582_640.jpg" alt="Elegant Women Handbag">
+<img src="https://i.imgur.com/3P9qZ5M.jpg" alt="Elegant Women Handbag">
 <h3>Elegant Women Handbag</h3>
 <p class="price">Rs 2,499</p>
 <img class="qr" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://instagram.com/shoppingcenter664&choe=UTF-8" alt="Instagram QR">
@@ -78,7 +77,7 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff}
 </div>
 </div>
 
-<!-- Add more products similarly here... -->
+<!-- Add more products here with same structure, hosted images -->
 
 </section>
 
