@@ -42,14 +42,14 @@ header p{color:#aaa;margin-top:5px}
 </div>
 </header>
 
-<div class="ads-bar" id="adsBarTop">🔥 20% OFF on Wireless Earbuds! 🔥</div>
+<div class="ads-bar" id="adsBarTop">🔥 20% OFF on Trending Items! 🔥</div>
 
 <section class="products" id="productContainer">
 
 <!-- Product 1 -->
 <div class="card">
 <div class="badge">New</div>
-<img src="https://images.unsplash.com/photo-1580894908361-23c9b00ffbb5?auto=format&w=400&q=80" alt="Wireless Earbuds">
+<img src="images/product1.jpg" alt="Product 1">
 <h3>Wireless Earbuds</h3>
 <p class="price">Rs 2,499</p>
 <div class="btns">
@@ -64,7 +64,7 @@ header p{color:#aaa;margin-top:5px}
 <!-- Product 2 -->
 <div class="card">
 <div class="badge">Hot</div>
-<img src="https://images.unsplash.com/photo-1581070754818-85fa60fbcade?auto=format&w=400&q=80" alt="Smart LED Lamp">
+<img src="images/product2.jpg" alt="Product 2">
 <h3>Smart LED Lamp</h3>
 <p class="price">Rs 1,999</p>
 <div class="btns">
@@ -79,7 +79,7 @@ header p{color:#aaa;margin-top:5px}
 <!-- Product 3 -->
 <div class="card">
 <div class="badge">Trending</div>
-<img src="https://images.unsplash.com/photo-1580910051077-10985e19a637?auto=format&w=400&q=80" alt="Portable Power Bank">
+<img src="images/product3.jpg" alt="Product 3">
 <h3>Portable Power Bank</h3>
 <p class="price">Rs 1,299</p>
 <div class="btns">
@@ -91,15 +91,15 @@ header p{color:#aaa;margin-top:5px}
 </div>
 </div>
 
-<!-- Repeat for remaining 27+ trending products using similar card structure -->
+<!-- Repeat similar structure up to 30 products, change filenames to product4.jpg, product5.jpg ... -->
 
 </section>
 
-<div class="ads-bar" id="adsBarBottom">🔥 Buy 1 Get 1 Free on Bluetooth Speaker! 🔥</div>
+<div class="ads-bar" id="adsBarBottom">🔥 Buy 1 Get 1 Free on Top Items! 🔥</div>
 
 <div class="about">
 <h2>About SHOPPING CENTER</h2>
-<p>Welcome to SHOPPING CENTER – your destination for top trending products. Browse, add to cart, wishlist your favorites, and enjoy a professional premium shopping experience. Live discounts and rotating ads keep the shopping exciting!</p>
+<p>Welcome to SHOPPING CENTER – your destination for top trending products. Browse, add to cart, wishlist your favorites, and enjoy a professional premium shopping experience. Live discounts and rotating ads keep shopping exciting!</p>
 </div>
 
 <div class="bottom-bar">
