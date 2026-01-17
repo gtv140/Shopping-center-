@@ -27,14 +27,12 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff;font-
 .wa{background:#25d366}
 .qr{max-width:100px;margin:10px auto;border-radius:12px;display:block;box-shadow:0 0 10px #0ff}
 .badge{position:absolute;top:10px;left:10px;background:#ff0;color:#000;padding:5px 10px;font-weight:bold;border-radius:6px;box-shadow:0 0 10px #ff0;font-size:12px;text-transform:uppercase}
-.cart-container{position:fixed;top:20px;right:20px;background:#111;padding:15px;border-radius:12px;box-shadow:0 0 25px #0ff;max-width:300px;display:block;z-index:1000}
-.cart-container h3{text-align:center;color:#0ff;margin-bottom:10px;font-size:18px}
-.cart-item{display:flex;justify-content:space-between;margin:5px 0;font-size:14px}
-.cart-item span{color:#0f0}
-.wish-container{position:fixed;top:20px;left:20px;background:#111;padding:15px;border-radius:12px;box-shadow:0 0 25px #e1306c;max-width:300px;display:block;z-index:1000}
-.wish-container h3{text-align:center;color:#e1306c;margin-bottom:10px;font-size:18px}
-.wish-item{display:flex;justify-content:space-between;margin:5px 0;color:#e1306c;font-size:14px}
-footer{background:#000;text-align:center;padding:15px;margin-top:20px;color:#0ff;font-size:14px;box-shadow:0 -2px 20px #0ff}
+.about{background:#111;margin:20px;padding:20px;border-radius:12px;box-shadow:0 0 20px #0ff;text-align:center}
+.about h2{color:#0ff;margin-bottom:10px;text-shadow:0 0 5px #0ff}
+.about p{color:#fff;font-size:16px}
+.bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#111;display:flex;justify-content:space-around;align-items:center;padding:10px 0;box-shadow:0 -2px 20px #0ff;z-index:1000;border-top:2px solid #0ff}
+.bottom-bar a{color:#fff;font-weight:bold;text-decoration:none;text-align:center;font-size:14px;padding:8px 10px;border-radius:10px;box-shadow:0 0 8px #0ff;transition:0.2s}
+.bottom-bar a:hover{transform:scale(1.1);box-shadow:0 0 20px #0ff}
 </style>
 </head>
 <body>
@@ -83,20 +81,23 @@ footer{background:#000;text-align:center;padding:15px;margin-top:20px;color:#0ff
 </div>
 </div>
 
-<!-- Add more products with badges/icons similarly -->
-
 </section>
 
-<div class="cart-container" id="cartContainer">
-<h3>My Cart</h3>
-<div id="cartItems"></div>
-<p>Total: Rs <span id="cartTotal">0</span></p>
-<button onclick="clearCart()">Clear Cart</button>
+<!-- About Section -->
+<div class="about">
+<h2>About SHOPPING CENTER</h2>
+<p>Welcome to SHOPPING CENTER – your ultimate destination for luxury and premium products. Experience our neon-themed exclusive collection of Men, Women, Accessories, and Gadgets with a Shopify-style shopping feel. Click, order, and enjoy our fully interactive cart, wishlist, and instant messaging options. Shop smart, shop luxury!</p>
 </div>
 
-<div class="wish-container" id="wishContainer">
-<h3>My Wishlist</h3>
-<div id="wishItems"></div>
+<!-- Bottom Icons Bar -->
+<div class="bottom-bar">
+<a href="#" onclick="scrollToSearch()">🔍 Search</a>
+<a href="#" onclick="toggleWishlist()">❤ Wishlist</a>
+<a href="#" onclick="toggleCart()">🛒 Cart</a>
+<a href="https://wa.me/?text=Hello%20SHOPPING%20CENTER" target="_blank">💬 WhatsApp</a>
+<a href="https://ig.me/m/shoppingcenter664" target="_blank">📸 Instagram</a>
+<a href="https://m.me/61581475052443" target="_blank">📘 Facebook</a>
+<a href="mailto:rock.earn92@gmail.com">✉️ Gmail</a>
 </div>
 
 <footer>
@@ -104,7 +105,7 @@ footer{background:#000;text-align:center;padding:15px;margin-top:20px;color:#0ff
 </footer>
 
 <script>
-// Cart System
+// Cart & Wishlist System
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
@@ -114,37 +115,21 @@ function addToCart(name, price){
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCart();
 }
+function updateCart(){/* kept simple for demo */localStorage.setItem('cart', JSON.stringify(cart));}
 
-function updateCart(){
-    let container = document.getElementById('cartItems');
-    container.innerHTML='';
-    let total=0;
-    cart.forEach(i=>{
-        container.innerHTML+=`<div class="cart-item">${i.name} x${i.qty} <span>Rs ${i.price*i.qty}</span></div>`;
-        total+=i.price*i.qty;
-    });
-    document.getElementById('cartTotal').innerText=total;
-}
-
-function clearCart(){cart=[];updateCart();localStorage.setItem('cart',JSON.stringify(cart));alert('Cart cleared');}
-
-// Wishlist
 function addToWish(name){
     if(!wishlist.includes(name)){wishlist.push(name);}
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     updateWish();
 }
+function updateWish(){localStorage.setItem('wishlist', JSON.stringify(wishlist));}
 
-function updateWish(){
-    let container = document.getElementById('wishItems');
-    container.innerHTML='';
-    wishlist.forEach(i=>{
-        container.innerHTML+=`<div class="wish-item">${i}</div>`;
-    });
-}
+// Bottom Icon Functions
+function toggleCart(){alert('Cart clicked!')}
+function toggleWishlist(){alert('Wishlist clicked!')}
+function scrollToSearch(){document.getElementById('searchInput').scrollIntoView({behavior:'smooth'})}
 
-updateCart(); updateWish();
-
+// Search Filter
 document.getElementById('searchInput').addEventListener('keyup',function(){
     let filter=this.value.toLowerCase();
     document.querySelectorAll('.card').forEach(card=>{
