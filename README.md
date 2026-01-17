@@ -63,7 +63,7 @@ footer{text-align:center;padding:15px;background:#000;box-shadow:0 -2px 20px #0f
 <!-- Products Section -->
 <section class="products" id="productContainer" style="display:none;">
 
-<!-- Sample Men Product -->
+<!-- Men Products -->
 <div class="card" data-category="Men">
 <img src="https://cdn.pixabay.com/photo/2016/11/19/14/00/wallet-1838071_640.jpg" alt="Men Leather Wallet">
 <h3>Men Leather Wallet</h3>
@@ -77,9 +77,22 @@ footer{text-align:center;padding:15px;background:#000;box-shadow:0 -2px 20px #0f
 </div>
 </div>
 
-<!-- Sample Women Product -->
+<div class="card" data-category="Men">
+<img src="https://cdn.pixabay.com/photo/2016/03/27/22/22/shoes-1283843_640.jpg" alt="Men Sports Shoes">
+<h3>Men Sports Shoes</h3>
+<p class="price">Rs 2,999</p>
+<img class="qr" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://instagram.com/shoppingcenter664&choe=UTF-8" alt="Instagram QR">
+<div class="btns">
+<a class="wa" href="https://wa.me/?text=Order%20Men%20Sports%20Shoes%20Rs%202,999" target="_blank">WhatsApp</a>
+<a class="insta" href="https://ig.me/m/shoppingcenter664?text=Order%20Men%20Sports%20Shoes%20Rs%202,999" target="_blank">Instagram</a>
+<a class="fb" href="https://m.me/61581475052443?text=Order%20Men%20Sports%20Shoes%20Rs%202,999" target="_blank">Facebook</a>
+<a class="gmail" href="mailto:rock.earn92@gmail.com?subject=Order Men Sports Shoes&body=I want to order Men Sports Shoes Rs 2,999">Gmail</a>
+</div>
+</div>
+
+<!-- Women Products -->
 <div class="card" data-category="Women">
-<img src="https://cdn.pixabay.com/photo/2016/11/21/15/49/handbag-1845582_640.jpg" alt="Women Handbag">
+<img src="https://cdn.pixabay.com/photo/2016/11/21/15/49/handbag-1845582_640.jpg" alt="Elegant Women Handbag">
 <h3>Elegant Women Handbag</h3>
 <p class="price">Rs 2,499</p>
 <img class="qr" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://instagram.com/shoppingcenter664&choe=UTF-8" alt="Instagram QR">
@@ -88,6 +101,19 @@ footer{text-align:center;padding:15px;background:#000;box-shadow:0 -2px 20px #0f
 <a class="insta" href="https://ig.me/m/shoppingcenter664?text=Order%20Elegant%20Women%20Handbag%20Rs%202,499" target="_blank">Instagram</a>
 <a class="fb" href="https://m.me/61581475052443?text=Order%20Elegant%20Women%20Handbag%20Rs%202,499" target="_blank">Facebook</a>
 <a class="gmail" href="mailto:rock.earn92@gmail.com?subject=Order Women Handbag&body=I want to order Elegant Women Handbag Rs 2,499">Gmail</a>
+</div>
+</div>
+
+<div class="card" data-category="Women">
+<img src="https://cdn.pixabay.com/photo/2016/03/27/21/58/shoes-1283863_640.jpg" alt="Women Sneakers">
+<h3>Women Sneakers</h3>
+<p class="price">Rs 3,299</p>
+<img class="qr" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://instagram.com/shoppingcenter664&choe=UTF-8" alt="Instagram QR">
+<div class="btns">
+<a class="wa" href="https://wa.me/?text=Order%20Women%20Sneakers%20Rs%203,299" target="_blank">WhatsApp</a>
+<a class="insta" href="https://ig.me/m/shoppingcenter664?text=Order%20Women%20Sneakers%20Rs%203,299" target="_blank">Instagram</a>
+<a class="fb" href="https://m.me/61581475052443?text=Order%20Women%20Sneakers%20Rs%203,299" target="_blank">Facebook</a>
+<a class="gmail" href="mailto:rock.earn92@gmail.com?subject=Order Women Sneakers&body=I want to order Women Sneakers Rs 3,299">Gmail</a>
 </div>
 </div>
 
