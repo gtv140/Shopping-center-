@@ -24,7 +24,7 @@ header h1{color:#333;font-size:32px;margin:0}
 .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:flex-end;align-items:center;padding:10px 20px;box-shadow:0 -2px 10px rgba(0,0,0,0.1);z-index:1000}
 .menu-dropdown{position:relative;display:inline-block;}
 .menu-btn{background:#333;color:#fff;padding:10px 15px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
-.menu-content{display:none;position:absolute;bottom:50px;right:0;background:#fff;min-width:150px;box-shadow:0 2px 10px rgba(0,0,0,0.2);border-radius:8px;z-index:1001}
+.menu-content{display:none;position:absolute;bottom:50px;right:0;background:#fff;min-width:180px;box-shadow:0 2px 10px rgba(0,0,0,0.2);border-radius:8px;z-index:1001}
 .menu-content a{color:#333;padding:10px;display:block;text-decoration:none;font-weight:bold;}
 .menu-content a:hover{background:#f1f1f1}
 .show{display:block;}
@@ -43,7 +43,7 @@ header h1{color:#333;font-size:32px;margin:0}
 
 <section class="products" id="productContainer">
 
-<!-- Sample Product Card -->
+<!-- 20 Product Cards -->
 <div class="card" data-category="Men">
 <div class="badge">New</div>
 <img src="images/men_wallet.jpg" alt="Men Leather Wallet">
@@ -72,7 +72,7 @@ header h1{color:#333;font-size:32px;margin:0}
 </div>
 </div>
 
-<!-- Repeat this card div for 20+ products with different images & names -->
+<!-- Repeat the same structure for remaining 18 products with correct filenames from /images folder -->
 
 </section>
 
