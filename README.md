@@ -1,4 +1,4 @@
-<SHOP>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -42,12 +42,11 @@ header p{color:#aaa;margin-top:5px}
 </div>
 </header>
 
-<!-- Ads Bar Top -->
 <div class="ads-bar" id="adsBarTop">🔥 20% OFF on Wireless Earbuds! 🔥</div>
 
 <section class="products" id="productContainer">
 
-<!-- Example Products (30+ total) -->
+<!-- Product 1 -->
 <div class="card">
 <div class="badge">New</div>
 <img src="https://images.unsplash.com/photo-1580894908361-23c9b00ffbb5?auto=format&w=400&q=80" alt="Wireless Earbuds">
@@ -62,6 +61,7 @@ header p{color:#aaa;margin-top:5px}
 </div>
 </div>
 
+<!-- Product 2 -->
 <div class="card">
 <div class="badge">Hot</div>
 <img src="https://images.unsplash.com/photo-1581070754818-85fa60fbcade?auto=format&w=400&q=80" alt="Smart LED Lamp">
@@ -76,6 +76,7 @@ header p{color:#aaa;margin-top:5px}
 </div>
 </div>
 
+<!-- Product 3 -->
 <div class="card">
 <div class="badge">Trending</div>
 <img src="https://images.unsplash.com/photo-1580910051077-10985e19a637?auto=format&w=400&q=80" alt="Portable Power Bank">
@@ -90,11 +91,10 @@ header p{color:#aaa;margin-top:5px}
 </div>
 </div>
 
-<!-- Repeat similar structure for all remaining trending products up to 30+ -->
+<!-- Repeat for remaining 27+ trending products using similar card structure -->
 
 </section>
 
-<!-- Ads Bar Bottom -->
 <div class="ads-bar" id="adsBarBottom">🔥 Buy 1 Get 1 Free on Bluetooth Speaker! 🔥</div>
 
 <div class="about">
@@ -102,7 +102,6 @@ header p{color:#aaa;margin-top:5px}
 <p>Welcome to SHOPPING CENTER – your destination for top trending products. Browse, add to cart, wishlist your favorites, and enjoy a professional premium shopping experience. Live discounts and rotating ads keep the shopping exciting!</p>
 </div>
 
-<!-- Bottom Menu -->
 <div class="bottom-bar">
 <div class="menu-dropdown">
 <button class="menu-btn" onclick="toggleMenu()">Menu ☰</button>
