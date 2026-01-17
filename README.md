@@ -1,4 +1,4 @@
-<SHOP>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -50,10 +50,10 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff;font-
 <!-- Men Product -->
 <div class="card" data-category="Men">
 <div class="badge">New</div>
-<img src="https://i.ibb.co/3Y0F8xS/men-wallet.jpg" alt="Men Leather Wallet">
+<img src="images/men_wallet.jpg" alt="Men Leather Wallet">
 <h3>Men Leather Wallet</h3>
 <p class="price">Rs 1,299</p>
-<img class="qr" src="https://i.ibb.co/KxqG2gX/qr-men-wallet.png" alt="Instagram QR">
+<img class="qr" src="images/qr_men_wallet.png" alt="Instagram QR">
 <div class="btns">
 <button class="btn-add" onclick="addToCart('Men Leather Wallet',1299)">Add to Cart</button>
 <button class="btn-wish" onclick="addToWish('Men Leather Wallet')">❤ Wishlist</button>
@@ -67,10 +67,10 @@ header h1{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #0ff;font-
 <!-- Women Product -->
 <div class="card" data-category="Women">
 <div class="badge" style="background:#e1306c;color:#fff;">Hot</div>
-<img src="https://i.ibb.co/bRgWkXY/women-handbag.jpg" alt="Elegant Women Handbag">
+<img src="images/women_handbag.jpg" alt="Elegant Women Handbag">
 <h3>Elegant Women Handbag</h3>
 <p class="price">Rs 2,499</p>
-<img class="qr" src="https://i.ibb.co/yWQm6tk/qr-women-handbag.png" alt="Instagram QR">
+<img class="qr" src="images/qr_women_handbag.png" alt="Instagram QR">
 <div class="btns">
 <button class="btn-add" onclick="addToCart('Elegant Women Handbag',2499)">Add to Cart</button>
 <button class="btn-wish" onclick="addToWish('Elegant Women Handbag')">❤ Wishlist</button>
