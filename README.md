@@ -1,11 +1,11 @@
-<shop>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Shopping Center</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f9f9f9;color:#222;padding-bottom:80px}
+body{margin:0;font-family:Arial,sans-serif;background:#f9f9f9;color:#222;padding-bottom:100px}
 
 /* HEADER */
 header{background:#111;color:#fff;padding:15px;text-align:center}
@@ -29,6 +29,9 @@ header input{margin-top:10px;padding:8px;width:90%;max-width:400px;border-radius
 .fb{background:#1877f2}
 .mail{background:#000}
 .badge{position:absolute;top:10px;left:10px;background:#f00;color:#fff;padding:4px 6px;font-size:12px;border-radius:4px}
+
+/* ADS / BANNER */
+.ads{margin:20px auto;padding:12px;background:#fffae5;border-radius:8px;text-align:center;font-weight:bold;color:#222;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 
 /* RECENT */
 .recent{background:#fff;margin:20px;padding:15px;border-radius:10px}
@@ -71,6 +74,9 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <img src="https://images.unsplash.com/photo-1606813904395-cd3a6a487f43?w=1200" class="slide">
 <img src="https://images.unsplash.com/photo-1605902711622-cfb43c443b70?w=1200" class="slide">
 </div>
+
+<!-- ADS -->
+<div class="ads" id="ads">🔥 Hot Deal: Smart Phone PKR 54,999 - Limited Time!</div>
 
 <section class="products" id="productList">
 
@@ -118,7 +124,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Add remaining 47+ products in same structure -->
+<!-- Add remaining products similarly -->
 
 </section>
 
@@ -163,6 +169,11 @@ showRecent();
 
 // CART VIEW
 document.getElementById("cartBtn").onclick=function(){alert("Cart Items:\n"+(cart.length?cart.join(", "):"Cart empty"))};
+
+// ADS ROTATOR
+let ads=["🔥 Hot Deal: Smart Phone PKR 54,999","💥 Sale: Men Shirt PKR 2,499","⭐ Trending: Female Dress PKR 3,499"];
+let adIndex=0;
+setInterval(()=>{document.getElementById("ads").innerText=ads[adIndex];adIndex=(adIndex+1)%ads.length;},6000);
 </script>
 
 </body>
