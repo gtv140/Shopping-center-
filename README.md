@@ -1,4 +1,4 @@
-<SHOP>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -39,9 +39,9 @@ header input{margin-top:10px;padding:8px;width:90%;max-width:400px;border-radius
 footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 /* SLIDER */
-.slider{width:100%;overflow:hidden;margin:15px 0;position:relative;height:180px;background:#ccc;border-radius:10px}
-.slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease}
-.slide.active{left:0}
+.slider{width:100%;overflow:hidden;margin:15px 0;position:relative;height:220px;border-radius:10px}
+.slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
+.slide.active{left:0;}
 </style>
 </head>
 
@@ -64,15 +64,16 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 
 <div class="slider" id="slider">
-<img src="https://images.unsplash.com/photo-1606813904395-cd3a6a487f43?w=1200" class="slide active">
-<img src="https://images.unsplash.com/photo-1612831660161-d16e96b45c11?w=1200" class="slide">
+<img src="https://images.unsplash.com/photo-1591047139829-2c16f6db37d7?w=1200" class="slide active">
+<img src="https://images.unsplash.com/photo-1606813904395-cd3a6a487f43?w=1200" class="slide">
+<img src="https://images.unsplash.com/photo-1605902711622-cfb43c443b70?w=1200" class="slide">
+<img src="https://images.unsplash.com/photo-1593032457861-1de79aefb9e4?w=1200" class="slide">
 <img src="https://images.unsplash.com/photo-1612832020916-3247bc90c8b7?w=1200" class="slide">
 </div>
 
 <section class="products" id="productList">
 
-<!-- Sample 50+ Products -->
-<!-- Electronics -->
+<!-- Electronics (10+) -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
@@ -103,22 +104,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<div class="product" data-name="Running Shoes" data-category="Fashion">
-<div class="badge">⭐ Top Rated</div>
-<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800">
-<div class="info">
-<h3>Running Shoes</h3>
-<div class="price">PKR 9,999</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Running Shoes')">Add to Cart</button>
-</div>
-</div>
-
-<!-- Men Clothes -->
+<!-- Men Clothes 10+ -->
 <div class="product" data-name="Men Shirt" data-category="Men">
 <img src="https://images.unsplash.com/photo-1602810319240-08cb65b9cd7e?w=800">
 <div class="info">
@@ -147,7 +133,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Female Clothes -->
+<!-- Female Clothes 10+ -->
 <div class="product" data-name="Female Dress" data-category="Female">
 <img src="https://images.unsplash.com/photo-1586281380345-df99c3d4b2d3?w=800">
 <div class="info">
@@ -162,7 +148,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Add remaining 40+ products same format using online links -->
+<!-- Fashion / Audio / Accessories → add 30+ products same pattern -->
 
 </section>
 
