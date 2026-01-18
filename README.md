@@ -31,7 +31,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 .slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
 .slide.active{left:0;}
 .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:10px 0;box-shadow:0 -2px 8px rgba(0,0,0,.2);z-index:1000}
-.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all .3s;}
+.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all 0.3s;}
 .bottom-bar button:hover{background:#ddd}
 </style>
 </head>
@@ -54,19 +54,19 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 
 <div class="slider" id="slider">
-<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE..." class="slide active">
-<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE..." class="slide">
-<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE..." class="slide">
+<img src="https://images.unsplash.com/photo-1512499617640-c2f99912f7fa?auto=format&fit=crop&w=800&q=80" class="slide active">
+<img src="https://images.unsplash.com/photo-1606813902854-25e01744674c?auto=format&fit=crop&w=800&q=80" class="slide">
+<img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=800&q=80" class="slide">
 </div>
 
 <div class="ads" id="ads">🔥 Hot Deal: Smart Phone PKR 54,999 - Limited Time!</div>
 
 <section class="products" id="productList">
 
-<!-- 50+ Products with base64 images -->
+<!-- Product 1 -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
-<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE..." alt="Smart Phone">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Smart Phone">
 <div class="info">
 <h3>Smart Phone</h3>
 <div class="price">PKR 54,999</div>
@@ -79,7 +79,37 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Repeat similarly 50+ products -->
+<!-- Product 2 -->
+<div class="product" data-name="Men Shirt" data-category="Men">
+<img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=400&q=80" alt="Men Shirt">
+<div class="info">
+<h3>Men Shirt</h3>
+<div class="price">PKR 2,499</div>
+<div class="buttons">
+<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
+</div>
+<button onclick="addToCart('Men Shirt')">Add to Cart</button>
+</div>
+</div>
+
+<!-- Product 3 -->
+<div class="product" data-name="Female Dress" data-category="Female">
+<img src="https://images.unsplash.com/photo-1520962910055-73e7b08148fa?auto=format&fit=crop&w=400&q=80" alt="Female Dress">
+<div class="info">
+<h3>Female Dress</h3>
+<div class="price">PKR 3,499</div>
+<div class="buttons">
+<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
+</div>
+<button onclick="addToCart('Female Dress')">Add to Cart</button>
+</div>
+</div>
+
+<!-- Repeat products as needed up to 50+ -->
 
 </section>
 
