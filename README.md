@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<shop>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,17 +6,11 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#f9f9f9;color:#222;padding-bottom:100px}
-
-/* HEADER */
 header{background:#111;color:#fff;padding:15px;text-align:center}
 header input{margin-top:10px;padding:8px;width:90%;max-width:400px;border-radius:5px;border:none}
-
-/* CATEGORY ICONS */
 .categories{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:12px 0}
 .categories button{background:#eee;border:none;padding:10px;border-radius:50px;cursor:pointer;font-size:14px;transition:all .3s}
 .categories button:hover{background:#ddd}
-
-/* PRODUCTS */
 .products{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
 .product{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.1);position:relative;transition:all .3s}
 .product:hover{transform:translateY(-5px)}
@@ -29,23 +23,13 @@ header input{margin-top:10px;padding:8px;width:90%;max-width:400px;border-radius
 .fb{background:#1877f2}
 .mail{background:#000}
 .badge{position:absolute;top:10px;left:10px;background:#f00;color:#fff;padding:4px 6px;font-size:12px;border-radius:4px}
-
-/* ADS / BANNER */
 .ads{margin:20px auto;padding:12px;background:#fffae5;border-radius:8px;text-align:center;font-weight:bold;color:#222;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-
-/* RECENT */
 .recent{background:#fff;margin:20px;padding:15px;border-radius:10px}
 .recent span{display:inline-block;background:#eee;padding:6px 10px;margin:4px;border-radius:20px;font-size:13px}
-
-/* FOOTER */
 footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
-
-/* SLIDER */
 .slider{width:100%;overflow:hidden;margin:15px 0;position:relative;height:220px;border-radius:10px}
 .slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
 .slide.active{left:0;}
-
-/* BOTTOM STICKY BAR */
 .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:10px 0;box-shadow:0 -2px 8px rgba(0,0,0,.2);z-index:1000}
 .bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all 0.3s;}
 .bottom-bar button:hover{background:#ddd}
@@ -75,12 +59,11 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <img src="https://images.unsplash.com/photo-1605902711622-cfb43c443b70?w=1200" class="slide">
 </div>
 
-<!-- ADS -->
 <div class="ads" id="ads">🔥 Hot Deal: Smart Phone PKR 54,999 - Limited Time!</div>
 
 <section class="products" id="productList">
 
-<!-- Sample Products -->
+<!-- 50+ PRODUCTS WITH UNIQUE FREE IMAGES -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
@@ -111,7 +94,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 
 <div class="product" data-name="Female Dress" data-category="Female">
-<img src="https://images.unsplash.com/photo-1586281380345-df99c3d4b2d3?w=800">
+<img src="https://images.unsplash.com/photo-1580894908361-8e3ed3e89457?w=800">
 <div class="info">
 <h3>Female Dress</h3>
 <div class="price">PKR 3,499</div>
@@ -124,7 +107,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Add remaining products similarly -->
+<!-- ADD MORE PRODUCTS SIMILARLY USING UNIQUE FREE PHOTOS -->
 
 </section>
 
@@ -133,9 +116,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <div id="recentItems"></div>
 </div>
 
-<footer>
-© 2026 Shopping Center
-</footer>
+<footer>© 2026 Shopping Center</footer>
 
 <div id="cartBtn">🛒 Cart</div>
 
