@@ -59,7 +59,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" class="slide active">
 <img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=800&q=80" class="slide">
 <img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=800&q=80" class="slide">
-<img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cf1?auto=format&fit=crop&w=800&q=80" class="slide">
 </div>
 
 <div class="ads" id="ads">
@@ -68,7 +67,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 <section class="products" id="productList">
 
-<!-- Smart Phone -->
+<!-- Product 1: Smart Phone -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Smart Phone">
@@ -84,7 +83,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Headphones -->
+<!-- Product 2: Headphones -->
 <div class="product" data-name="Headphones" data-category="Audio">
 <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="Headphones">
 <div class="info">
@@ -99,7 +98,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Smart Watch -->
+<!-- Product 3: Smart Watch -->
 <div class="product" data-name="Smart Watch" data-category="Accessories">
 <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
 <div class="info">
@@ -114,7 +113,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Gadgets -->
+<!-- Product 4: Wireless Charger -->
 <div class="product" data-name="Wireless Charger" data-category="Gadgets">
 <img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cf1?auto=format&fit=crop&w=400&q=80" alt="Wireless Charger">
 <div class="info">
@@ -129,7 +128,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Fashion Bag -->
+<!-- Product 5: Fashion Bag -->
 <div class="product" data-name="Fashion Bag" data-category="Bags">
 <img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=400&q=80" alt="Fashion Bag">
 <div class="info">
