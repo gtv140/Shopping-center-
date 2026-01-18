@@ -31,7 +31,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 .slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
 .slide.active{left:0;}
 .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:10px 0;box-shadow:0 -2px 8px rgba(0,0,0,.2);z-index:1000}
-.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all 0.3s;}
+.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all .3s;}
 .bottom-bar button:hover{background:#ddd}
 </style>
 </head>
@@ -46,11 +46,13 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <div class="categories">
 <button onclick="filterCategory('All')">🏷️ All</button>
 <button onclick="filterCategory('Electronics')">📱 Electronics</button>
-<button onclick="filterCategory('Fashion')">👟 Fashion</button>
 <button onclick="filterCategory('Audio')">🎧 Audio</button>
 <button onclick="filterCategory('Accessories')">⌚ Accessories</button>
-<button onclick="filterCategory('Men')">👔 Men Clothes</button>
-<button onclick="filterCategory('Female')">👗 Female Clothes</button>
+<button onclick="filterCategory('Fashion')">👗 Fashion</button>
+<button onclick="filterCategory('Shoes')">👟 Shoes</button>
+<button onclick="filterCategory('Bags')">👜 Bags</button>
+<button onclick="filterCategory('Watches')">⌚ Watches</button>
+<button onclick="filterCategory('Gadgets')">🔌 Gadgets</button>
 </div>
 
 <div class="slider" id="slider">
@@ -63,7 +65,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 <section class="products" id="productList">
 
-<!-- Product 1 -->
+<!-- Example Product 1 -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Smart Phone">
@@ -79,37 +81,37 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Product 2 -->
-<div class="product" data-name="Men Shirt" data-category="Men">
-<img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=400&q=80" alt="Men Shirt">
+<!-- Example Product 2 -->
+<div class="product" data-name="Headphones" data-category="Audio">
+<img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="Headphones">
 <div class="info">
-<h3>Men Shirt</h3>
-<div class="price">PKR 2,499</div>
+<h3>Headphones</h3>
+<div class="price">PKR 1,799</div>
 <div class="buttons">
 <a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
 <a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
 <a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
 </div>
-<button onclick="addToCart('Men Shirt')">Add to Cart</button>
+<button onclick="addToCart('Headphones')">Add to Cart</button>
 </div>
 </div>
 
-<!-- Product 3 -->
-<div class="product" data-name="Female Dress" data-category="Female">
-<img src="https://images.unsplash.com/photo-1520962910055-73e7b08148fa?auto=format&fit=crop&w=400&q=80" alt="Female Dress">
+<!-- Example Product 3 -->
+<div class="product" data-name="Smart Watch" data-category="Accessories">
+<img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
 <div class="info">
-<h3>Female Dress</h3>
-<div class="price">PKR 3,499</div>
+<h3>Smart Watch</h3>
+<div class="price">PKR 12,999</div>
 <div class="buttons">
 <a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
 <a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
 <a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
 </div>
-<button onclick="addToCart('Female Dress')">Add to Cart</button>
+<button onclick="addToCart('Smart Watch')">Add to Cart</button>
 </div>
 </div>
 
-<!-- Repeat products as needed up to 50+ -->
+<!-- Repeat other products similarly for Fashion, Shoes, Bags, Watches, Gadgets -->
 
 </section>
 
@@ -188,10 +190,10 @@ alert("Cart Items:\n" + (cart.length ? cart.join(", ") : "Cart empty"));
 // ADS ROTATOR
 let ads = [
 "🔥 Hot Deal: Smart Phone PKR 54,999",
-"💥 Sale: Men Shirt PKR 2,499",
-"⭐ Trending: Female Dress PKR 3,499",
-"🎧 Audio: Headphones PKR 1,799",
-"👗 Fashion: Female Dress PKR 2,999"
+"💥 Sale: Headphones PKR 1,799",
+"⭐ Trending: Smart Watch PKR 12,999",
+"🎧 Gadgets: Wireless Charger PKR 999",
+"👜 Fashion Bags PKR 2,499"
 ];
 let adIndex = 0;
 setInterval(()=>{
