@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<shop>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Shopping Center</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f4f4f4;color:#222}
+body{margin:0;font-family:Arial;background:#f4f4f4;color:#222;padding-bottom:80px}
 
 /* HEADER */
 header{background:#111;color:#fff;padding:15px;text-align:center}
@@ -16,7 +16,7 @@ header input{margin-top:10px;padding:8px;width:90%;max-width:400px;border-radius
 .categories button{background:#eee;border:none;padding:10px;border-radius:50px;cursor:pointer;font-size:14px}
 
 /* CART BUTTON */
-#cartBtn{position:fixed;bottom:15px;right:15px;background:#000;color:#fff;padding:12px 16px;border-radius:50px;cursor:pointer;font-size:14px}
+#cartBtn{position:fixed;bottom:15px;right:15px;background:#000;color:#fff;padding:12px 16px;border-radius:50px;cursor:pointer;font-size:14px;z-index:1000}
 
 /* PRODUCTS */
 .products{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
@@ -42,9 +42,13 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 .slider{width:100%;overflow:hidden;margin:15px 0;position:relative;height:220px;border-radius:10px}
 .slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
 .slide.active{left:0;}
+
+/* BOTTOM STICKY BAR */
+.bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:10px 0;box-shadow:0 -2px 8px rgba(0,0,0,.2);z-index:1000}
+.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all 0.3s;}
+.bottom-bar button:hover{background:#ddd}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -73,7 +77,8 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 <section class="products" id="productList">
 
-<!-- Electronics (10+) -->
+<!-- Electronics / Fashion / Men / Female / Accessories / Audio Products -->
+
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
@@ -89,22 +94,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<div class="product" data-name="Smart Watch" data-category="Accessories">
-<div class="badge">💥 Sale</div>
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800">
-<div class="info">
-<h3>Smart Watch</h3>
-<div class="price">PKR 13,999</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Smart Watch')">Add to Cart</button>
-</div>
-</div>
-
-<!-- Men Clothes 10+ -->
+<!-- Men Clothes -->
 <div class="product" data-name="Men Shirt" data-category="Men">
 <img src="https://images.unsplash.com/photo-1602810319240-08cb65b9cd7e?w=800">
 <div class="info">
@@ -119,21 +109,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<div class="product" data-name="Men Pants" data-category="Men">
-<img src="https://images.unsplash.com/photo-1573497019412-4b6c46f6eea1?w=800">
-<div class="info">
-<h3>Men Pants</h3>
-<div class="price">PKR 3,199</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Men Pants')">Add to Cart</button>
-</div>
-</div>
-
-<!-- Female Clothes 10+ -->
+<!-- Female Clothes -->
 <div class="product" data-name="Female Dress" data-category="Female">
 <img src="https://images.unsplash.com/photo-1586281380345-df99c3d4b2d3?w=800">
 <div class="info">
@@ -148,7 +124,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Fashion / Audio / Accessories → add 30+ products same pattern -->
+<!-- Add remaining 47+ products in same pattern -->
 
 </section>
 
@@ -162,6 +138,14 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </footer>
 
 <div id="cartBtn">🛒 Cart</div>
+
+<div class="bottom-bar">
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})">🏠</button>
+<button onclick="document.getElementById('cartBtn').click()">🛒</button>
+<button onclick="window.scrollTo({top:200,behavior:'smooth'})">🔖</button>
+<button onclick="alert('Trending / Sale')">⭐</button>
+<button onclick="alert('Order Now / Profile')">👤</button>
+</div>
 
 <script>
 // SLIDER
