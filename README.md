@@ -2,122 +2,212 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SHOPPING CENTER - Trending Items</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Center</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f4f4}
-header{text-align:center;padding:20px;background:#111;color:#fff}
-.ads-bar{text-align:center;padding:10px;background:#ff9800;color:#000;font-weight:bold}
-.products{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:30px}
-.card{
-background:#fff;width:260px;padding:15px;border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,.15);position:relative
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,Arial;
+  background:#f2f2f2;
+  color:#222;
 }
-.card img{width:100%;height:180px;object-fit:cover;border-radius:10px}
-.badge{
-position:absolute;top:10px;left:10px;
-background:red;color:#fff;padding:4px 8px;border-radius:6px;font-size:12px
+
+/* HEADER */
+header{
+  background:#111;
+  color:#fff;
+  padding:18px;
+  text-align:center;
 }
-.price{font-weight:bold;color:#27ae60}
-.btns button,.btns a{
-display:block;margin-top:6px;padding:8px;
-text-align:center;text-decoration:none;border:none;
-background:#111;color:#fff;border-radius:6px;cursor:pointer
+header h1{margin:0;font-size:26px}
+header p{margin:4px 0 0;color:#bbb;font-size:14px}
+
+/* CATEGORIES */
+.categories{
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto;
+  background:#fff;
 }
-.btns a{background:#555}
-.about{text-align:center;padding:30px}
-.bottom-bar{
-position:fixed;bottom:0;width:100%;background:#111;color:#fff;text-align:center;padding:10px
+.categories div{
+  background:#000;
+  color:#fff;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:13px;
+  white-space:nowrap;
 }
-footer{text-align:center;padding:15px;background:#111;color:#fff;margin-top:50px}
+
+/* BANNER */
+.banner{
+  background:linear-gradient(90deg,#000,#333);
+  color:#fff;
+  text-align:center;
+  padding:15px;
+  font-weight:bold;
+}
+
+/* PRODUCTS */
+.products{
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:18px;
+}
+.product{
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.product img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+.info{padding:12px}
+.info h3{margin:0;font-size:16px}
+.info p{margin:6px 0;font-weight:bold}
+
+/* BUTTONS */
+.buttons button{
+  width:100%;
+  margin-top:6px;
+  padding:8px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+.insta{background:#e1306c;color:#fff}
+.fb{background:#1877f2;color:#fff}
+.mail{background:#000;color:#fff}
+
+/* ABOUT */
+.about{
+  background:#fff;
+  padding:20px;
+  margin:20px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+/* FOOTER */
+footer{
+  background:#111;
+  color:#aaa;
+  text-align:center;
+  padding:15px;
+  font-size:13px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>SHOPPING CENTER</h1>
-<p>Top Trending Items – Premium Online Shop</p>
+  <h1>Shopping Center</h1>
+  <p>Simple • Trusted • Premium Online Store</p>
 </header>
 
-<div class="ads-bar">🔥 20% OFF on Trending Items! 🔥</div>
+<div class="categories">
+  <div>Trending</div>
+  <div>Electronics</div>
+  <div>Fashion</div>
+  <div>Beauty</div>
+  <div>Accessories</div>
+  <div>Gadgets</div>
+</div>
+
+<div class="banner">
+🔥 Mega Sale – Flat Discounts on Trending Products 🔥
+</div>
 
 <section class="products">
 
-<div class="card">
-<div class="badge">New</div>
-<img src="https://source.unsplash.com/400x300/?wireless,earbuds" alt="Wireless Earbuds">
-<h3>Wireless Earbuds</h3>
-<p class="price">Rs 2,499</p>
-<div class="btns">
-<button>Add to Cart</button>
-<button>❤ Wishlist</button>
-<a href="mailto:rock.earn92@gmail.com">Gmail</a>
-<a href="https://instagram.com/shoppingcenter664" target="_blank">Instagram</a>
-<a href="https://m.me/61581475052443" target="_blank">Facebook</a>
-</div>
-</div>
-
-<div class="card">
-<div class="badge">Hot</div>
-<img src="https://source.unsplash.com/400x300/?smartwatch" alt="Smart Watch">
+<div class="product">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800">
+<div class="info">
 <h3>Smart Watch</h3>
-<p class="price">Rs 3,999</p>
-<div class="btns">
-<button>Add to Cart</button>
-<button>❤ Wishlist</button>
+<p>$49</p>
+<div class="buttons">
+<button class="insta">Order on Instagram</button>
+<button class="fb">Order on Facebook</button>
+<button class="mail">Order on Gmail</button>
 </div>
-</div>
-
-<div class="card">
-<div class="badge">Sale</div>
-<img src="https://source.unsplash.com/400x300/?headphones" alt="Headphones">
-<h3>Wireless Headphones</h3>
-<p class="price">Rs 4,499</p>
-<div class="btns">
-<button>Add to Cart</button>
-<button>❤ Wishlist</button>
 </div>
 </div>
 
-<div class="card">
-<div class="badge">New</div>
-<img src="https://source.unsplash.com/400x300/?shoes,sneakers" alt="Shoes">
-<h3>Sport Sneakers</h3>
-<p class="price">Rs 5,999</p>
-<div class="btns">
-<button>Add to Cart</button>
-<button>❤ Wishlist</button>
+<div class="product">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800">
+<div class="info">
+<h3>Running Shoes</h3>
+<p>$59</p>
+<div class="buttons">
+<button class="insta">Order on Instagram</button>
+<button class="fb">Order on Facebook</button>
+</div>
 </div>
 </div>
 
-<div class="card">
-<div class="badge">Trending</div>
-<img src="https://source.unsplash.com/400x300/?backpack,bag" alt="Bag">
-<h3>Stylish Backpack</h3>
-<p class="price">Rs 2,199</p>
-<div class="btns">
-<button>Add to Cart</button>
-<button>❤ Wishlist</button>
+<div class="product">
+<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800">
+<div class="info">
+<h3>Headphones</h3>
+<p>$39</p>
+<div class="buttons">
+<button class="insta">Order Now</button>
+</div>
+</div>
+</div>
+
+<div class="product">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
+<div class="info">
+<h3>Smart Phone</h3>
+<p>$199</p>
+<div class="buttons">
+<button class="fb">Buy Now</button>
+</div>
+</div>
+</div>
+
+<div class="product">
+<img src="https://images.unsplash.com/photo-1585386959984-a4155224a1c1?w=800">
+<div class="info">
+<h3>Perfume</h3>
+<p>$29</p>
+<div class="buttons">
+<button class="insta">Order</button>
+</div>
+</div>
+</div>
+
+<div class="product">
+<img src="https://images.unsplash.com/photo-1593032465171-bb5a2c1f6d7c?w=800">
+<div class="info">
+<h3>Wireless Earbuds</h3>
+<p>$45</p>
+<div class="buttons">
+<button class="fb">Order</button>
+</div>
 </div>
 </div>
 
 </section>
 
-<div class="ads-bar">🔥 Buy 1 Get 1 Free on Top Items! 🔥</div>
-
 <div class="about">
-<h2>About SHOPPING CENTER</h2>
-<p>Premium trending products with a Shopify-style shopping experience.</p>
-</div>
-
-<div class="bottom-bar">
-Menu ☰ | 🛒 Cart | ❤ Wishlist
+<h3>About Shopping Center</h3>
+<p>
+Shopping Center ek simple aur trusted online store hai jahan
+trending aur quality products best prices par milte hain.
+Direct Instagram, Facebook aur Gmail ke zariye order karein.
+</p>
 </div>
 
 <footer>
-<p>© 2026 SHOPPING CENTER</p>
+© 2026 Shopping Center — All Rights Reserved
 </footer>
 
 </body>
