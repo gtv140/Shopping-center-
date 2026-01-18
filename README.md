@@ -1,4 +1,3 @@
-SHOPPING CENTER 😀 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -56,18 +55,19 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 
 <div class="slider" id="slider">
-<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" class="slide active">
-<img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=800&q=80" class="slide">
-<img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=800&q=80" class="slide">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" class="slide active" alt="Smart Phone">
+<img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=800&q=80" class="slide" alt="Headphones">
+<img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=800&q=80" class="slide" alt="Fashion Bag">
 </div>
 
 <div class="ads" id="ads">
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" style="width:100%;border-radius:8px">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" style="width:100%;border-radius:8px" alt="Advertisement">
 </div>
 
 <section class="products" id="productList">
 
-<!-- Product 1: Smart Phone -->
+<!-- Product examples with matching photos -->
+
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Smart Phone">
@@ -75,7 +75,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <h3>Smart Phone</h3>
 <div class="price">PKR 54,999</div>
 <div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
 <a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
 <a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
 </div>
@@ -83,14 +83,13 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Product 2: Headphones -->
 <div class="product" data-name="Headphones" data-category="Audio">
-<img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="Headphones">
+<img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=400&q=80" alt="Headphones">
 <div class="info">
 <h3>Headphones</h3>
 <div class="price">PKR 1,799</div>
 <div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
 <a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
 <a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
 </div>
@@ -98,14 +97,13 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Product 3: Smart Watch -->
 <div class="product" data-name="Smart Watch" data-category="Accessories">
 <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
 <div class="info">
 <h3>Smart Watch</h3>
 <div class="price">PKR 12,999</div>
 <div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
 <a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
 <a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
 </div>
@@ -113,14 +111,13 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Product 4: Wireless Charger -->
 <div class="product" data-name="Wireless Charger" data-category="Gadgets">
 <img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cf1?auto=format&fit=crop&w=400&q=80" alt="Wireless Charger">
 <div class="info">
 <h3>Wireless Charger</h3>
 <div class="price">PKR 999</div>
 <div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
 <a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
 <a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
 </div>
@@ -128,14 +125,13 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Product 5: Fashion Bag -->
 <div class="product" data-name="Fashion Bag" data-category="Bags">
 <img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=400&q=80" alt="Fashion Bag">
 <div class="info">
 <h3>Fashion Bag</h3>
 <div class="price">PKR 2,499</div>
 <div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
 <a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
 <a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
 </div>
