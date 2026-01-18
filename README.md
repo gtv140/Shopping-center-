@@ -56,12 +56,15 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 
 <div class="slider" id="slider">
-<img src="https://images.unsplash.com/photo-1512499617640-c2f99912f7fa?auto=format&fit=crop&w=800&q=80" class="slide active">
-<img src="https://images.unsplash.com/photo-1606813902854-25e01744674c?auto=format&fit=crop&w=800&q=80" class="slide">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" class="slide active">
 <img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=800&q=80" class="slide">
+<img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=800&q=80" class="slide">
+<img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cf1?auto=format&fit=crop&w=800&q=80" class="slide">
 </div>
 
-<div class="ads" id="ads">🔥 Hot Deal: Smart Phone PKR 54,999 - Limited Time!</div>
+<div class="ads" id="ads">
+<img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=800&q=80" style="width:100%;border-radius:8px">
+</div>
 
 <section class="products" id="productList">
 
@@ -217,15 +220,13 @@ alert("Cart Items:\n" + (cart.length ? cart.join(", ") : "Cart empty"));
 
 // ADS ROTATOR
 let ads = [
-"🔥 Hot Deal: Smart Phone PKR 54,999",
-"💥 Sale: Headphones PKR 1,799",
-"⭐ Trending: Smart Watch PKR 12,999",
-"🎧 Gadgets: Wireless Charger PKR 999",
-"👜 Fashion Bags PKR 2,499"
+"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80",
+"https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=800&q=80",
+"https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=800&q=80"
 ];
 let adIndex = 0;
 setInterval(()=>{
-document.getElementById("ads").innerText = ads[adIndex];
+document.getElementById("ads").innerHTML = `<img src="${ads[adIndex]}" style="width:100%;border-radius:8px">`;
 adIndex = (adIndex + 1) % ads.length;
 }, 6000);
 </script>
