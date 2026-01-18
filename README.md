@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<shop>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -108,6 +108,11 @@ header input{
 
 /* FOOTER */
 footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
+
+/* SLIDER / BANNER */
+.slider{width:100%;overflow:hidden;margin:15px 0;position:relative;height:180px;background:#ccc;border-radius:10px;}
+.slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
+.slide.active{left:0;}
 </style>
 </head>
 
@@ -127,11 +132,15 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <button onclick="filterCategory('Accessories')">⌚ Accessories</button>
 </div>
 
+<div class="slider" id="slider">
+  <img src="https://images.unsplash.com/photo-1606813904395-cd3a6a487f43?w=1200" class="slide active">
+  <img src="https://images.unsplash.com/photo-1612831660161-d16e96b45c11?w=1200" class="slide">
+  <img src="https://images.unsplash.com/photo-1612832020916-3247bc90c8b7?w=1200" class="slide">
+</div>
+
 <section class="products" id="productList">
 
-<!-- PRODUCTS START -->
-
-<!-- Electronics -->
+<!-- Sample 20+ products -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
@@ -177,22 +186,8 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<div class="product" data-name="Headphones" data-category="Audio">
-<div class="badge">🔥 Trending</div>
-<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800">
-<div class="info">
-<h3>Headphones</h3>
-<div class="price">PKR 7,499</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Headphones')">Add to Cart</button>
-</div>
-</div>
-
-<!-- Add 16+ more products in similar format -->
+<!-- Add remaining 17+ products in same format -->
+<!-- Use different images from Unsplash / Pexels online links -->
 
 </section>
 
@@ -208,6 +203,11 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <div id="cartBtn">🛒 Cart</div>
 
 <script>
+// SLIDER
+let slides=document.querySelectorAll('.slide');
+let current=0;
+setInterval(()=>{slides[current].classList.remove('active');current=(current+1)%slides.length;slides[current].classList.add('active');},4000);
+
 // CART (localStorage)
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
