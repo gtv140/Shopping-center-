@@ -129,51 +129,9 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 <section class="products" id="productList">
 
-<div class="product" data-name="Smart Watch" data-category="Accessories">
-<div class="badge">🔥 Trending</div>
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800">
-<div class="info">
-<h3>Smart Watch</h3>
-<div class="price">PKR 13,999</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Smart Watch')">Add to Cart</button>
-</div>
-</div>
+<!-- PRODUCTS START -->
 
-<div class="product" data-name="Running Shoes" data-category="Fashion">
-<div class="badge">💥 Sale</div>
-<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800">
-<div class="info">
-<h3>Running Shoes</h3>
-<div class="price">PKR 9,999</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Running Shoes')">Add to Cart</button>
-</div>
-</div>
-
-<div class="product" data-name="Headphones" data-category="Audio">
-<div class="badge">⭐ Top Rated</div>
-<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800">
-<div class="info">
-<h3>Headphones</h3>
-<div class="price">PKR 7,499</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Headphones')">Add to Cart</button>
-</div>
-</div>
-
+<!-- Electronics -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
@@ -188,6 +146,53 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <button onclick="addToCart('Smart Phone')">Add to Cart</button>
 </div>
 </div>
+
+<div class="product" data-name="Smart Watch" data-category="Accessories">
+<div class="badge">💥 Sale</div>
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800">
+<div class="info">
+<h3>Smart Watch</h3>
+<div class="price">PKR 13,999</div>
+<div class="buttons">
+<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
+</div>
+<button onclick="addToCart('Smart Watch')">Add to Cart</button>
+</div>
+</div>
+
+<div class="product" data-name="Running Shoes" data-category="Fashion">
+<div class="badge">⭐ Top Rated</div>
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800">
+<div class="info">
+<h3>Running Shoes</h3>
+<div class="price">PKR 9,999</div>
+<div class="buttons">
+<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
+</div>
+<button onclick="addToCart('Running Shoes')">Add to Cart</button>
+</div>
+</div>
+
+<div class="product" data-name="Headphones" data-category="Audio">
+<div class="badge">🔥 Trending</div>
+<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800">
+<div class="info">
+<h3>Headphones</h3>
+<div class="price">PKR 7,499</div>
+<div class="buttons">
+<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
+</div>
+<button onclick="addToCart('Headphones')">Add to Cart</button>
+</div>
+</div>
+
+<!-- Add 16+ more products in similar format -->
 
 </section>
 
