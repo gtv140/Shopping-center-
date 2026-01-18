@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<SHOP>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 body{
   margin:0;
   font-family:system-ui,Arial;
-  background:#f2f2f2;
+  background:#f3f3f3;
   color:#222;
 }
 
@@ -31,7 +31,7 @@ header p{margin:4px 0 0;color:#bbb;font-size:14px}
   overflow-x:auto;
   background:#fff;
 }
-.categories div{
+.categories span{
   background:#000;
   color:#fff;
   padding:8px 14px;
@@ -40,12 +40,12 @@ header p{margin:4px 0 0;color:#bbb;font-size:14px}
   white-space:nowrap;
 }
 
-/* BANNER */
-.banner{
-  background:linear-gradient(90deg,#000,#333);
+/* SLIDER ADS */
+.slider{
+  background:#000;
   color:#fff;
   text-align:center;
-  padding:15px;
+  padding:12px;
   font-weight:bold;
 }
 
@@ -69,20 +69,22 @@ header p{margin:4px 0 0;color:#bbb;font-size:14px}
 }
 .info{padding:12px}
 .info h3{margin:0;font-size:16px}
-.info p{margin:6px 0;font-weight:bold}
+.price{margin:6px 0;font-weight:bold}
 
 /* BUTTONS */
-.buttons button{
-  width:100%;
+.buttons a{
+  display:block;
+  text-align:center;
   margin-top:6px;
   padding:8px;
-  border:none;
   border-radius:6px;
-  cursor:pointer;
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
 }
-.insta{background:#e1306c;color:#fff}
-.fb{background:#1877f2;color:#fff}
-.mail{background:#000;color:#fff}
+.insta{background:#e1306c}
+.fb{background:#1877f2}
+.mail{background:#000}
 
 /* ABOUT */
 .about{
@@ -108,21 +110,19 @@ footer{
 
 <header>
   <h1>Shopping Center</h1>
-  <p>Simple • Trusted • Premium Online Store</p>
+  <p>Trusted • Simple • Online Store</p>
 </header>
 
 <div class="categories">
-  <div>Trending</div>
-  <div>Electronics</div>
-  <div>Fashion</div>
-  <div>Beauty</div>
-  <div>Accessories</div>
-  <div>Gadgets</div>
+  <span>Trending</span>
+  <span>Electronics</span>
+  <span>Fashion</span>
+  <span>Beauty</span>
+  <span>Accessories</span>
+  <span>Gadgets</span>
 </div>
 
-<div class="banner">
-🔥 Mega Sale – Flat Discounts on Trending Products 🔥
-</div>
+<div class="slider" id="slider">🔥 Flat 20% OFF on Trending Products 🔥</div>
 
 <section class="products">
 
@@ -130,11 +130,11 @@ footer{
 <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800">
 <div class="info">
 <h3>Smart Watch</h3>
-<p>$49</p>
+<div class="price">PKR 13,999</div>
 <div class="buttons">
-<button class="insta">Order on Instagram</button>
-<button class="fb">Order on Facebook</button>
-<button class="mail">Order on Gmail</button>
+<a class="insta" href="https://instagram.com/shoppingcenter664" target="_blank">Order on Instagram</a>
+<a class="fb" href="https://facebook.com" target="_blank">Order on Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Order via Gmail</a>
 </div>
 </div>
 </div>
@@ -143,10 +143,9 @@ footer{
 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800">
 <div class="info">
 <h3>Running Shoes</h3>
-<p>$59</p>
+<div class="price">PKR 9,999</div>
 <div class="buttons">
-<button class="insta">Order on Instagram</button>
-<button class="fb">Order on Facebook</button>
+<a class="insta" href="#">Order Now</a>
 </div>
 </div>
 </div>
@@ -155,9 +154,9 @@ footer{
 <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800">
 <div class="info">
 <h3>Headphones</h3>
-<p>$39</p>
+<div class="price">PKR 7,499</div>
 <div class="buttons">
-<button class="insta">Order Now</button>
+<a class="fb" href="#">Buy Now</a>
 </div>
 </div>
 </div>
@@ -166,9 +165,9 @@ footer{
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
 <div class="info">
 <h3>Smart Phone</h3>
-<p>$199</p>
+<div class="price">PKR 54,999</div>
 <div class="buttons">
-<button class="fb">Buy Now</button>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Order</a>
 </div>
 </div>
 </div>
@@ -177,9 +176,9 @@ footer{
 <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1c1?w=800">
 <div class="info">
 <h3>Perfume</h3>
-<p>$29</p>
+<div class="price">PKR 4,499</div>
 <div class="buttons">
-<button class="insta">Order</button>
+<a class="insta" href="#">Order</a>
 </div>
 </div>
 </div>
@@ -188,9 +187,9 @@ footer{
 <img src="https://images.unsplash.com/photo-1593032465171-bb5a2c1f6d7c?w=800">
 <div class="info">
 <h3>Wireless Earbuds</h3>
-<p>$45</p>
+<div class="price">PKR 6,999</div>
 <div class="buttons">
-<button class="fb">Order</button>
+<a class="fb" href="#">Buy</a>
 </div>
 </div>
 </div>
@@ -200,15 +199,28 @@ footer{
 <div class="about">
 <h3>About Shopping Center</h3>
 <p>
-Shopping Center ek simple aur trusted online store hai jahan
+Shopping Center ek trusted online store hai jahan aapko
 trending aur quality products best prices par milte hain.
-Direct Instagram, Facebook aur Gmail ke zariye order karein.
+Direct Instagram, Facebook ya Gmail ke zariye order karein.
 </p>
 </div>
 
 <footer>
 © 2026 Shopping Center — All Rights Reserved
 </footer>
+
+<script>
+const ads=[
+"🔥 Flat 20% OFF on Trending Products 🔥",
+"🚚 Free Delivery on Selected Items 🚚",
+"💥 Limited Time Mega Sale 💥",
+"⭐ Best Quality – Best Price ⭐"
+];
+let i=0;
+setInterval(()=>{
+  document.getElementById("slider").innerText=ads[i++%ads.length];
+},2500);
+</script>
 
 </body>
 </html>
