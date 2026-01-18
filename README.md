@@ -5,7 +5,7 @@
 <title>Shopping Center</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f4f4f4;color:#222;padding-bottom:80px}
+body{margin:0;font-family:Arial,sans-serif;background:#f9f9f9;color:#222;padding-bottom:80px}
 
 /* HEADER */
 header{background:#111;color:#fff;padding:15px;text-align:center}
@@ -13,14 +13,13 @@ header input{margin-top:10px;padding:8px;width:90%;max-width:400px;border-radius
 
 /* CATEGORY ICONS */
 .categories{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:12px 0}
-.categories button{background:#eee;border:none;padding:10px;border-radius:50px;cursor:pointer;font-size:14px}
-
-/* CART BUTTON */
-#cartBtn{position:fixed;bottom:15px;right:15px;background:#000;color:#fff;padding:12px 16px;border-radius:50px;cursor:pointer;font-size:14px;z-index:1000}
+.categories button{background:#eee;border:none;padding:10px;border-radius:50px;cursor:pointer;font-size:14px;transition:all .3s}
+.categories button:hover{background:#ddd}
 
 /* PRODUCTS */
 .products{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-.product{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.1);position:relative}
+.product{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.1);position:relative;transition:all .3s}
+.product:hover{transform:translateY(-5px)}
 .product img{width:100%;height:180px;object-fit:cover}
 .info{padding:10px}
 .info h3{margin:0;font-size:15px}
@@ -53,7 +52,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 <header>
 <h1>Shopping Center</h1>
-<p>Simple • Premium • Smart Store</p>
+<p>Clean • Premium • Smart Store</p>
 <input type="text" id="search" placeholder="Search products...">
 </header>
 
@@ -71,14 +70,11 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <img src="https://images.unsplash.com/photo-1591047139829-2c16f6db37d7?w=1200" class="slide active">
 <img src="https://images.unsplash.com/photo-1606813904395-cd3a6a487f43?w=1200" class="slide">
 <img src="https://images.unsplash.com/photo-1605902711622-cfb43c443b70?w=1200" class="slide">
-<img src="https://images.unsplash.com/photo-1593032457861-1de79aefb9e4?w=1200" class="slide">
-<img src="https://images.unsplash.com/photo-1612832020916-3247bc90c8b7?w=1200" class="slide">
 </div>
 
 <section class="products" id="productList">
 
-<!-- Electronics / Fashion / Men / Female / Accessories / Audio Products -->
-
+<!-- Sample Products -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800">
@@ -94,7 +90,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Men Clothes -->
 <div class="product" data-name="Men Shirt" data-category="Men">
 <img src="https://images.unsplash.com/photo-1602810319240-08cb65b9cd7e?w=800">
 <div class="info">
@@ -109,7 +104,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Female Clothes -->
 <div class="product" data-name="Female Dress" data-category="Female">
 <img src="https://images.unsplash.com/photo-1586281380345-df99c3d4b2d3?w=800">
 <div class="info">
@@ -124,7 +118,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Add remaining 47+ products in same pattern -->
+<!-- Add remaining 47+ products in same structure -->
 
 </section>
 
