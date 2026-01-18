@@ -93,14 +93,14 @@ footer { text-align: center; padding: 20px; background: #2c3e50; color: white; m
     </div>
 
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=300&q=80" alt="Sneakers">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=300&q=80" alt="Sport Sneakers">
       <h3>Sport Sneakers</h3>
       <p>$49.99</p>
       <button>Add to Cart</button>
     </div>
 
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1593032457865-d91aa8fd0bb1?auto=format&fit=crop&w=300&q=80" alt="Backpack">
+      <img src="https://images.unsplash.com/photo-1593032457865-d91aa8fd0bb1?auto=format&fit=crop&w=300&q=80" alt="Stylish Backpack">
       <h3>Stylish Backpack</h3>
       <p>$39.99</p>
       <button>Add to Cart</button>
@@ -110,6 +110,34 @@ footer { text-align: center; padding: 20px; background: #2c3e50; color: white; m
       <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=300&q=80" alt="Smart Watch">
       <h3>Smart Watch</h3>
       <p>$59.99</p>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1618354692004-c7ff5e23e4d7?auto=format&fit=crop&w=300&q=80" alt="T-Shirt">
+      <h3>Trendy T-Shirt</h3>
+      <p>$19.99</p>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1600180758895-bb5b71c93c6b?auto=format&fit=crop&w=300&q=80" alt="Beauty Products">
+      <h3>Beauty Kit</h3>
+      <p>$34.99</p>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1606813901230-0c57c5d2f8d6?auto=format&fit=crop&w=300&q=80" alt="Sunglasses">
+      <h3>Stylish Sunglasses</h3>
+      <p>$24.99</p>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1603786509342-1c5d6b4dc6f3?auto=format&fit=crop&w=300&q=80" alt="Gadget">
+      <h3>Smart Gadget</h3>
+      <p>$79.99</p>
       <button>Add to Cart</button>
     </div>
 
