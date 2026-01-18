@@ -26,7 +26,7 @@ header nav a:hover { text-decoration: underline; }
 .hero {
   text-align: center;
   padding: 100px 20px;
-  background: url('https://cdn.pixabay.com/photo/2017/02/03/22/09/shopping-2039271_1280.jpg') no-repeat center center/cover;
+  background: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
   color: white;
 }
 .hero button {
@@ -99,19 +99,19 @@ footer {
   <h2>Featured Products</h2>
   <div class="product-grid">
     <div class="product">
-      <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/headphones-2020309_1280.jpg" alt="Headphones">
+      <img src="https://images.unsplash.com/photo-1585386959984-a4155223cc27?auto=format&fit=crop&w=300&q=80" alt="Headphones">
       <h3>Wireless Headphones</h3>
       <p>$29.99</p>
       <button>Add to Cart</button>
     </div>
     <div class="product">
-      <img src="https://cdn.pixabay.com/photo/2014/05/02/21/50/smartwatch-336000_1280.jpg" alt="Smart Watch">
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80" alt="Smart Watch">
       <h3>Smart Watch</h3>
       <p>$39.99</p>
       <button>Add to Cart</button>
     </div>
     <div class="product">
-      <img src="https://cdn.pixabay.com/photo/2017/10/10/21/49/mouse-2841518_1280.jpg" alt="Gaming Mouse">
+      <img src="https://images.unsplash.com/photo-1570813744916-6e7e34267cfc?auto=format&fit=crop&w=300&q=80" alt="Gaming Mouse">
       <h3>Gaming Mouse</h3>
       <p>$49.99</p>
       <button>Add to Cart</button>
