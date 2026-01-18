@@ -2,137 +2,123 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>SHOPPING CENTER - Trending Items</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShopCenter - Online Store</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f4f4f4}
-
-header{
-display:flex;justify-content:space-between;align-items:center;
-padding:20px;background:#111;color:#fff
+body{margin:0;font-family:Arial;background:#f4f4f4}
+header{text-align:center;padding:20px;background:#111;color:#fff}
+.ads-bar{text-align:center;padding:10px;background:#ff9800;color:#000;font-weight:bold}
+.products{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:30px}
+.card{
+background:#fff;width:260px;padding:15px;border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);position:relative
 }
-header .logo{font-size:22px;font-weight:bold}
-header nav a{color:#fff;margin-left:15px;text-decoration:none}
-header nav a:hover{color:#f39c12}
-
-.hero{
-text-align:center;padding:90px 20px;
-background:url('https://source.unsplash.com/1600x600/?shopping,mall') center/cover no-repeat;
-color:white
+.card img{width:100%;height:180px;object-fit:cover;border-radius:10px}
+.badge{
+position:absolute;top:10px;left:10px;
+background:red;color:#fff;padding:4px 8px;border-radius:6px;font-size:12px
 }
-.hero h1{font-size:42px}
-.hero button{
-margin-top:20px;padding:12px 30px;
-background:#f39c12;border:none;color:#fff;font-size:16px;cursor:pointer
+.price{font-weight:bold;color:#27ae60}
+.btns button,.btns a{
+display:block;margin-top:6px;padding:8px;
+text-align:center;text-decoration:none;border:none;
+background:#111;color:#fff;border-radius:6px;cursor:pointer
 }
-
-.products{padding:60px 20px;text-align:center}
-.products h2{margin-bottom:30px;font-size:30px}
-
-.product-grid{
-display:flex;gap:30px;justify-content:center;flex-wrap:wrap
+.btns a{background:#555}
+.about{text-align:center;padding:30px}
+.bottom-bar{
+position:fixed;bottom:0;width:100%;background:#111;color:#fff;text-align:center;padding:10px
 }
-.product{
-background:#fff;width:260px;padding:20px;border-radius:12px;
-box-shadow:0 6px 15px rgba(0,0,0,.1);transition:.3s
-}
-.product:hover{transform:translateY(-6px)}
-.product img{
-width:100%;height:180px;object-fit:cover;border-radius:10px
-}
-.product h3{margin:12px 0;font-size:18px}
-.product p{font-weight:bold;color:#27ae60}
-.product button{
-margin-top:10px;padding:10px;width:100%;
-background:#111;color:#fff;border:none;cursor:pointer;border-radius:6px
-}
-.product button:hover{background:#f39c12}
-
-footer{
-margin-top:50px;background:#111;color:#fff;
-text-align:center;padding:20px
-}
+footer{text-align:center;padding:15px;background:#111;color:#fff;margin-top:50px}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">ShopCenter</div>
-<nav>
-<a href="#">Home</a>
-<a href="#">Products</a>
-<a href="#">Contact</a>
-</nav>
+<h1>SHOPPING CENTER</h1>
+<p>Top Trending Items – Premium Online Shop</p>
 </header>
 
-<section class="hero">
-<h1>ShopCenter Online Mall</h1>
-<p>Shop Like Shopify ✨</p>
-<button>Start Shopping</button>
-</section>
+<div class="ads-bar">🔥 20% OFF on Trending Items! 🔥</div>
 
 <section class="products">
-<h2>Featured Products</h2>
 
-<div class="product-grid">
-
-<div class="product">
-<img src="https://source.unsplash.com/400x300/?wireless,headphones" alt="Headphones">
-<h3>Wireless Headphones</h3>
-<p>$29.99</p>
+<div class="card">
+<div class="badge">New</div>
+<img src="https://source.unsplash.com/400x300/?wireless,earbuds" alt="Wireless Earbuds">
+<h3>Wireless Earbuds</h3>
+<p class="price">Rs 2,499</p>
+<div class="btns">
 <button>Add to Cart</button>
+<button>❤ Wishlist</button>
+<a href="mailto:rock.earn92@gmail.com">Gmail</a>
+<a href="https://instagram.com/shoppingcenter664" target="_blank">Instagram</a>
+<a href="https://m.me/61581475052443" target="_blank">Facebook</a>
+</div>
 </div>
 
-<div class="product">
+<div class="card">
+<div class="badge">Hot</div>
 <img src="https://source.unsplash.com/400x300/?smartwatch" alt="Smart Watch">
 <h3>Smart Watch</h3>
-<p>$39.99</p>
+<p class="price">Rs 3,999</p>
+<div class="btns">
 <button>Add to Cart</button>
+<button>❤ Wishlist</button>
+</div>
 </div>
 
-<div class="product">
-<img src="https://source.unsplash.com/400x300/?gaming,mouse" alt="Mouse">
-<h3>Gaming Mouse</h3>
-<p>$24.99</p>
+<div class="card">
+<div class="badge">Sale</div>
+<img src="https://source.unsplash.com/400x300/?headphones" alt="Headphones">
+<h3>Wireless Headphones</h3>
+<p class="price">Rs 4,499</p>
+<div class="btns">
 <button>Add to Cart</button>
+<button>❤ Wishlist</button>
+</div>
 </div>
 
-<div class="product">
+<div class="card">
+<div class="badge">New</div>
 <img src="https://source.unsplash.com/400x300/?shoes,sneakers" alt="Shoes">
 <h3>Sport Sneakers</h3>
-<p>$59.99</p>
+<p class="price">Rs 5,999</p>
+<div class="btns">
 <button>Add to Cart</button>
+<button>❤ Wishlist</button>
+</div>
 </div>
 
-<div class="product">
+<div class="card">
+<div class="badge">Trending</div>
 <img src="https://source.unsplash.com/400x300/?backpack,bag" alt="Bag">
 <h3>Stylish Backpack</h3>
-<p>$34.99</p>
+<p class="price">Rs 2,199</p>
+<div class="btns">
 <button>Add to Cart</button>
+<button>❤ Wishlist</button>
+</div>
 </div>
 
-<div class="product">
-<img src="https://source.unsplash.com/400x300/?perfume,beauty" alt="Perfume">
-<h3>Luxury Perfume</h3>
-<p>$44.99</p>
-<button>Add to Cart</button>
-</div>
-
-</div>
 </section>
 
-<footer>
-<p>© 2026 ShopCenter — Shopify Style Store</p>
-</footer>
+<div class="ads-bar">🔥 Buy 1 Get 1 Free on Top Items! 🔥</div>
 
-<script>
-document.querySelectorAll("button").forEach(btn=>{
-btn.onclick=()=>alert("Product added to cart 🛒");
-});
-</script>
+<div class="about">
+<h2>About SHOPPING CENTER</h2>
+<p>Premium trending products with a Shopify-style shopping experience.</p>
+</div>
+
+<div class="bottom-bar">
+Menu ☰ | 🛒 Cart | ❤ Wishlist
+</div>
+
+<footer>
+<p>© 2026 SHOPPING CENTER</p>
+</footer>
 
 </body>
 </html>
