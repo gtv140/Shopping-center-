@@ -1,4 +1,4 @@
-<SHOP>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -49,15 +49,19 @@ header input{
 .info{padding:10px}
 .info h3{margin:0;font-size:15px}
 .price{font-weight:bold;margin:5px 0}
-button{
-  width:100%;
+.buttons a{
+  display:block;
+  text-align:center;
+  margin-top:6px;
   padding:8px;
-  border:none;
   border-radius:6px;
-  background:#000;
   color:#fff;
-  cursor:pointer;
+  text-decoration:none;
+  font-size:14px;
 }
+.insta{background:#e1306c}
+.fb{background:#1877f2}
+.mail{background:#000}
 
 /* RECENT */
 .recent{
@@ -95,6 +99,11 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <div class="info">
 <h3>Smart Watch</h3>
 <div class="price">PKR 13,999</div>
+<div class="buttons">
+<a class="insta" href="https://instagram.com/shoppingcenter664" target="_blank">Order on Instagram</a>
+<a class="fb" href="https://facebook.com/shoppingcenter664" target="_blank">Order on Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Order via Gmail</a>
+</div>
 <button onclick="addToCart('Smart Watch')">Add to Cart</button>
 </div>
 </div>
@@ -104,6 +113,11 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <div class="info">
 <h3>Running Shoes</h3>
 <div class="price">PKR 9,999</div>
+<div class="buttons">
+<a class="insta" href="https://instagram.com/shoppingcenter664" target="_blank">Order on Instagram</a>
+<a class="fb" href="https://facebook.com/shoppingcenter664" target="_blank">Order on Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Order via Gmail</a>
+</div>
 <button onclick="addToCart('Running Shoes')">Add to Cart</button>
 </div>
 </div>
@@ -113,6 +127,11 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <div class="info">
 <h3>Headphones</h3>
 <div class="price">PKR 7,499</div>
+<div class="buttons">
+<a class="insta" href="https://instagram.com/shoppingcenter664" target="_blank">Order on Instagram</a>
+<a class="fb" href="https://facebook.com/shoppingcenter664" target="_blank">Order on Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Order via Gmail</a>
+</div>
 <button onclick="addToCart('Headphones')">Add to Cart</button>
 </div>
 </div>
@@ -122,6 +141,11 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <div class="info">
 <h3>Smart Phone</h3>
 <div class="price">PKR 54,999</div>
+<div class="buttons">
+<a class="insta" href="https://instagram.com/shoppingcenter664" target="_blank">Order on Instagram</a>
+<a class="fb" href="https://facebook.com/shoppingcenter664" target="_blank">Order on Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Order via Gmail</a>
+</div>
 <button onclick="addToCart('Smart Phone')">Add to Cart</button>
 </div>
 </div>
