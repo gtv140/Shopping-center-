@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShopCenter - Your Online Store</title>
   <style>
-    /* === CSS START === */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
     body { background: #f4f4f4; }
 
@@ -23,7 +22,7 @@
     .hero {
       text-align: center;
       padding: 100px 20px;
-      background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
+      background: url('https://images.unsplash.com/photo-1605902711622-cfb43c4438f2?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
       color: white;
     }
     .hero button {
@@ -56,7 +55,6 @@
     .product button:hover { background: #2980b9; }
 
     footer { text-align: center; padding: 20px; background: #2c3e50; color: white; margin-top: 50px; }
-    /* === CSS END === */
   </style>
 </head>
 <body>
@@ -79,20 +77,20 @@
     <h2>Featured Products</h2>
     <div class="product-grid">
       <div class="product">
-        <img src="https://via.placeholder.com/250x250?text=Product+1" alt="Product 1">
-        <h3>Product 1</h3>
+        <img src="https://images.unsplash.com/photo-1612832021047-d7ebc99f8c3c?auto=format&fit=crop&w=250&q=80" alt="Product 1">
+        <h3>Wireless Headphones</h3>
         <p>$29.99</p>
         <button>Add to Cart</button>
       </div>
       <div class="product">
-        <img src="https://via.placeholder.com/250x250?text=Product+2" alt="Product 2">
-        <h3>Product 2</h3>
+        <img src="https://images.unsplash.com/photo-1592928307603-6e98d7caa326?auto=format&fit=crop&w=250&q=80" alt="Product 2">
+        <h3>Smart Watch</h3>
         <p>$39.99</p>
         <button>Add to Cart</button>
       </div>
       <div class="product">
-        <img src="https://via.placeholder.com/250x250?text=Product+3" alt="Product 3">
-        <h3>Product 3</h3>
+        <img src="https://images.unsplash.com/photo-1598300055471-97e5d08c9c06?auto=format&fit=crop&w=250&q=80" alt="Product 3">
+        <h3>Gaming Mouse</h3>
         <p>$49.99</p>
         <button>Add to Cart</button>
       </div>
@@ -104,7 +102,6 @@
   </footer>
 
   <script>
-    /* === JS START === */
     const buttons = document.querySelectorAll('.product button');
 
     buttons.forEach(btn => {
@@ -112,7 +109,6 @@
         alert('Item added to cart!');
       });
     });
-    /* === JS END === */
   </script>
 </body>
 </html>
