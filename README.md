@@ -1,4 +1,4 @@
-<SHOP>
+<shop>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -31,7 +31,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 .slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
 .slide.active{left:0;}
 .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:10px 0;box-shadow:0 -2px 8px rgba(0,0,0,.2);z-index:1000}
-.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all 0.3s;}
+.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all .3s;}
 .bottom-bar button:hover{background:#ddd}
 </style>
 </head>
@@ -61,9 +61,9 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 <div class="ads" id="ads">🔥 Hot Deal: Smart Phone PKR 54,999 - Limited Time!</div>
 
-<section class="products" id="productList"><!-- 50+ PRODUCTS WITH UNIQUE BASE64 IMAGES -->
+<section class="products" id="productList">
 
-<!-- Product 1 -->
+<!-- 50+ Products with base64 images -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE..." alt="Smart Phone">
@@ -79,37 +79,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Product 2 -->
-<div class="product" data-name="Men Shirt" data-category="Men">
-<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE..." alt="Men Shirt">
-<div class="info">
-<h3>Men Shirt</h3>
-<div class="price">PKR 2,499</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Men Shirt')">Add to Cart</button>
-</div>
-</div>
-
-<!-- Product 3 -->
-<div class="product" data-name="Female Dress" data-category="Female">
-<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE..." alt="Female Dress">
-<div class="info">
-<h3>Female Dress</h3>
-<div class="price">PKR 3,499</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Female Dress')">Add to Cart</button>
-</div>
-</div>
-
-<!-- Repeat similarly up to 50+ products with unique base64 images -->
+<!-- Repeat similarly 50+ products -->
 
 </section>
 
@@ -128,73 +98,75 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 <button onclick="window.scrollTo({top:200,behavior:'smooth'})">🔖</button>
 <button onclick="alert('Trending / Sale')">⭐</button>
 <button onclick="alert('Order Now / Profile')">👤</button>
-</div><script>
+</div>
+
+<script>
 // SLIDER
 let slides = document.querySelectorAll('.slide');
 let current = 0;
 setInterval(()=>{
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
+slides[current].classList.remove('active');
+current = (current + 1) % slides.length;
+slides[current].classList.add('active');
 }, 4000);
 
 // CART
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 function addToCart(name){
-    cart.push(name);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(name + " added to cart");
-    addRecent(name);
+cart.push(name);
+localStorage.setItem("cart", JSON.stringify(cart));
+alert(name + " added to cart");
+addRecent(name);
 }
 
 // SEARCH
 document.getElementById("search").addEventListener("keyup", function(){
-    let val = this.value.toLowerCase();
-    document.querySelectorAll(".product").forEach(p=>{
-        p.style.display = p.dataset.name.toLowerCase().includes(val) ? "block" : "none";
-    });
+let val = this.value.toLowerCase();
+document.querySelectorAll(".product").forEach(p=>{
+p.style.display = p.dataset.name.toLowerCase().includes(val) ? "block" : "none";
+});
 });
 
 // CATEGORY FILTER
 function filterCategory(cat){
-    document.querySelectorAll(".product").forEach(p=>{
-        p.style.display = (cat=="All" || p.dataset.category==cat) ? "block" : "none";
-    });
+document.querySelectorAll(".product").forEach(p=>{
+p.style.display = (cat=="All" || p.dataset.category==cat) ? "block" : "none";
+});
 }
 
 // RECENT VIEWED
 function addRecent(name){
-    let recent = JSON.parse(localStorage.getItem("recent")) || [];
-    if(!recent.includes(name)){
-        recent.unshift(name);
-        if(recent.length>5) recent.pop();
-        localStorage.setItem("recent", JSON.stringify(recent));
-    }
-    showRecent();
+let recent = JSON.parse(localStorage.getItem("recent")) || [];
+if(!recent.includes(name)){
+recent.unshift(name);
+if(recent.length>5) recent.pop();
+localStorage.setItem("recent", JSON.stringify(recent));
+}
+showRecent();
 }
 function showRecent(){
-    let recent = JSON.parse(localStorage.getItem("recent")) || [];
-    document.getElementById("recentItems").innerHTML = recent.map(i=>`<span>${i}</span>`).join("");
+let recent = JSON.parse(localStorage.getItem("recent")) || [];
+document.getElementById("recentItems").innerHTML = recent.map(i=>`<span>${i}</span>`).join("");
 }
 showRecent();
 
 // CART VIEW
 document.getElementById("cartBtn").onclick = function(){
-    alert("Cart Items:\n" + (cart.length ? cart.join(", ") : "Cart empty"));
+alert("Cart Items:\n" + (cart.length ? cart.join(", ") : "Cart empty"));
 }
 
 // ADS ROTATOR
 let ads = [
-    "🔥 Hot Deal: Smart Phone PKR 54,999",
-    "💥 Sale: Men Shirt PKR 2,499",
-    "⭐ Trending: Female Dress PKR 3,499",
-    "🎧 Audio: Headphones PKR 1,799",
-    "👗 Fashion: Female Dress PKR 2,999"
+"🔥 Hot Deal: Smart Phone PKR 54,999",
+"💥 Sale: Men Shirt PKR 2,499",
+"⭐ Trending: Female Dress PKR 3,499",
+"🎧 Audio: Headphones PKR 1,799",
+"👗 Fashion: Female Dress PKR 2,999"
 ];
 let adIndex = 0;
 setInterval(()=>{
-    document.getElementById("ads").innerText = ads[adIndex];
-    adIndex = (adIndex + 1) % ads.length;
+document.getElementById("ads").innerText = ads[adIndex];
+adIndex = (adIndex + 1) % ads.length;
 }, 6000);
 </script>
 
