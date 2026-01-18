@@ -65,7 +65,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 
 <section class="products" id="productList">
 
-<!-- Example Product 1 -->
+<!-- Smart Phone -->
 <div class="product" data-name="Smart Phone" data-category="Electronics">
 <div class="badge">🔥 Trending</div>
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Smart Phone">
@@ -81,7 +81,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Example Product 2 -->
+<!-- Headphones -->
 <div class="product" data-name="Headphones" data-category="Audio">
 <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="Headphones">
 <div class="info">
@@ -96,7 +96,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Example Product 3 -->
+<!-- Smart Watch -->
 <div class="product" data-name="Smart Watch" data-category="Accessories">
 <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
 <div class="info">
@@ -111,7 +111,35 @@ footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
 </div>
 </div>
 
-<!-- Repeat other products similarly for Fashion, Shoes, Bags, Watches, Gadgets -->
+<!-- Gadgets -->
+<div class="product" data-name="Wireless Charger" data-category="Gadgets">
+<img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cf1?auto=format&fit=crop&w=400&q=80" alt="Wireless Charger">
+<div class="info">
+<h3>Wireless Charger</h3>
+<div class="price">PKR 999</div>
+<div class="buttons">
+<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
+</div>
+<button onclick="addToCart('Wireless Charger')">Add to Cart</button>
+</div>
+</div>
+
+<!-- Fashion Bag -->
+<div class="product" data-name="Fashion Bag" data-category="Bags">
+<img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=400&q=80" alt="Fashion Bag">
+<div class="info">
+<h3>Fashion Bag</h3>
+<div class="price">PKR 2,499</div>
+<div class="buttons">
+<a class="insta" href="https://www.instagram.com/shoppingcenter664?igsh=MW0zZTZoOTB4aXc1Mg==" target="_blank">Instagram</a>
+<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
+<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
+</div>
+<button onclick="addToCart('Fashion Bag')">Add to Cart</button>
+</div>
+</div>
 
 </section>
 
