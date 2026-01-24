@@ -1,229 +1,113 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shopping Center</title>
+<title>Full Shop Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f9f9f9;color:#222;padding-bottom:100px}
+body{margin:0;font-family:Arial;background:#f4f4f4}
 header{background:#111;color:#fff;padding:15px;text-align:center}
-header input{margin-top:10px;padding:8px;width:90%;max-width:400px;border-radius:5px;border:none}
-.categories{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:12px 0}
-.categories button{background:#eee;border:none;padding:10px;border-radius:50px;cursor:pointer;font-size:14px;transition:all .3s}
-.categories button:hover{background:#ddd}
-.products{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-.product{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.1);position:relative;transition:all .3s}
-.product:hover{transform:translateY(-5px)}
-.product img{width:100%;height:180px;object-fit:cover}
-.info{padding:10px}
-.info h3{margin:0;font-size:15px}
-.price{font-weight:bold;margin:5px 0}
-.buttons a{display:block;text-align:center;margin-top:6px;padding:6px;border-radius:6px;color:#fff;text-decoration:none;font-size:13px}
-.insta{background:#e1306c}
-.fb{background:#1877f2}
-.mail{background:#000}
-.badge{position:absolute;top:10px;left:10px;background:#f00;color:#fff;padding:4px 6px;font-size:12px;border-radius:4px}
-.ads{margin:20px auto;padding:12px;background:#fffae5;border-radius:8px;text-align:center;font-weight:bold;color:#222;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.recent{background:#fff;margin:20px;padding:15px;border-radius:10px}
-.recent span{display:inline-block;background:#eee;padding:6px 10px;margin:4px;border-radius:20px;font-size:13px}
-footer{background:#111;color:#aaa;text-align:center;padding:12px;font-size:13px}
-.slider{width:100%;overflow:hidden;margin:15px 0;position:relative;height:220px;border-radius:10px}
-.slide{width:100%;height:100%;position:absolute;top:0;left:100%;transition:all 0.5s ease;}
-.slide.active{left:0;}
-.bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:10px 0;box-shadow:0 -2px 8px rgba(0,0,0,.2);z-index:1000}
-.bottom-bar button{background:#eee;border:none;padding:10px;border-radius:50%;font-size:20px;cursor:pointer;transition:all .3s;}
-.bottom-bar button:hover{background:#ddd}
+.container{max-width:1200px;margin:auto;padding:15px}
+.flex{display:flex;gap:10px;flex-wrap:wrap}
+input,textarea,button{padding:10px;border-radius:6px;border:1px solid #ccc}
+button{cursor:pointer}
+.admin, .shop{background:#fff;padding:15px;border-radius:10px;margin-bottom:20px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{background:#fff;padding:10px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+.price{color:#e63946;font-weight:bold}
+.cart{background:#111;color:#fff;padding:10px;border-radius:8px;margin-top:10px}
+footer{text-align:center;color:#555;padding:10px}
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>Shopping Center</h1>
-<p>Clean • Premium • Smart Store</p>
-<input type="text" id="search" placeholder="Search products...">
+<h1>Client Online Shop (Full Demo)</h1>
+<p>Admin + Shop + Cart + LocalStorage</p>
 </header>
 
-<div class="categories">
-<button onclick="filterCategory('All')">🏷️ All</button>
-<button onclick="filterCategory('Electronics')">📱 Electronics</button>
-<button onclick="filterCategory('Audio')">🎧 Audio</button>
-<button onclick="filterCategory('Accessories')">⌚ Accessories</button>
-<button onclick="filterCategory('Fashion')">👗 Fashion</button>
-<button onclick="filterCategory('Shoes')">👟 Shoes</button>
-<button onclick="filterCategory('Bags')">👜 Bags</button>
-<button onclick="filterCategory('Watches')">⌚ Watches</button>
-<button onclick="filterCategory('Gadgets')">🔌 Gadgets</button>
+<div class="container">
+
+<!-- ADMIN PANEL -->
+<div class="admin">
+<h2>Admin Panel (Client Use)</h2>
+<div class="flex">
+<input id="pname" placeholder="Product Name">
+<input id="pprice" placeholder="Price">
+<input id="pimg" placeholder="Image URL">
+</div>
+<textarea id="pdesc" placeholder="Description"></textarea>
+<br><br>
+<button onclick="addProduct()">Add Product</button>
 </div>
 
-<div class="slider" id="slider">
-<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" class="slide active" alt="Smart Phone">
-<img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=800&q=80" class="slide" alt="Headphones">
-<img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=800&q=80" class="slide" alt="Fashion Bag">
+<!-- SEARCH -->
+<input id="search" placeholder="Search product..." onkeyup="renderProducts()">
+
+<!-- SHOP -->
+<div class="shop">
+<h2>Shop</h2>
+<div class="products" id="products"></div>
 </div>
 
-<div class="ads" id="ads">
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" style="width:100%;border-radius:8px" alt="Advertisement">
+<!-- CART -->
+<div class="cart">
+<h3>Cart</h3>
+<div id="cart"></div>
+<button onclick="checkout()">Order on WhatsApp</button>
 </div>
 
-<section class="products" id="productList">
-
-<!-- Product examples with matching photos -->
-
-<div class="product" data-name="Smart Phone" data-category="Electronics">
-<div class="badge">🔥 Trending</div>
-<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Smart Phone">
-<div class="info">
-<h3>Smart Phone</h3>
-<div class="price">PKR 54,999</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Smart Phone')">Add to Cart</button>
-</div>
 </div>
 
-<div class="product" data-name="Headphones" data-category="Audio">
-<img src="https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=400&q=80" alt="Headphones">
-<div class="info">
-<h3>Headphones</h3>
-<div class="price">PKR 1,799</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Headphones')">Add to Cart</button>
-</div>
-</div>
-
-<div class="product" data-name="Smart Watch" data-category="Accessories">
-<img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
-<div class="info">
-<h3>Smart Watch</h3>
-<div class="price">PKR 12,999</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Smart Watch')">Add to Cart</button>
-</div>
-</div>
-
-<div class="product" data-name="Wireless Charger" data-category="Gadgets">
-<img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cf1?auto=format&fit=crop&w=400&q=80" alt="Wireless Charger">
-<div class="info">
-<h3>Wireless Charger</h3>
-<div class="price">PKR 999</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Wireless Charger')">Add to Cart</button>
-</div>
-</div>
-
-<div class="product" data-name="Fashion Bag" data-category="Bags">
-<img src="https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=400&q=80" alt="Fashion Bag">
-<div class="info">
-<h3>Fashion Bag</h3>
-<div class="price">PKR 2,499</div>
-<div class="buttons">
-<a class="insta" href="https://www.instagram.com/shoppingcenter664" target="_blank">Instagram</a>
-<a class="fb" href="https://www.facebook.com/profile.php?id=61581475052443" target="_blank">Facebook</a>
-<a class="mail" href="mailto:rock.earn92@gmail.com">Gmail</a>
-</div>
-<button onclick="addToCart('Fashion Bag')">Add to Cart</button>
-</div>
-</div>
-
-</section>
-
-<div class="recent">
-<strong>Recently Viewed:</strong><br>
-<div id="recentItems"></div>
-</div>
-
-<footer>© 2026 Shopping Center</footer>
-
-<div id="cartBtn">🛒 Cart</div>
-
-<div class="bottom-bar">
-<button onclick="window.scrollTo({top:0,behavior:'smooth'})">🏠</button>
-<button onclick="document.getElementById('cartBtn').click()">🛒</button>
-<button onclick="window.scrollTo({top:200,behavior:'smooth'})">🔖</button>
-<button onclick="alert('Trending / Sale')">⭐</button>
-<button onclick="alert('Order Now / Profile')">👤</button>
-</div>
+<footer>© 2026 Full Shop Demo</footer>
 
 <script>
-// SLIDER
-let slides = document.querySelectorAll('.slide');
-let current = 0;
-setInterval(()=>{
-slides[current].classList.remove('active');
-current = (current + 1) % slides.length;
-slides[current].classList.add('active');
-}, 4000);
-
-// CART
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-function addToCart(name){
-cart.push(name);
-localStorage.setItem("cart", JSON.stringify(cart));
-alert(name + " added to cart");
-addRecent(name);
-}
-
-// SEARCH
-document.getElementById("search").addEventListener("keyup", function(){
-let val = this.value.toLowerCase();
-document.querySelectorAll(".product").forEach(p=>{
-p.style.display = p.dataset.name.toLowerCase().includes(val) ? "block" : "none";
-});
-});
-
-// CATEGORY FILTER
-function filterCategory(cat){
-document.querySelectorAll(".product").forEach(p=>{
-p.style.display = (cat=="All" || p.dataset.category==cat) ? "block" : "none";
-});
-}
-
-// RECENT VIEWED
-function addRecent(name){
-let recent = JSON.parse(localStorage.getItem("recent")) || [];
-if(!recent.includes(name)){
-recent.unshift(name);
-if(recent.length>5) recent.pop();
-localStorage.setItem("recent", JSON.stringify(recent));
-}
-showRecent();
-}
-function showRecent(){
-let recent = JSON.parse(localStorage.getItem("recent")) || [];
-document.getElementById("recentItems").innerHTML = recent.map(i=>`<span>${i}</span>`).join("");
-}
-showRecent();
-
-// CART VIEW
-document.getElementById("cartBtn").onclick = function(){
-alert("Cart Items:\n" + (cart.length ? cart.join(", ") : "Cart empty"));
-}
-
-// ADS ROTATOR
-let ads = [
-"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80",
-"https://images.unsplash.com/photo-1600180758895-9a3d1f07b09d?auto=format&fit=crop&w=800&q=80",
-"https://images.unsplash.com/photo-1593032465172-1458659be720?auto=format&fit=crop&w=800&q=80"
+let products = JSON.parse(localStorage.getItem("products")) || [
+ {name:"Demo Product",price:1500,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",desc:"Sample product"}
 ];
-let adIndex = 0;
-setInterval(()=>{
-document.getElementById("ads").innerHTML = `<img src="${ads[adIndex]}" style="width:100%;border-radius:8px">`;
-adIndex = (adIndex + 1) % ads.length;
-}, 6000);
+let cart=[];
+
+function save(){localStorage.setItem("products",JSON.stringify(products));}
+
+function addProduct(){
+ let p={name:pname.value,price:pprice.value,img:pimg.value,desc:pdesc.value};
+ products.push(p); save(); renderProducts();
+ pname.value=pprice.value=pimg.value=pdesc.value="";
+}
+
+function renderProducts(){
+ let s=search.value.toLowerCase();
+ productsDiv=products.filter(p=>p.name.toLowerCase().includes(s))
+ .map((p,i)=>`
+  <div class="card">
+   <img src="${p.img}">
+   <h3>${p.name}</h3>
+   <p>${p.desc}</p>
+   <div class="price">Rs. ${p.price}</div>
+   <button onclick="addCart(${i})">Add to Cart</button>
+   <button onclick="del(${i})">Delete</button>
+  </div>`).join("");
+ document.getElementById("products").innerHTML=productsDiv;
+}
+
+function del(i){products.splice(i,1);save();renderProducts();}
+
+function addCart(i){cart.push(products[i]);renderCart();}
+
+function renderCart(){
+ document.getElementById("cart").innerHTML=
+ cart.map(c=>`${c.name} - Rs.${c.price}`).join("<br>");
+}
+
+function checkout(){
+ let msg=cart.map(c=>c.name+" Rs."+c.price).join("%0A");
+ window.open("https://wa.me/923000000000?text=Order:%0A"+msg);
+}
+
+renderProducts();
 </script>
 
 </body>
