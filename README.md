@@ -13,7 +13,7 @@ input:focus,select:focus{outline:none;border:2px solid #ff7e5f}
 button{cursor:pointer;background:#ff4500;color:#fff;font-weight:bold;transition:0.3s;border:none}
 button:hover{opacity:0.9;transform:scale(1.03)}
 .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#fff;padding:15px;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:0.3s;overflow:hidden}
+.card{background:#fff;padding:15px;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:0.3s;overflow:hidden;position:relative}
 .card:hover{transform:scale(1.05)}
 .card img{width:100%;height:180px;object-fit:cover;border-radius:12px;transition:0.3s}
 .card h4{margin:10px 0 5px 0;font-size:18px;color:#333}
@@ -21,6 +21,9 @@ button:hover{opacity:0.9;transform:scale(1.03)}
 .price{color:#ff4500;font-weight:bold;font-size:16px;margin-bottom:10px}
 .cart{background:#333;color:#fff;padding:15px;border-radius:12px;margin-top:25px}
 footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
+.hero{background:linear-gradient(135deg,#6a11cb,#2575fc);color:#fff;padding:40px;text-align:center;border-radius:12px;margin-bottom:20px}
+.hero h2{font-size:28px;margin-bottom:10px}
+.hero p{font-size:16px}
 @media(max-width:768px){.products{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
 </style>
 </head>
@@ -29,6 +32,12 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 <header>Shopping Center 🛒</header>
 
 <div class="container">
+
+<!-- HERO / PROMO -->
+<div class="hero">
+<h2>Welcome to Shopping Center!</h2>
+<p>Grab the best deals on top products. Fast delivery & premium quality!</p>
+</div>
 
 <!-- SEARCH & CATEGORY -->
 <div class="flex">
