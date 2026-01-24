@@ -24,8 +24,11 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 .hero{background:linear-gradient(135deg,#6a11cb,#2575fc);color:#fff;padding:40px;text-align:center;border-radius:12px;margin-bottom:20px}
 .hero h2{font-size:28px;margin-bottom:10px}
 .hero p{font-size:16px}
-.admin-panel{background:#fff;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px}
+.admin-panel{background:#fff;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px;display:none}
 .admin-panel h3{margin-top:0;color:#333}
+.login-panel{background:#fff;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px;text-align:center}
+.login-panel input{margin:5px;width:200px}
+.login-panel button{width:220px}
 @media(max-width:768px){.products{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
 </style>
 </head>
@@ -41,8 +44,16 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 <p>Grab the best deals on top products. Fast delivery & premium quality!</p>
 </div>
 
+<!-- ADMIN LOGIN -->
+<div class="login-panel" id="loginPanel">
+<h3>Admin Login</h3>
+<input type="text" id="adminUser" placeholder="Username"><br>
+<input type="password" id="adminPass" placeholder="Password"><br>
+<button onclick="loginAdmin()">Login</button>
+</div>
+
 <!-- ADMIN PANEL -->
-<div class="admin-panel">
+<div class="admin-panel" id="adminPanel">
 <h3>Admin Panel (Owner Only)</h3>
 <input type="text" id="adminName" placeholder="Product Name">
 <input type="number" id="adminPrice" placeholder="Price">
@@ -56,6 +67,7 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 </select>
 <input type="file" id="adminImg" accept="image/*">
 <button onclick="addProduct()">Add / Update Product</button>
+<button onclick="logoutAdmin()">Logout</button>
 </div>
 
 <!-- SEARCH & CATEGORY -->
@@ -91,6 +103,10 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 <footer>© 2026 Shopping Center | Premium Deals & Trusted Shop</footer>
 
 <script>
+// Admin credentials (for demo)
+const ADMIN_USERNAME="admin";
+const ADMIN_PASSWORD="123456";
+
 // Load products from LocalStorage or default demo list
 let products = JSON.parse(localStorage.getItem("products")) || [
 {name:"Men Casual Watch",price:2999,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",desc:"Stylish casual watch for men.",cat:"Men"},
@@ -112,8 +128,7 @@ function renderProducts(){
   <p>${p.desc}</p>
   <div class="price">Rs. ${p.price}</div>
   <button onclick="addCart(${i})">Add to Cart</button>
-  <button onclick="editProduct(${i})">Edit</button>
-  <button onclick="deleteProduct(${i})">Delete</button>
+  ${document.getElementById("adminPanel").style.display==="block"?`<button onclick="editProduct(${i})">Edit</button><button onclick="deleteProduct(${i})">Delete</button>`:""}
  </div>`).join("");
 }
 
@@ -131,6 +146,21 @@ function checkout(){
 }
 
 // Admin Panel functions
+function loginAdmin(){
+ let u=document.getElementById("adminUser").value;
+ let p=document.getElementById("adminPass").value;
+ if(u===ADMIN_USERNAME && p===ADMIN_PASSWORD){
+  document.getElementById("adminPanel").style.display="block";
+  document.getElementById("loginPanel").style.display="none";
+  renderProducts();
+ } else {alert("Invalid credentials");}
+}
+function logoutAdmin(){
+ document.getElementById("adminPanel").style.display="none";
+ document.getElementById("loginPanel").style.display="block";
+ renderProducts();
+}
+
 function addProduct(){
  let name=document.getElementById("adminName").value;
  let price=document.getElementById("adminPrice").value;
