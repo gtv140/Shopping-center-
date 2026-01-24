@@ -24,6 +24,8 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 .hero{background:linear-gradient(135deg,#6a11cb,#2575fc);color:#fff;padding:40px;text-align:center;border-radius:12px;margin-bottom:20px}
 .hero h2{font-size:28px;margin-bottom:10px}
 .hero p{font-size:16px}
+.admin-panel{background:#fff;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px}
+.admin-panel h3{margin-top:0;color:#333}
 @media(max-width:768px){.products{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
 </style>
 </head>
@@ -37,6 +39,23 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 <div class="hero">
 <h2>Welcome to Shopping Center!</h2>
 <p>Grab the best deals on top products. Fast delivery & premium quality!</p>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel">
+<h3>Admin Panel (Owner Only)</h3>
+<input type="text" id="adminName" placeholder="Product Name">
+<input type="number" id="adminPrice" placeholder="Price">
+<input type="text" id="adminDesc" placeholder="Description">
+<select id="adminCat">
+<option value="Men">Men</option>
+<option value="Women">Women</option>
+<option value="Accessories">Accessories</option>
+<option value="Electronics">Electronics</option>
+<option value="Fitness">Fitness</option>
+</select>
+<input type="file" id="adminImg" accept="image/*">
+<button onclick="addProduct()">Add / Update Product</button>
 </div>
 
 <!-- SEARCH & CATEGORY -->
@@ -72,52 +91,35 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 <footer>© 2026 Shopping Center | Premium Deals & Trusted Shop</footer>
 
 <script>
-// PRODUCTS LIST
-let products=[
+// Load products from LocalStorage or default demo list
+let products = JSON.parse(localStorage.getItem("products")) || [
 {name:"Men Casual Watch",price:2999,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",desc:"Stylish casual watch for men.",cat:"Men"},
 {name:"Wireless Bluetooth Headphones",price:4499,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",desc:"Noise reduction, long battery life.",cat:"Electronics"},
-{name:"Women Leather Handbag",price:3899,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop",desc:"Elegant handbag for daily use.",cat:"Women"},
-{name:"Running Shoes",price:5599,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop",desc:"Comfortable & durable sports shoes.",cat:"Men"},
-{name:"Smart Fitness Band",price:2499,img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&h=300&fit=crop",desc:"Track steps, heart rate & sleep.",cat:"Fitness"},
-{name:"Sunglasses",price:1999,img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&h=300&fit=crop",desc:"UV protection stylish sunglasses.",cat:"Accessories"},
-{name:"Casual T-Shirt",price:1499,img:"https://images.unsplash.com/photo-1520975695543-431b42d1a3a7?w=300&h=300&fit=crop",desc:"Comfortable cotton t-shirt.",cat:"Men"},
-{name:"Jeans Pants",price:2599,img:"https://images.unsplash.com/photo-1514996937319-344454492b37?w=300&h=300&fit=crop",desc:"Trendy denim jeans.",cat:"Men"},
-{name:"Leather Wallet",price:1299,img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&h=300&fit=crop",desc:"Premium leather wallet.",cat:"Accessories"},
-{name:"Sports Cap",price:799,img:"https://images.unsplash.com/photo-1520975919321-2b8f973b5e21?w=300&h=300&fit=crop",desc:"Stylish cap for outdoor.",cat:"Accessories"},
-{name:"Women Sneakers",price:3999,img:"https://images.unsplash.com/photo-1600185360833-c9a62753f899?w=300&h=300&fit=crop",desc:"Comfortable sneakers for women.",cat:"Women"},
-{name:"Men Formal Shoes",price:4999,img:"https://images.unsplash.com/photo-1580910051074-36ff97893ad9?w=300&h=300&fit=crop",desc:"Elegant formal shoes for men.",cat:"Men"},
-{name:"Bluetooth Speaker",price:3299,img:"https://images.unsplash.com/photo-1581276879432-15b9f1c78d5a?w=300&h=300&fit=crop",desc:"Portable wireless speaker.",cat:"Electronics"},
-{name:"Women Scarf",price:899,img:"https://images.unsplash.com/photo-1600185360807-38c1b0df063c?w=300&h=300&fit=crop",desc:"Stylish scarf for women.",cat:"Women"},
-{name:"Fitness Yoga Mat",price:1299,img:"https://images.unsplash.com/photo-1584467735873-2d63f7e3a2ee?w=300&h=300&fit=crop",desc:"Non-slip yoga mat.",cat:"Fitness"},
-{name:"Men Belt",price:699,img:"https://images.unsplash.com/photo-1560377701-607f4ed53b41?w=300&h=300&fit=crop",desc:"Premium leather belt.",cat:"Men"},
-{name:"Women Earrings",price:1199,img:"https://images.unsplash.com/photo-1585386959984-a415522f28f7?w=300&h=300&fit=crop",desc:"Elegant earrings for women.",cat:"Women"}
+{name:"Women Leather Handbag",price:3899,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop",desc:"Elegant handbag for daily use.",cat:"Women"}
 ];
 
-let cart=[];
+let cart = [];
 
+// Render products
 function renderProducts(){
  let searchVal=search.value.toLowerCase();
  let catVal=filterCat.value;
  let filtered=products.filter(p=>p.name.toLowerCase().includes(searchVal)&&(catVal==""||p.cat==catVal));
- document.getElementById("products").innerHTML=filtered.map((p,i)=>`
+ document.getElementById("products").innerHTML = filtered.map((p,i)=>`
  <div class="card">
   <img src="${p.img}" loading="lazy">
   <h4>${p.name}</h4>
   <p>${p.desc}</p>
   <div class="price">Rs. ${p.price}</div>
   <button onclick="addCart(${i})">Add to Cart</button>
+  <button onclick="editProduct(${i})">Edit</button>
+  <button onclick="deleteProduct(${i})">Delete</button>
  </div>`).join("");
 }
 
-function addCart(i){
- cart.push(products[i]);
- renderCart();
-}
-
-function renderCart(){
- document.getElementById("cart").innerHTML=cart.map(c=>`${c.name} - Rs.${c.price}`).join("<br>");
-}
-
+// Cart functions
+function addCart(i){cart.push(products[i]);renderCart();}
+function renderCart(){document.getElementById("cart").innerHTML=cart.map(c=>`${c.name} - Rs.${c.price}`).join("<br>");}
 function checkout(){
  if(cart.length==0){alert("Cart is empty"); return;}
  let msg=cart.map(c=>c.name+" Rs."+c.price).join("%0A");
@@ -126,6 +128,47 @@ function checkout(){
  window.open("https://wa.me/923000000000?text=Order%0A"+msg);
  cart=[];
  renderCart();
+}
+
+// Admin Panel functions
+function addProduct(){
+ let name=document.getElementById("adminName").value;
+ let price=document.getElementById("adminPrice").value;
+ let desc=document.getElementById("adminDesc").value;
+ let cat=document.getElementById("adminCat").value;
+ let imgInput=document.getElementById("adminImg");
+ if(name==""||price==""||desc==""||!imgInput.files[0]){alert("Fill all fields and choose image"); return;}
+ let reader=new FileReader();
+ reader.onload=function(e){
+  let img=e.target.result;
+  products.push({name,price,img,desc,cat});
+  localStorage.setItem("products",JSON.stringify(products));
+  renderProducts();
+  document.getElementById("adminName").value="";
+  document.getElementById("adminPrice").value="";
+  document.getElementById("adminDesc").value="";
+  imgInput.value="";
+ };
+ reader.readAsDataURL(imgInput.files[0]);
+}
+
+function editProduct(i){
+ let p=products[i];
+ let newName=prompt("Edit Name:",p.name); if(!newName)return;
+ let newPrice=prompt("Edit Price:",p.price); if(!newPrice)return;
+ let newDesc=prompt("Edit Description:",p.desc); if(!newDesc)return;
+ let newCat=prompt("Edit Category (Men/Women/Accessories/Electronics/Fitness):",p.cat); if(!newCat)return;
+ products[i]={...p,name:newName,price:newPrice,desc:newDesc,cat:newCat};
+ localStorage.setItem("products",JSON.stringify(products));
+ renderProducts();
+}
+
+function deleteProduct(i){
+ if(confirm("Are you sure you want to delete this product?")){
+  products.splice(i,1);
+  localStorage.setItem("products",JSON.stringify(products));
+  renderProducts();
+ }
 }
 
 renderProducts();
