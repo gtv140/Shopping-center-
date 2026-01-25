@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shopping Center - Full Admin + User</title>
+<title>Shopping Center - Live Ready</title>
 <style>
 body{margin:0;font-family:Arial;background:#0b0b0b;color:#fff}
 header{padding:20px;text-align:center;background:linear-gradient(90deg,#ff003c,#1e90ff);box-shadow:0 0 15px #ff003c}
@@ -125,7 +125,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebas
 import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
-// Firebase
+// Firebase Config
 const firebaseConfig = {
 apiKey: "AIzaSyAL7_6DTdz14ySlLQ1jjuQC4WdO4mpRZKY",
 authDomain: "shopping-center-9.firebaseapp.com",
@@ -138,10 +138,10 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
-// Admin Password (simple demo)
+// Admin Password
 const ADMIN_PASS = "admin123";
 
-// Products Array
+// Products
 let products=[];
 const categories=["Men","Women","Kids","Winter","Accessories","Electronics","Shoes"];
 const types=["Shirt","T-Shirt","Jeans","Shoes","Watch","Bag","Jacket"];
@@ -159,7 +159,7 @@ payment:["EasyPaisa","JazzCash","Bank Transfer"][i%3]
 
 let cart=JSON.parse(localStorage.getItem("cart")||"[]");
 
-// RENDER PRODUCTS
+// Render
 function renderProducts(){
 let p=document.getElementById("products");
 p.innerHTML="";
@@ -176,7 +176,6 @@ p.innerHTML+=`
 updateCart();
 }
 
-// CART
 function addToCart(prod){cart.push(prod);localStorage.setItem("cart",JSON.stringify(cart));updateCart();updatePaymentOptions();}
 function updateCart(){document.getElementById("cartCount").innerText=cart.length;let box=document.getElementById("cartItems"); box.innerHTML="";let total=0;cart.forEach(i=>{total+=i.price;box.innerHTML+=`<div class="cart-item">${i.name} - ${i.price} PKR</div>`});document.getElementById("total").innerText=total;}
 function toggleCart(){let c=document.getElementById("cartBox");c.style.display=c.style.display=="block"?"none":"block";updatePaymentOptions();updateCart();}
@@ -200,7 +199,7 @@ push(ref(db,'orders'),orderData)
 .then(()=>{alert("Order placed & saved!");cart=[];localStorage.setItem("cart",JSON.stringify(cart));toggleCart();});
 }
 
-// Social order buttons
+// Social
 function orderSocial(platform){
 if(cart.length==0){alert("Cart empty!"); return;}
 let msg=platform+" ORDER%0A";cart.forEach(i=>msg+=`${i.name} - ${i.price} PKR - Payment: ${i.payment}%0A`);
@@ -216,33 +215,16 @@ case "Facebook": url="https://www.facebook.com/messages/t/?message="+msg; break;
 window.open(url,"_blank");
 }
 
-// Firebase Auth
-function signup(){
-const email=document.getElementById("email").value;
-const pass=document.getElementById("password").value;
-createUserWithEmailAndPassword(auth,email,pass)
-.then(userCred=>{sendEmailVerification(userCred.user).then(()=>{document.getElementById("authMsg").innerText="Verification email sent!"}).catch(err=>{document.getElementById("authMsg").innerText=err.message});})
-.catch(err=>{document.getElementById("authMsg").innerText=err.message});}
-function login(){
-const email=document.getElementById("email").value;
-const pass=document.getElementById("password").value;
-signInWithEmailAndPassword(auth,email,pass)
-.then(userCred=>{if(!userCred.user.emailVerified){alert("Verify your email first!"); return;}document.getElementById("authDiv").style.display="none";document.getElementById("userDiv").style.display="block";document.getElementById("userEmail").innerText=userCred.user.email;})
-.catch(err=>{document.getElementById("authMsg").innerText=err.message});}
+// Auth
+function signup(){const email=document.getElementById("email").value;const pass=document.getElementById("password").value;createUserWithEmailAndPassword(auth,email,pass).then(userCred=>{sendEmailVerification(userCred.user).then(()=>{document.getElementById("authMsg").innerText="Verification email sent!"})}).catch(err=>{document.getElementById("authMsg").innerText=err.message});}
+function login(){const email=document.getElementById("email").value;const pass=document.getElementById("password").value;signInWithEmailAndPassword(auth,email,pass).then(userCred=>{if(!userCred.user.emailVerified){alert("Verify email first!");return;}document.getElementById("authDiv").style.display="none";document.getElementById("userDiv").style.display="block";document.getElementById("userEmail").innerText=userCred.user.email;}).catch(err=>{document.getElementById("authMsg").innerText=err.message});}
 function logout(){signOut(auth).then(()=>{document.getElementById("authDiv").style.display="block";document.getElementById("userDiv").style.display="none";});}
-
 onAuthStateChanged(auth,user=>{if(user && user.emailVerified){document.getElementById("authDiv").style.display="none";document.getElementById("userDiv").style.display="block";document.getElementById("userEmail").innerText=user.email;}else{document.getElementById("authDiv").style.display="block";document.getElementById("userDiv").style.display="none";}});
 
-// Admin Functions
-function adminLogin(){
-const pass=document.getElementById("adminPass").value;
-if(pass===ADMIN_PASS){document.getElementById("adminDiv").style.display="none";document.getElementById("adminPanel").style.display="block";loadOrders();}else{document.getElementById("adminMsg").innerText="Wrong password!"}}
+// Admin
+function adminLogin(){const pass=document.getElementById("adminPass").value;if(pass===ADMIN_PASS){document.getElementById("adminDiv").style.display="none";document.getElementById("adminPanel").style.display="block";loadOrders();}else{document.getElementById("adminMsg").innerText="Wrong password!"}}
 function logoutAdmin(){document.getElementById("adminPanel").style.display="none";document.getElementById("adminDiv").style.display="block";}
-function addProduct(){
-const newProd={id:Date.now(),name:pName.value,category:pCategory.value,type:pType.value,price:Number(pPrice.value),img:pImg.value,payment:pPayment.value};
-products.push(newProd);renderProducts();
-pName.value=pCategory.value=pType.value=pPrice.value=pImg.value="";
-alert("Product added!");}
+function addProduct(){const newProd={id:Date.now(),name:pName.value,category:pCategory.value,type:pType.value,price:Number(pPrice.value),img:pImg.value,payment:pPayment.value};products.push(newProd);renderProducts();pName.value=pCategory.value=pType.value=pPrice.value=pImg.value="";alert("Product added!");}
 function loadOrders(){const ordersRef=ref(db,'orders');onValue(ordersRef,snapshot=>{const ordersDiv=document.getElementById("adminOrders");ordersDiv.innerHTML="";snapshot.forEach(snap=>{const val=snap.val();ordersDiv.innerHTML+=`<div style="border-bottom:1px solid #333;padding:5px;"><b>${val.email}</b>: Total ${val.total} PKR</div>`});});}
 
 renderProducts();
