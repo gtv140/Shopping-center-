@@ -20,6 +20,7 @@ input, select{width:90%;padding:8px;border-radius:6px;margin:5px 0;}
 .carousel img{width:300px;height:180px;margin-right:10px;border-radius:10px;}
 footer{margin-top:20px;text-align:center;padding:10px;background:#ffe0b2;}
 a{color:#ff6f00;text-decoration:none;}
+.sortBtn{margin-left:5px;}
 </style>
 </head>
 <body>
@@ -36,6 +37,7 @@ a{color:#ff6f00;text-decoration:none;}
 </div>
 
 <input id="searchInput" placeholder="Search products..." onkeyup="searchProducts()" style="width:90%;margin:12px auto;padding:8px;display:block;">
+
 <div id="categoryFilters">
 <button onclick="loadProducts('Men')">Men</button>
 <button onclick="loadProducts('Women')">Women</button>
@@ -43,7 +45,12 @@ a{color:#ff6f00;text-decoration:none;}
 <button onclick="loadProducts('Accessories')">Accessories</button>
 <button onclick="loadProducts('Electronics')">Electronics</button>
 <button onclick="loadProducts('Fitness')">Fitness</button>
+<button onclick="loadProducts('Winter')">Winter</button>
 <button onclick="loadProducts('')">All</button>
+Sort: 
+<button class="sortBtn" onclick="sortProducts('priceAsc')">Price ↑</button>
+<button class="sortBtn" onclick="sortProducts('priceDesc')">Price ↓</button>
+<button class="sortBtn" onclick="sortProducts('ratingDesc')">Rating ↓</button>
 </div>
 
 <div class="carousel" id="carousel">
@@ -72,7 +79,7 @@ a{color:#ff6f00;text-decoration:none;}
 <input id="pName" placeholder="Product name"><br>
 <input id="pPrice" type="number" placeholder="Price"><br>
 <select id="pCat">
-<option>Men</option><option>Women</option><option>Kids</option><option>Accessories</option><option>Electronics</option><option>Fitness</option>
+<option>Men</option><option>Women</option><option>Kids</option><option>Accessories</option><option>Electronics</option><option>Fitness</option><option>Winter</option>
 </select><br>
 <input id="pImage" type="file"><br>
 <button onclick="addProduct()">Add Product</button><br>
@@ -93,19 +100,19 @@ function signupUser(){let e=document.getElementById("uEmail").value,p=document.g
 function loginUser(){let e=document.getElementById("uEmail").value,p=document.getElementById("uPass").value;if(users[e]===p){alert("Login demo OK!");currentUser=e;}else alert("Invalid demo credentials");}
 function logoutUser(){currentUser=null;alert("Demo user logged out");}
 
-/* 100+ Products demo */
+/* Winter + other Products demo */
 let demoProducts=[
 {name:"Men Casual T-Shirt",price:1200,cat:"Men",image:"https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg",rating:4.5},
 {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8},
 {name:"Kids Winter Jacket",price:1800,cat:"Kids",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6},
+{name:"Men Winter Jacket",price:3500,cat:"Winter",image:"https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",rating:4.7},
+{name:"Women Wool Coat",price:4200,cat:"Winter",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8},
+{name:"Kids Wool Sweater",price:1500,cat:"Winter",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6},
+{name:"Men Boots",price:2800,cat:"Winter",image:"https://images.pexels.com/photos/19090/pexels-photo.jpg",rating:4.7},
+{name:"Wool Gloves",price:800,cat:"Winter",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.5},
+{name:"Woolen Scarf",price:700,cat:"Winter",image:"https://images.pexels.com/photos/2111517/pexels-photo-2111517.jpeg",rating:4.6},
 {name:"Bluetooth Headphones",price:3600,cat:"Electronics",image:"https://images.pexels.com/photos/3394669/pexels-photo-3394669.jpeg",rating:4.7},
-{name:"Leather Wallet",price:800,cat:"Accessories",image:"https://images.pexels.com/photos/2111517/pexels-photo-2111517.jpeg",rating:4.5},
-{name:"Men Running Shoes",price:3000,cat:"Men",image:"https://images.pexels.com/photos/19090/pexels-photo.jpg",rating:4.6},
-{name:"Dumbbell Set",price:5000,cat:"Fitness",image:"https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg",rating:4.8},
-{name:"Women Handbag",price:2200,cat:"Women",image:"https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg",rating:4.7},
-{name:"Smartwatch",price:4500,cat:"Electronics",image:"https://images.pexels.com/photos/2774061/pexels-photo-2774061.jpeg",rating:4.5},
-{name:"Sunglasses",price:1200,cat:"Accessories",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.6},
-// Add remaining to reach 100+ products with real images
+// Add remaining Winter & other products to reach 100+
 ];
 
 function loadProducts(filter=""){
@@ -117,6 +124,13 @@ function loadProducts(filter=""){
     box.appendChild(card);
   });
   document.getElementById("recommended").innerHTML=box.innerHTML;
+}
+
+function sortProducts(type){
+  if(type==='priceAsc') demoProducts.sort((a,b)=>a.price-b.price);
+  else if(type==='priceDesc') demoProducts.sort((a,b)=>b.price-a.price);
+  else if(type==='ratingDesc') demoProducts.sort((a,b)=>b.rating-a.rating);
+  loadProducts();
 }
 
 function searchProducts(){loadProducts(document.getElementById("searchInput").value);}
@@ -137,7 +151,11 @@ function buyNow(name,price){
   <input id="userWhatsApp" placeholder="WhatsApp Number"><br>
   <input id="userContact" placeholder="Contact Number"><br>
   <select id="paymentMethod"><option value="COD">Cash on Delivery</option><option value="JazzCash">JazzCash (03705519562)</option><option value="EasyPaisa">EasyPaisa (03379827882)</option></select><br>
-  <button onclick="submitOrder('${name}',${price})">Submit Order</button>
+  <button onclick="submitOrder('${name}',${price})">Submit Order</button><br><br>
+  <p>Contact us for confirmation:</p>
+  <a href="https://www.facebook.com/profile.php?id=100084218946114" target="_blank">Facebook</a> | 
+  <a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" target="_blank">Instagram</a> | 
+  <a href="mailto:rock.earn92@gmail.com">Email</a>
   </div>`;
 }
 function closeOrder(){document.getElementById("orderModal").style.display="none";}
@@ -148,7 +166,7 @@ function submitOrder(product,price){
   let contact=document.getElementById("userContact").value;
   let method=document.getElementById("paymentMethod").value;
   if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}
-  alert(`Order Submitted!\nProduct: ${product}\nPrice: Rs ${price}\nName: ${name}\nLocation: ${loc}\nWhatsApp: ${whatsapp}\nContact: ${contact}\nPayment: ${method}\n\nContact via Facebook, Instagram, Email for confirmation`);
+  alert(`Order Submitted!\nProduct: ${product}\nPrice: Rs ${price}\nName: ${name}\nLocation: ${loc}\nWhatsApp: ${whatsapp}\nContact: ${contact}\nPayment: ${method}\n\nCheck below links for confirmation: Facebook, Instagram, Email`);
   closeOrder();
 }
 </script>
