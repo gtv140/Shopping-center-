@@ -9,7 +9,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
-import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -21,10 +21,14 @@ const firebaseConfig = {
   appId: "1:33427127023:web:a478af6499f28f84d9391a"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
+
+// Set persistence
+setPersistence(auth, browserLocalPersistence);
 
 // Cart
 let cart = [];
@@ -33,13 +37,14 @@ let cart = [];
 window.loginAdmin = function(){
   const email = document.getElementById("adminEmail").value;
   const pass = document.getElementById("adminPassword").value;
-  signInWithEmailAndPassword(auth, email, pass)
-    .then(() => {
-      document.getElementById("adminPanel").style.display="block";
-      document.getElementById("adminLoginSection").style.display="none";
-      loadProducts();
-    })
-    .catch(e=>alert("Admin Login failed: "+e.message));
+
+  setPersistence(auth, browserLocalPersistence).then(() => {
+    return signInWithEmailAndPassword(auth, email, pass);
+  }).then(() => {
+    document.getElementById("adminPanel").style.display="block";
+    document.getElementById("adminLoginSection").style.display="none";
+    loadProducts();
+  }).catch(e => alert("Admin Login failed: " + e.message));
 }
 
 window.logoutAdmin = function(){
@@ -52,7 +57,7 @@ window.logoutAdmin = function(){
 // =================== Add Product (Admin) ===================
 window.addProduct = async function(){
   const name = document.getElementById("pName").value;
-  const price = document.getElementById("pPrice").value;
+  const price = parseFloat(document.getElementById("pPrice").value);
   const cat = document.getElementById("pCat").value;
   const imageFile = document.getElementById("pImage").files[0];
   if(!name || !price || !imageFile){ alert("Fill all fields"); return; }
@@ -114,8 +119,23 @@ window.checkout = function(){
   window.open("https://wa.me/923000000000?text=Order%0A"+msg);
 }
 
+// =================== Check admin login on page load ===================
+onAuthStateChanged(auth, (user) => {
+  if(user){
+    document.getElementById("adminPanel").style.display="block";
+    document.getElementById("adminLoginSection").style.display="none";
+    loadProducts();
+  } else {
+    document.getElementById("adminPanel").style.display="none";
+    document.getElementById("adminLoginSection").style.display="block";
+  }
+});
+
 window.addEventListener("DOMContentLoaded", loadProducts);
 </script>
+
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(120deg,#ffe0b2,#ffccbc);color:#333;}
@@ -142,6 +162,8 @@ button:hover{background:#e03e00}
 <h3 style="text-align:center;">Admin Login</h3>
 <input type="email" id="adminEmail" placeholder="Admin Email"><br>
 <input type="password" id="adminPassword" placeholder="Password"><br>
+<!-- reCAPTCHA front-end -->
+<div class="g-recaptcha" data-sitekey="6LfSlVUsAAAAAN0px_NgtAZlzzJLc_ew4B5speTy"></div><br>
 <button onclick="loginAdmin()">Login as Admin</button>
 </div>
 
