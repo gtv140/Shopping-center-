@@ -90,7 +90,7 @@ window.loadProducts = async function(){
         <h4>${p.name}</h4>
         <p>Rs. ${p.price}</p>
         <button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
-        <button style="background:red" onclick="deleteProduct('${doc.id}')">Delete</button>
+        ${document.getElementById("adminPanel") && document.getElementById("adminPanel").style.display=="block" ? `<button style="background:red" onclick="deleteProduct('${doc.id}')">Delete</button>` : ""}
       `;
       productsDiv.appendChild(card);
     }
