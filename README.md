@@ -1,35 +1,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shopping Center</title>
+<title>Shopping Center 🛒</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
+  import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAL7_6DTdz14ySlLQ1jjuQC4WdO4mpRZKY",
+    authDomain: "shopping-center-9.firebaseapp.com",
+    projectId: "shopping-center-9",
+    storageBucket: "shopping-center-9.appspot.com",
+    messagingSenderId: "33427127023",
+    appId: "1:33427127023:web:a478af6499f28f84d9391a"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+  const auth = getAuth(app);
+
+  // Cart
+  let cart = [];
+
+  // Admin login
+  window.loginAdmin = function(){
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+    signInWithEmailAndPassword(auth, email, pass)
+      .then(() => {
+        document.getElementById("adminPanel").style.display="block";
+        document.getElementById("loginSection").style.display="none";
+        loadProducts();
+      })
+      .catch(e=>alert("Login failed: "+e.message));
+  }
+
+  window.logoutAdmin = function(){
+    signOut(auth).then(()=>{
+      document.getElementById("adminPanel").style.display="none";
+      document.getElementById("loginSection").style.display="block";
+    });
+  }
+
+  // Add Product
+  window.addProduct = async function(){
+    const name = document.getElementById("pName").value;
+    const price = document.getElementById("pPrice").value;
+    const cat = document.getElementById("pCat").value;
+    const imageFile = document.getElementById("pImage").files[0];
+    if(!name || !price || !imageFile){ alert("Fill all fields"); return; }
+
+    const storageRef = ref(storage, "products/"+Date.now()+"_"+imageFile.name);
+    await uploadBytes(storageRef, imageFile);
+    const url = await getDownloadURL(storageRef);
+
+    await addDoc(collection(db, "products"), {
+      name, price, cat, desc: name, image: url
+    });
+    loadProducts();
+  }
+
+  // Load products
+  window.loadProducts = async function(){
+    const searchVal = document.getElementById("search") ? document.getElementById("search").value.toLowerCase() : "";
+    const productsDiv = document.getElementById("products");
+    productsDiv.innerHTML = "";
+
+    const querySnapshot = await getDocs(collection(db, "products"));
+    querySnapshot.forEach(doc=>{
+      const p = doc.data();
+      if(!searchVal || p.name.toLowerCase().includes(searchVal)){
+        const card = document.createElement("div");
+        card.className="card";
+        card.innerHTML=`
+          <img src="${p.image}">
+          <h4>${p.name}</h4>
+          <p>Rs. ${p.price}</p>
+          <button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
+        `;
+        productsDiv.appendChild(card);
+      }
+    });
+  }
+
+  // Cart
+  window.addToCart = function(name, price){
+    cart.push({name, price});
+    renderCart();
+  }
+
+  window.renderCart = function(){
+    document.getElementById("cartList").innerText = cart.map(c=>c.name+" Rs."+c.price).join("\n");
+  }
+
+  window.checkout = function(){
+    if(cart.length==0){alert("Cart empty"); return;}
+    let msg = cart.map(c=>c.name+" Rs."+c.price).join("%0A");
+    msg += "%0A%0APayment: "+document.getElementById("payment").value;
+    window.open("https://wa.me/923000000000?text=Order%0A"+msg);
+  }
+
+  window.addEventListener("DOMContentLoaded", loadProducts);
+</script>
+
 <style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f4f8}
-header{background:linear-gradient(90deg,#ff7e5f,#feb47b);color:#fff;padding:30px;text-align:center;font-size:32px;font-weight:bold;text-shadow:1px 1px #000;letter-spacing:1px}
-.container{max-width:1300px;margin:auto;padding:20px}
-.flex{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-input,select,button{padding:10px;margin:5px 0;border-radius:8px;border:1px solid #ccc;font-size:14px}
-input:focus,select:focus{outline:none;border:2px solid #ff7e5f}
-button{cursor:pointer;background:#ff4500;color:#fff;font-weight:bold;transition:0.3s;border:none}
-button:hover{opacity:0.9;transform:scale(1.03)}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#fff;padding:15px;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:0.3s;overflow:hidden;position:relative}
-.card:hover{transform:scale(1.05)}
-.card img{width:100%;height:180px;object-fit:cover;border-radius:12px;transition:0.3s}
-.card h4{margin:10px 0 5px 0;font-size:18px;color:#333}
-.card p{font-size:13px;color:#555;margin-bottom:10px;height:40px;overflow:hidden}
-.price{color:#ff4500;font-weight:bold;font-size:16px;margin-bottom:10px}
-.cart{background:#333;color:#fff;padding:15px;border-radius:12px;margin-top:25px}
-footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
-.hero{background:linear-gradient(135deg,#6a11cb,#2575fc);color:#fff;padding:40px;text-align:center;border-radius:12px;margin-bottom:20px}
-.hero h2{font-size:28px;margin-bottom:10px}
-.hero p{font-size:16px}
-.admin-panel{background:#fff;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px;display:none}
-.admin-panel h3{margin-top:0;color:#333}
-.login-panel{background:#fff;padding:15px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);margin-bottom:20px;text-align:center}
-.login-panel input{margin:5px;width:200px}
-.login-panel button{width:220px}
-@media(max-width:768px){.products{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4}
+header{background:#ff4500;color:white;padding:20px;text-align:center;font-size:28px}
+.container{max-width:1200px;margin:auto;padding:15px}
+input,select,button{padding:10px;border-radius:6px;border:1px solid #ccc;margin:5px 0}
+button{background:#ff4500;color:white;border:none;cursor:pointer;transition:0.3s}
+button:hover{background:#e03e00}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.card{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:0.3s}
+.card:hover{transform:scale(1.03)}
+.card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+#cartList{white-space:pre-line;background:#fff;padding:10px;border-radius:8px;box-shadow:0 1px 5px rgba(0,0,0,0.1)}
 </style>
 </head>
 <body>
@@ -38,172 +130,44 @@ footer{text-align:center;color:#555;padding:15px;margin-top:25px;font-size:14px}
 
 <div class="container">
 
-<!-- HERO / PROMO -->
-<div class="hero">
-<h2>Welcome to Shopping Center!</h2>
-<p>Grab the best deals on top products. Fast delivery & premium quality!</p>
-</div>
-
-<!-- ADMIN LOGIN -->
-<div class="login-panel" id="loginPanel">
-<h3>Admin Login</h3>
-<input type="text" id="adminUser" placeholder="Username"><br>
-<input type="password" id="adminPass" placeholder="Password"><br>
-<button onclick="loginAdmin()">Login</button>
+<!-- LOGIN -->
+<div id="loginSection">
+<input type="email" id="email" placeholder="Admin Email"><br>
+<input type="password" id="password" placeholder="Password"><br>
+<button onclick="loginAdmin()">Login as Admin</button>
 </div>
 
 <!-- ADMIN PANEL -->
-<div class="admin-panel" id="adminPanel">
-<h3>Admin Panel (Owner Only)</h3>
-<input type="text" id="adminName" placeholder="Product Name">
-<input type="number" id="adminPrice" placeholder="Price">
-<input type="text" id="adminDesc" placeholder="Description">
-<select id="adminCat">
-<option value="Men">Men</option>
-<option value="Women">Women</option>
-<option value="Accessories">Accessories</option>
-<option value="Electronics">Electronics</option>
-<option value="Fitness">Fitness</option>
-</select>
-<input type="file" id="adminImg" accept="image/*">
-<button onclick="addProduct()">Add / Update Product</button>
+<div id="adminPanel" style="display:none">
+<h3>Admin Panel</h3>
+<input type="text" id="pName" placeholder="Product Name"><br>
+<input type="number" id="pPrice" placeholder="Price"><br>
+<select id="pCat">
+  <option>Men</option><option>Women</option><option>Accessories</option>
+  <option>Electronics</option><option>Fitness</option>
+</select><br>
+<input type="file" id="pImage"><br>
+<button onclick="addProduct()">Add Product</button>
 <button onclick="logoutAdmin()">Logout</button>
+<hr>
 </div>
 
-<!-- SEARCH & CATEGORY -->
-<div class="flex">
-<input id="search" placeholder="Search products..." onkeyup="renderProducts()">
-<select id="filterCat" onchange="renderProducts()">
-<option value="">All Categories</option>
-<option value="Men">Men</option>
-<option value="Women">Women</option>
-<option value="Accessories">Accessories</option>
-<option value="Electronics">Electronics</option>
-<option value="Fitness">Fitness</option>
-</select>
-</div>
+<!-- SEARCH -->
+<input type="text" id="search" placeholder="Search products..." onkeyup="loadProducts()"><br>
 
-<!-- PRODUCTS -->
+<!-- PRODUCT LIST -->
 <div class="products" id="products"></div>
 
 <!-- CART -->
-<div class="cart">
 <h3>Your Cart</h3>
-<div id="cart"></div>
+<div id="cartList"></div>
 <select id="payment">
-<option>Cash on Delivery</option>
-<option>JazzCash</option>
-<option>EasyPaisa</option>
+  <option>Cash on Delivery</option>
+  <option>JazzCash</option>
+  <option>EasyPaisa</option>
 </select>
-<button onclick="checkout()">Place Order</button>
-</div>
+<button onclick="checkout()">Order via WhatsApp</button>
 
 </div>
-
-<footer>© 2026 Shopping Center | Premium Deals & Trusted Shop</footer>
-
-<script>
-// Admin credentials (for demo)
-const ADMIN_USERNAME="admin";
-const ADMIN_PASSWORD="123456";
-
-// Load products from LocalStorage or default demo list
-let products = JSON.parse(localStorage.getItem("products")) || [
-{name:"Men Casual Watch",price:2999,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",desc:"Stylish casual watch for men.",cat:"Men"},
-{name:"Wireless Bluetooth Headphones",price:4499,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",desc:"Noise reduction, long battery life.",cat:"Electronics"},
-{name:"Women Leather Handbag",price:3899,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop",desc:"Elegant handbag for daily use.",cat:"Women"}
-];
-
-let cart = [];
-
-// Render products
-function renderProducts(){
- let searchVal=search.value.toLowerCase();
- let catVal=filterCat.value;
- let filtered=products.filter(p=>p.name.toLowerCase().includes(searchVal)&&(catVal==""||p.cat==catVal));
- document.getElementById("products").innerHTML = filtered.map((p,i)=>`
- <div class="card">
-  <img src="${p.img}" loading="lazy">
-  <h4>${p.name}</h4>
-  <p>${p.desc}</p>
-  <div class="price">Rs. ${p.price}</div>
-  <button onclick="addCart(${i})">Add to Cart</button>
-  ${document.getElementById("adminPanel").style.display==="block"?`<button onclick="editProduct(${i})">Edit</button><button onclick="deleteProduct(${i})">Delete</button>`:""}
- </div>`).join("");
-}
-
-// Cart functions
-function addCart(i){cart.push(products[i]);renderCart();}
-function renderCart(){document.getElementById("cart").innerHTML=cart.map(c=>`${c.name} - Rs.${c.price}`).join("<br>");}
-function checkout(){
- if(cart.length==0){alert("Cart is empty"); return;}
- let msg=cart.map(c=>c.name+" Rs."+c.price).join("%0A");
- let paymentMethod=document.getElementById("payment").value;
- msg+="%0A%0APayment Method: "+paymentMethod;
- window.open("https://wa.me/923000000000?text=Order%0A"+msg);
- cart=[];
- renderCart();
-}
-
-// Admin Panel functions
-function loginAdmin(){
- let u=document.getElementById("adminUser").value;
- let p=document.getElementById("adminPass").value;
- if(u===ADMIN_USERNAME && p===ADMIN_PASSWORD){
-  document.getElementById("adminPanel").style.display="block";
-  document.getElementById("loginPanel").style.display="none";
-  renderProducts();
- } else {alert("Invalid credentials");}
-}
-function logoutAdmin(){
- document.getElementById("adminPanel").style.display="none";
- document.getElementById("loginPanel").style.display="block";
- renderProducts();
-}
-
-function addProduct(){
- let name=document.getElementById("adminName").value;
- let price=document.getElementById("adminPrice").value;
- let desc=document.getElementById("adminDesc").value;
- let cat=document.getElementById("adminCat").value;
- let imgInput=document.getElementById("adminImg");
- if(name==""||price==""||desc==""||!imgInput.files[0]){alert("Fill all fields and choose image"); return;}
- let reader=new FileReader();
- reader.onload=function(e){
-  let img=e.target.result;
-  products.push({name,price,img,desc,cat});
-  localStorage.setItem("products",JSON.stringify(products));
-  renderProducts();
-  document.getElementById("adminName").value="";
-  document.getElementById("adminPrice").value="";
-  document.getElementById("adminDesc").value="";
-  imgInput.value="";
- };
- reader.readAsDataURL(imgInput.files[0]);
-}
-
-function editProduct(i){
- let p=products[i];
- let newName=prompt("Edit Name:",p.name); if(!newName)return;
- let newPrice=prompt("Edit Price:",p.price); if(!newPrice)return;
- let newDesc=prompt("Edit Description:",p.desc); if(!newDesc)return;
- let newCat=prompt("Edit Category (Men/Women/Accessories/Electronics/Fitness):",p.cat); if(!newCat)return;
- products[i]={...p,name:newName,price:newPrice,desc:newDesc,cat:newCat};
- localStorage.setItem("products",JSON.stringify(products));
- renderProducts();
-}
-
-function deleteProduct(i){
- if(confirm("Are you sure you want to delete this product?")){
-  products.splice(i,1);
-  localStorage.setItem("products",JSON.stringify(products));
-  renderProducts();
- }
-}
-
-renderProducts();
-renderCart();
-</script>
-
 </body>
 </html>
