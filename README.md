@@ -1,10 +1,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shopping Center Ultimate 🛒</title>
+<title>Shopping Center</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Firebase SDKs -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
@@ -45,7 +44,7 @@ async function loadProducts(){
       <h4>${p.name}</h4>
       <p>Rs ${p.price}</p>
       <button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
-      ${document.getElementById("adminPanel")?.style.display=="block"?`<button style="background:red" onclick="deleteProduct('${d.id}')">Delete</button>`:""}
+      ${window.isAdmin ? `<button class="del" onclick="deleteProduct('${d.id}')">Delete</button>` : ``}
     `;
     box.appendChild(card);
   });
@@ -62,111 +61,95 @@ function renderCart(){
     cart.map(i=>`${i.n} - Rs ${i.p}`).join("\n");
 }
 window.checkout = ()=>{
-  if(!cart.length){alert("Cart empty"); return;}
-  let m = cart.map(i=>`${i.n} Rs ${i.p}`).join("%0A");
-  window.open("https://wa.me/923000000000?text=Order%0A"+m);
+  if(!cart.length){ alert("Cart empty"); return; }
+  let msg = cart.map(i=>`${i.n} Rs ${i.p}`).join("%0A");
+  window.open("https://wa.me/923000000000?text=Order%0A"+msg);
 };
 
 /* 🔥 ADMIN LOGIN */
 window.showAdminLogin=()=>document.getElementById("adminBox").style.display="block";
 window.loginAdmin=()=>{
-  signInWithEmailAndPassword(auth,document.getElementById("adminEmail").value,document.getElementById("adminPass").value);
+  signInWithEmailAndPassword(
+    auth,
+    document.getElementById("adminEmail").value,
+    document.getElementById("adminPass").value
+  ).catch(e=>alert(e.message));
 };
 window.logoutAdmin=()=>signOut(auth);
 
-/* 🔥 ADMIN CHECK */
+/* 🔥 ADMIN STATE */
+window.isAdmin = false;
 onAuthStateChanged(auth,u=>{
-  document.getElementById("adminPanel").style.display = u?"block":"none";
+  window.isAdmin = !!u;
+  document.getElementById("adminPanel").style.display = u ? "block":"none";
   loadProducts();
 });
 
 /* 🔥 ADD PRODUCT */
-window.addProduct=async ()=>{
-  const name=document.getElementById("pName").value;
-  const price=parseFloat(document.getElementById("pPrice").value);
-  const cat=document.getElementById("pCat").value;
-  const file=document.getElementById("pImage").files[0];
-  if(!name||!price||!file){alert("Fill all fields"); return;}
-  const storageRef=ref(storage,"products/"+Date.now()+"_"+file.name);
-  await uploadBytes(storageRef,file);
-  const url=await getDownloadURL(storageRef);
-  await addDoc(collection(db,"products"),{name,price,cat,image:url});
+window.addProduct = async ()=>{
+  const name = pName.value;
+  const price = Number(pPrice.value);
+  const file = pImage.files[0];
+  if(!name || !price || !file){ alert("Fill all fields"); return; }
+
+  const sRef = ref(storage,"products/"+Date.now()+file.name);
+  await uploadBytes(sRef,file);
+  const url = await getDownloadURL(sRef);
+
+  await addDoc(collection(db,"products"),{name,price,image:url});
   loadProducts();
 };
 
-/* 🔥 DELETE PRODUCT */
-window.deleteProduct=async (id)=>{
-  if(confirm("Delete this product?")){
+/* 🔥 DELETE */
+window.deleteProduct = async (id)=>{
+  if(confirm("Delete product?")){
     await deleteDoc(doc(db,"products",id));
     loadProducts();
   }
 };
 
-/* 🔥 INITIAL LOAD */
-window.addEventListener("DOMContentLoaded",()=>{
-  loadProducts();
-  renderCart();
-});
+window.onload=()=>{ loadProducts(); renderCart(); };
 </script>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 <style>
-body{margin:0;font-family:Arial;background:#fff3e0;}
-header{background:#ff6f00;color:white;padding:20px;text-align:center;font-size:28px;font-weight:bold;}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;padding:15px}
-.card{background:white;padding:10px;border-radius:10px;box-shadow:0 3px 8px #0003;text-align:center;transition:0.3s}
-.card:hover{transform:scale(1.05)}
-.card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
-button{background:#ff6f00;color:white;border:none;padding:8px 12px;border-radius:6px;margin-top:5px;cursor:pointer}
-button:hover{background:#e03e00}
-footer{text-align:center;padding:15px;color:#555}
-#adminBox{display:none;margin-top:10px}
-#adminPanel{display:none;margin-top:10px;background:#fff3e0;padding:10px;border-radius:8px;box-shadow:0 3px 8px #0002;}
+body{margin:0;font-family:Arial;background:#fff3e0}
+header{background:#ff6f00;color:#fff;padding:18px;text-align:center;font-size:26px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:15px;padding:15px}
+.card{background:#fff;padding:10px;border-radius:10px;box-shadow:0 3px 8px #0003;text-align:center}
+.card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+button{background:#ff6f00;color:#fff;border:none;padding:8px 12px;border-radius:6px;margin-top:5px}
+.del{background:red}
+footer{text-align:center;padding:15px}
+#adminBox,#adminPanel{display:none;margin-top:10px}
 </style>
 </head>
 
 <body>
-<header>🛒 Shopping Center Ultimate</header>
+<header>🛒 Shopping Center</header>
 
-<!-- PRODUCTS GRID -->
-<div class="products" id="products">
-<!-- 50+ demo products will load from Firebase -->
-</div>
+<div class="products" id="products"></div>
 
-<h3 style="padding-left:15px">🛍 Your Cart</h3>
+<h3 style="padding-left:15px">🛍 Cart</h3>
 <pre id="cart" style="padding-left:15px"></pre>
-<select id="payment" style="margin-left:15px">
-  <option>Cash on Delivery</option>
-  <option>JazzCash</option>
-  <option>EasyPaisa</option>
-</select>
 <button onclick="checkout()" style="margin-left:15px">Order via WhatsApp</button>
 
-<!-- FOOTER -->
 <footer>
 <button onclick="showAdminLogin()">Admin Login</button>
 
 <div id="adminBox">
-<input type="email" id="adminEmail" placeholder="Email"><br>
-<input type="password" id="adminPass" placeholder="Password"><br>
-<div class="g-recaptcha" data-sitekey="6LfSlVUsAAAAAN0px_NgtAZlzzJLc_ew4B5speTy"></div>
+<input id="adminEmail" placeholder="Email"><br>
+<input id="adminPass" type="password" placeholder="Password"><br>
 <button onclick="loginAdmin()">Login</button>
 </div>
 
 <div id="adminPanel">
 <h3>Admin Panel</h3>
-<input type="text" id="pName" placeholder="Product Name">
-<input type="number" id="pPrice" placeholder="Price">
-<select id="pCat">
-  <option>Men</option><option>Women</option><option>Accessories</option>
-  <option>Electronics</option><option>Fitness</option>
-</select>
-<input type="file" id="pImage"><br>
+<input id="pName" placeholder="Product name">
+<input id="pPrice" type="number" placeholder="Price">
+<input id="pImage" type="file"><br>
 <button onclick="addProduct()">Add Product</button>
 <button onclick="logoutAdmin()">Logout</button>
 </div>
-
 </footer>
 </body>
 </html>
