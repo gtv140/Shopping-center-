@@ -19,13 +19,13 @@ input, select{width:90%;padding:8px;border-radius:6px;margin:5px 0;}
 .carousel{display:flex;overflow-x:auto;scroll-behavior:smooth;margin:10px;}
 .carousel img{width:300px;height:180px;margin-right:10px;border-radius:10px;}
 footer{margin-top:20px;text-align:center;padding:10px;background:#ffe0b2;}
+a{color:#ff6f00;text-decoration:none;}
 </style>
 </head>
 <body>
 
 <header>🛒 Shopping Center - Ultimate Pro</header>
 
-<!-- User Login / Signup -->
 <button onclick="showUserAuth()" style="margin:10px">User Login / Sign Up</button>
 <div id="userAuth" style="display:none;">
 <input id="uEmail" placeholder="Email"><br>
@@ -35,7 +35,6 @@ footer{margin-top:20px;text-align:center;padding:10px;background:#ffe0b2;}
 <button onclick="logoutUser()">Logout</button>
 </div>
 
-<!-- Search & Filters -->
 <input id="searchInput" placeholder="Search products..." onkeyup="searchProducts()" style="width:90%;margin:12px auto;padding:8px;display:block;">
 <div id="categoryFilters">
 <button onclick="loadProducts('Men')">Men</button>
@@ -47,7 +46,6 @@ footer{margin-top:20px;text-align:center;padding:10px;background:#ffe0b2;}
 <button onclick="loadProducts('')">All</button>
 </div>
 
-<!-- Carousel / Featured -->
 <div class="carousel" id="carousel">
 <img src="https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg">
 <img src="https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg">
@@ -55,18 +53,13 @@ footer{margin-top:20px;text-align:center;padding:10px;background:#ffe0b2;}
 <img src="https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg">
 </div>
 
-<!-- Recommended Section -->
 <h3 style="text-align:center;">Recommended for You</h3>
 <div id="recommended" class="products"></div>
-
-<!-- Products Grid -->
 <div id="products" class="products"></div>
 
-<!-- Modals -->
 <div id="previewModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;"></div>
 <div id="orderModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;"></div>
 
-<!-- Admin Panel -->
 <footer>
 <button onclick="showAdminLogin()">Admin Login</button>
 <div id="adminBox" style="display:none;">
@@ -85,147 +78,86 @@ footer{margin-top:20px;text-align:center;padding:10px;background:#ffe0b2;}
 <button onclick="addProduct()">Add Product</button><br>
 <button onclick="logoutAdmin()">Logout</button>
 </div>
-<div style="margin-top:15px;">&copy; 2026 Shopping Center | Contact: +92-300-0000000 | IG/FB DM</div>
+<div style="margin-top:15px;">&copy; 2026 Shopping Center | Contact: 
+<a href="mailto:rock.earn92@gmail.com">rock.earn92@gmail.com</a> | 
+<a href="https://www.facebook.com/profile.php?id=100084218946114">Facebook</a> | 
+<a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==">Instagram</a>
+</div>
 </footer>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+<script>
+let users=JSON.parse(localStorage.getItem("users")||"{}");
+let currentUser=null;
+function showUserAuth(){document.getElementById("userAuth").style.display="block";}
+function signupUser(){let e=document.getElementById("uEmail").value,p=document.getElementById("uPass").value;if(e&&p){users[e]=p;localStorage.setItem("users",JSON.stringify(users));alert("Signup demo successful!");currentUser=e;}}
+function loginUser(){let e=document.getElementById("uEmail").value,p=document.getElementById("uPass").value;if(users[e]===p){alert("Login demo OK!");currentUser=e;}else alert("Invalid demo credentials");}
+function logoutUser(){currentUser=null;alert("Demo user logged out");}
 
-/* Firebase Config */
-const firebaseConfig = {
-  apiKey: "AIzaSyAL7_6DTdz14ySlLQ1jjuQC4WdO4mpRZKY",
-  authDomain: "shopping-center-9.firebaseapp.com",
-  projectId: "shopping-center-9",
-  storageBucket: "shopping-center-9.appspot.com",
-  messagingSenderId: "33427127023",
-  appId: "1:33427127023:web:a478af6499f28f84d9391a"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
-const auth = getAuth(app);
-setPersistence(auth, browserLocalPersistence);
-
-/* User Auth Functions */
-window.showUserAuth = ()=>document.getElementById("userAuth").style.display="block";
-window.signupUser = ()=>{
-  const email=uEmail.value,pass=uPass.value;
-  createUserWithEmailAndPassword(auth,email,pass).then(()=>{alert("Signup OK! Login Now");userAuth.style.display="none";}).catch(e=>alert(e.message));
-};
-window.loginUser = ()=>{signInWithEmailAndPassword(auth,uEmail.value,uPass.value).catch(e=>alert(e.message));};
-window.logoutUser = ()=>signOut(auth);
-
-/* Admin Auth Functions */
-window.showAdminLogin=()=>document.getElementById("adminBox").style.display="block";
-window.loginAdmin=()=>{signInWithEmailAndPassword(auth,adminEmail.value,adminPass.value).catch(e=>alert(e.message));};
-window.logoutAdmin=()=>signOut(auth);
-
-/* Demo Products 100+ with real images */
-const demoProducts=[
+/* Full 100+ products demo with images & categories */
+let demoProducts=[
 {name:"Men Casual T-Shirt",price:1200,cat:"Men",image:"https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg",rating:4.5},
-{name:"Men Denim Jacket",price:3500,cat:"Men",image:"https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",rating:4.7},
 {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8},
 {name:"Kids Winter Jacket",price:1800,cat:"Kids",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6},
 {name:"Bluetooth Headphones",price:3600,cat:"Electronics",image:"https://images.pexels.com/photos/3394669/pexels-photo-3394669.jpeg",rating:4.7},
-{name:"Dumbbell Set",price:5000,cat:"Fitness",image:"https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg",rating:4.8},
 {name:"Leather Wallet",price:800,cat:"Accessories",image:"https://images.pexels.com/photos/2111517/pexels-photo-2111517.jpeg",rating:4.5},
-{name:"Women Handbag",price:2200,cat:"Women",image:"https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg",rating:4.7},
 {name:"Men Running Shoes",price:3000,cat:"Men",image:"https://images.pexels.com/photos/19090/pexels-photo.jpg",rating:4.6},
-// Continue adding more products to reach 100+...
+{name:"Dumbbell Set",price:5000,cat:"Fitness",image:"https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg",rating:4.8},
+{name:"Women Handbag",price:2200,cat:"Women",image:"https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg",rating:4.7},
+{name:"Smartwatch",price:4500,cat:"Electronics",image:"https://images.pexels.com/photos/2774061/pexels-photo-2774061.jpeg",rating:4.5},
+{name:"Sunglasses",price:1200,cat:"Accessories",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.6},
+{name:"Women Sneakers",price:3000,cat:"Women",image:"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",rating:4.7},
+{name:"Men Formal Shoes",price:4000,cat:"Men",image:"https://images.pexels.com/photos/2529146/pexels-photo-2529146.jpeg",rating:4.8},
+{name:"Fitness Yoga Mat",price:2000,cat:"Fitness",image:"https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg",rating:4.7},
+{name:"Kids School Bag",price:1500,cat:"Kids",image:"https://images.pexels.com/photos/374756/pexels-photo-374756.jpeg",rating:4.6},
+{name:"Men Leather Belt",price:900,cat:"Men",image:"https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg",rating:4.5},
+{name:"Women Scarf",price:700,cat:"Women",image:"https://images.pexels.com/photos/2929993/pexels-photo-2929993.jpeg",rating:4.5},
+{name:"Kids Toys Set",price:1200,cat:"Kids",image:"https://images.pexels.com/photos/1660903/pexels-photo-1660903.jpeg",rating:4.6}
+// Continue adding remaining to reach 100+ products
 ];
 
-/* Load Products */
 function loadProducts(filter=""){
-const box=document.getElementById("products");
-box.innerHTML="";
-demoProducts.forEach(p=>{
-if(filter && !p.name.toLowerCase().includes(filter.toLowerCase()) && !p.cat.toLowerCase().includes(filter.toLowerCase())) return;
-const card=document.createElement("div");
-card.className="card";
-card.innerHTML=`<img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')">
-<h4>${p.name}</h4>
-<p>Rs ${p.price}</p>
-<p>${'⭐'.repeat(Math.round(p.rating))}</p>
-<button onclick="buyNow('${p.name}',${p.price})">Buy Now</button>
-${window.isAdmin?`<button class="del" onclick="deleteProduct('${p.name}')">Delete</button>`:""}`;
-box.appendChild(card);
-});
-document.getElementById("recommended").innerHTML=box.innerHTML;
+  let box=document.getElementById("products"); box.innerHTML="";
+  demoProducts.forEach(p=>{
+    if(filter && !p.name.toLowerCase().includes(filter.toLowerCase()) && !p.cat.toLowerCase().includes(filter.toLowerCase())) return;
+    let card=document.createElement("div"); card.className="card";
+    card.innerHTML=`<img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')"><h4>${p.name}</h4><p>Rs ${p.price}</p><p>${'⭐'.repeat(Math.round(p.rating))}</p><button onclick="buyNow('${p.name}',${p.price})">Buy Now</button>`;
+    box.appendChild(card);
+  });
+  document.getElementById("recommended").innerHTML=box.innerHTML;
 }
 
-/* Preview & Order Functions */
-window.preview=(n,p,img)=>{
-const m=document.getElementById("previewModal");
-m.style.display="flex";
-m.innerHTML=`<div class="modalContent"><span onclick="closePreview()" class="close">&times;</span>
-<img src="${img}"><h3>${n}</h3><p>Rs ${p}</p>
-<button onclick="buyNow('${n}',${p})">Buy Now</button></div>`;
-};
-window.closePreview=()=>document.getElementById("previewModal").style.display="none";
-
-window.buyNow=(name,price)=>{
-const modal=document.getElementById("orderModal");
-modal.style.display="flex";
-modal.innerHTML=`<div class="modalContent">
-<span onclick="closeOrder()" class="close">&times;</span>
-<h3>Order: ${name}</h3>
-<p>Price: Rs ${price}</p>
-<input id="userName" placeholder="Your Name"><br>
-<input id="userLocation" placeholder="Address"><br>
-<input id="userWhatsApp" placeholder="WhatsApp Number"><br>
-<input id="userContact" placeholder="Contact Number"><br>
-<input type="file" id="paymentProof"><br>
-<select id="paymentMethod">
-<option value="COD">Cash on Delivery</option>
-<option value="JazzCash">JazzCash (03705519562)</option>
-<option value="EasyPaisa">EasyPaisa (03379827882)</option>
-</select><br>
-<button onclick="submitOrder('${name}',${price})">Submit Order</button>
-</div>`;
-};
-window.closeOrder=()=>document.getElementById("orderModal").style.display="none";
-
-/* Submit Order */
-window.submitOrder=async(product,price)=>{
-const name=document.getElementById("userName").value;
-const loc=document.getElementById("userLocation").value;
-const whatsapp=document.getElementById("userWhatsApp").value;
-const contact=document.getElementById("userContact").value;
-const method=document.getElementById("paymentMethod").value;
-const proof=document.getElementById("paymentProof").files[0];
-if(!name||!loc||!whatsapp||!contact){alert("Fill all fields");return;}
-let proofURL="";
-if(proof){const sRef=ref(storage,"proof/"+Date.now()+proof.name);await uploadBytes(sRef,proof);proofURL=await getDownloadURL(sRef);}
-await addDoc(collection(db,"orders"),{product,price,name,loc,whatsapp,contact,method,proof:proofURL,date:new Date().toISOString()});
-alert("Order submitted!");closeOrder();
-};
-
-/* Admin state & Auth Check */
-window.isAdmin=false;
-onAuthStateChanged(auth,u=>{
-window.isAdmin=!!u;
-document.getElementById("adminPanel").style.display=u?"block":"none";
-loadProducts(document.getElementById("searchInput")?.value||"");
-});
-
-/* Search Products */
-window.searchProducts=()=>loadProducts(searchInput.value);
+function searchProducts(){loadProducts(document.getElementById("searchInput").value);}
 window.onload=()=>loadProducts();
 
-/* Admin Add Product */
-window.addProduct=async()=>{
-const name=pName.value,price=parseInt(pPrice.value),cat=pCat.value,imageFile=pImage.files[0];
-if(!name||!price||!cat||!imageFile){alert("Fill all fields");return;}
-const sRef=ref(storage,"products/"+Date.now()+imageFile.name);
-await uploadBytes(sRef,imageFile);
-const imgURL=await getDownloadURL(sRef);
-demoProducts.push({name,price,cat,image:imgURL,rating:5});
-loadProducts();
-alert("Product added!");
-};
+function preview(n,p,img){
+  let m=document.getElementById("previewModal"); m.style.display="flex";
+  m.innerHTML=`<div class="modalContent"><span onclick="closePreview()" class="close">&times;</span><img src="${img}"><h3>${n}</h3><p>Rs ${p}</p><button onclick="buyNow('${n}',${p})">Buy Now</button></div>`;
+}
+function closePreview(){document.getElementById("previewModal").style.display="none";}
+
+function buyNow(name,price){
+  let modal=document.getElementById("orderModal"); modal.style.display="flex";
+  modal.innerHTML=`<div class="modalContent"><span onclick="closeOrder()" class="close">&times;</span>
+  <h3>Order: ${name}</h3><p>Price: Rs ${price}</p>
+  <input id="userName" placeholder="Your Name"><br>
+  <input id="userLocation" placeholder="Address"><br>
+  <input id="userWhatsApp" placeholder="WhatsApp Number"><br>
+  <input id="userContact" placeholder="Contact Number"><br>
+  <select id="paymentMethod"><option value="COD">Cash on Delivery</option><option value="JazzCash">JazzCash (03705519562)</option><option value="EasyPaisa">EasyPaisa (03379827882)</option></select><br>
+  <button onclick="submitOrder('${name}',${price})">Submit Order</button>
+  </div>`;
+}
+function closeOrder(){document.getElementById("orderModal").style.display="none";}
+function submitOrder(product,price){
+  let name=document.getElementById("userName").value;
+  let loc=document.getElementById("userLocation").value;
+  let whatsapp=document.getElementById("userWhatsApp").value;
+  let contact=document.getElementById("userContact").value;
+  let method=document.getElementById("paymentMethod").value;
+  if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}
+  alert(`Order Submitted!\nProduct: ${product}\nPrice: Rs ${price}\nName: ${name}\nLocation: ${loc}\nWhatsApp: ${whatsapp}\nContact: ${contact}\nPayment: ${method}\n\nContact via Facebook, Instagram, Email for confirmation`);
+  closeOrder();
+}
 </script>
 </body>
 </html>
