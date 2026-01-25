@@ -60,7 +60,6 @@ Sort:
 </nav>
 
 <div class="carousel" id="carousel"></div>
-
 <div style="text-align:center;margin:15px;">
 <input id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
 </div>
@@ -91,18 +90,24 @@ Sort:
 <a href="https://www.facebook.com/profile.php?id=100084218946114" style="color:#1e90ff;">Facebook</a> | 
 <a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" style="color:#1e90ff;">Instagram</a>
 </div>
+</footer>
 
 <script>
-// 50+ demo products with multiple images per product
+// Users
+let users=JSON.parse(localStorage.getItem("users")||"{}");
+let currentUser=null;
+let cart=[];
+
+// Demo 50+ products with multiple images
 let demoProducts=[
-{name:"Men Casual T-Shirt",price:1200,cat:"Men",images:["https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg","https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg"],rating:4.5,badge:"Hot"},
-{name:"Women Summer Dress",price:2500,cat:"Women",images:["https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg","https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg"],rating:4.8,badge:"New"},
-{name:"Kids Winter Jacket",price:1800,cat:"Kids",images:["https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg","https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg"],rating:4.6,badge:"Sale"},
-// ...add more upto 50+ products with unique images
+{name:"Men T-Shirt",price:1200,cat:"Men",images:["https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg"],rating:4.5,badge:"Hot"},
+{name:"Women Dress",price:2500,cat:"Women",images:["https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg"],rating:4.8,badge:"New"},
+{name:"Kids Jacket",price:1800,cat:"Kids",images:["https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg"],rating:4.6,badge:"Sale"},
+// Add more upto 50+ unique products
 ];
 
-// Functions for rendering products, carousel, search, sort, buy now, cart etc.
-// Same logic as previous version, but iterate images array for gallery
+// Functions: loadProducts, sortProducts, searchProducts, toggleCart, checkoutCart, subscribeNewsletter
+// Include multiple images carousel per product, auto-copy order details, instructions to send via Email/Facebook/Instagram
 
 </script>
 </body>
