@@ -6,108 +6,141 @@
 
 <!-- Firebase SDKs -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
-  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
-  import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
-  // Your Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyAL7_6DTdz14ySlLQ1jjuQC4WdO4mpRZKY",
-    authDomain: "shopping-center-9.firebaseapp.com",
-    projectId: "shopping-center-9",
-    storageBucket: "shopping-center-9.appspot.com",
-    messagingSenderId: "33427127023",
-    appId: "1:33427127023:web:a478af6499f28f84d9391a"
-  };
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyAL7_6DTdz14ySlLQ1jjuQC4WdO4mpRZKY",
+  authDomain: "shopping-center-9.firebaseapp.com",
+  projectId: "shopping-center-9",
+  storageBucket: "shopping-center-9.appspot.com",
+  messagingSenderId: "33427127023",
+  appId: "1:33427127023:web:a478af6499f28f84d9391a"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-  const auth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+const auth = getAuth(app);
 
-  // Cart
-  let cart = [];
+// Cart
+let cart = [];
 
-  // Admin login
-  window.loginAdmin = function(){
-    const email = document.getElementById("email").value;
-    const pass = document.getElementById("password").value;
-    signInWithEmailAndPassword(auth, email, pass)
-      .then(() => {
-        document.getElementById("adminPanel").style.display="block";
-        document.getElementById("loginSection").style.display="none";
-        loadProducts();
-      })
-      .catch(e=>alert("Login failed: "+e.message));
-  }
+// =================== Admin Login ===================
+window.loginAdmin = function(){
+  const email = document.getElementById("adminEmail").value;
+  const pass = document.getElementById("adminPassword").value;
+  signInWithEmailAndPassword(auth, email, pass)
+    .then(() => {
+      document.getElementById("adminPanel").style.display="block";
+      document.getElementById("adminLoginSection").style.display="none";
+      document.getElementById("userPanel").style.display="none";
+      loadProducts();
+    })
+    .catch(e=>alert("Admin Login failed: "+e.message));
+}
 
-  window.logoutAdmin = function(){
-    signOut(auth).then(()=>{
-      document.getElementById("adminPanel").style.display="none";
-      document.getElementById("loginSection").style.display="block";
-    });
-  }
+window.logoutAdmin = function(){
+  signOut(auth).then(()=>{
+    document.getElementById("adminPanel").style.display="none";
+    document.getElementById("adminLoginSection").style.display="block";
+  });
+}
 
-  // Add Product
-  window.addProduct = async function(){
-    const name = document.getElementById("pName").value;
-    const price = document.getElementById("pPrice").value;
-    const cat = document.getElementById("pCat").value;
-    const imageFile = document.getElementById("pImage").files[0];
-    if(!name || !price || !imageFile){ alert("Fill all fields"); return; }
+// Add Product (Admin)
+window.addProduct = async function(){
+  const name = document.getElementById("pName").value;
+  const price = document.getElementById("pPrice").value;
+  const cat = document.getElementById("pCat").value;
+  const imageFile = document.getElementById("pImage").files[0];
+  if(!name || !price || !imageFile){ alert("Fill all fields"); return; }
 
-    const storageRef = ref(storage, "products/"+Date.now()+"_"+imageFile.name);
-    await uploadBytes(storageRef, imageFile);
-    const url = await getDownloadURL(storageRef);
+  const storageRef = ref(storage, "products/"+Date.now()+"_"+imageFile.name);
+  await uploadBytes(storageRef, imageFile);
+  const url = await getDownloadURL(storageRef);
 
-    await addDoc(collection(db, "products"), {
-      name, price, cat, desc: name, image: url
-    });
-    loadProducts();
-  }
+  await addDoc(collection(db, "products"), { name, price, cat, desc: name, image: url });
+  loadProducts();
+}
 
-  // Load products
-  window.loadProducts = async function(){
-    const searchVal = document.getElementById("search") ? document.getElementById("search").value.toLowerCase() : "";
-    const productsDiv = document.getElementById("products");
-    productsDiv.innerHTML = "";
+// =================== Users Login/Register ===================
+window.registerUser = function(){
+  const email = document.getElementById("userEmail").value;
+  const pass = document.getElementById("userPassword").value;
+  createUserWithEmailAndPassword(auth, email, pass)
+    .then(() => {
+      alert("User Registered Successfully!");
+      document.getElementById("userPanel").style.display="block";
+      document.getElementById("userLoginSection").style.display="none";
+      loadProducts();
+    })
+    .catch(e=>alert("Register failed: "+e.message));
+}
 
-    const querySnapshot = await getDocs(collection(db, "products"));
-    querySnapshot.forEach(doc=>{
-      const p = doc.data();
-      if(!searchVal || p.name.toLowerCase().includes(searchVal)){
-        const card = document.createElement("div");
-        card.className="card";
-        card.innerHTML=`
-          <img src="${p.image}">
-          <h4>${p.name}</h4>
-          <p>Rs. ${p.price}</p>
-          <button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
-        `;
-        productsDiv.appendChild(card);
-      }
-    });
-  }
+window.loginUser = function(){
+  const email = document.getElementById("userEmail").value;
+  const pass = document.getElementById("userPassword").value;
+  signInWithEmailAndPassword(auth, email, pass)
+    .then(() => {
+      document.getElementById("userPanel").style.display="block";
+      document.getElementById("userLoginSection").style.display="none";
+      loadProducts();
+    })
+    .catch(e=>alert("User Login failed: "+e.message));
+}
 
-  // Cart
-  window.addToCart = function(name, price){
-    cart.push({name, price});
-    renderCart();
-  }
+window.logoutUser = function(){
+  signOut(auth).then(()=>{
+    document.getElementById("userPanel").style.display="none";
+    document.getElementById("userLoginSection").style.display="block";
+  });
+}
 
-  window.renderCart = function(){
-    document.getElementById("cartList").innerText = cart.map(c=>c.name+" Rs."+c.price).join("\n");
-  }
+// =================== Load Products for all ===================
+window.loadProducts = async function(){
+  const searchVal = document.getElementById("search") ? document.getElementById("search").value.toLowerCase() : "";
+  const productsDiv = document.getElementById("products");
+  productsDiv.innerHTML = "";
 
-  window.checkout = function(){
-    if(cart.length==0){alert("Cart empty"); return;}
-    let msg = cart.map(c=>c.name+" Rs."+c.price).join("%0A");
-    msg += "%0A%0APayment: "+document.getElementById("payment").value;
-    window.open("https://wa.me/923000000000?text=Order%0A"+msg);
-  }
+  const querySnapshot = await getDocs(collection(db, "products"));
+  querySnapshot.forEach(doc=>{
+    const p = doc.data();
+    if(!searchVal || p.name.toLowerCase().includes(searchVal)){
+      const card = document.createElement("div");
+      card.className="card";
+      card.innerHTML=`
+        <img src="${p.image}">
+        <h4>${p.name}</h4>
+        <p>Rs. ${p.price}</p>
+        <button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
+      `;
+      productsDiv.appendChild(card);
+    }
+  });
+}
 
-  window.addEventListener("DOMContentLoaded", loadProducts);
+// =================== Cart & Checkout ===================
+window.addToCart = function(name, price){
+  cart.push({name, price});
+  renderCart();
+}
+
+window.renderCart = function(){
+  document.getElementById("cartList").innerText = cart.map(c=>c.name+" Rs."+c.price).join("\n");
+}
+
+window.checkout = function(){
+  if(cart.length==0){alert("Cart empty"); return;}
+  let msg = cart.map(c=>c.name+" Rs."+c.price).join("%0A");
+  msg += "%0A%0APayment: "+document.getElementById("payment").value;
+  window.open("https://wa.me/923000000000?text=Order%0A"+msg);
+}
+
+window.addEventListener("DOMContentLoaded", loadProducts);
+
 </script>
 
 <style>
@@ -130,10 +163,11 @@ button:hover{background:#e03e00}
 
 <div class="container">
 
-<!-- LOGIN -->
-<div id="loginSection">
-<input type="email" id="email" placeholder="Admin Email"><br>
-<input type="password" id="password" placeholder="Password"><br>
+<!-- ADMIN LOGIN -->
+<div id="adminLoginSection">
+<h3>Admin Login</h3>
+<input type="email" id="adminEmail" placeholder="Admin Email"><br>
+<input type="password" id="adminPassword" placeholder="Password"><br>
 <button onclick="loginAdmin()">Login as Admin</button>
 </div>
 
@@ -150,6 +184,21 @@ button:hover{background:#e03e00}
 <button onclick="addProduct()">Add Product</button>
 <button onclick="logoutAdmin()">Logout</button>
 <hr>
+</div>
+
+<!-- USER LOGIN/REGISTER -->
+<div id="userLoginSection">
+<h3>User Login / Register</h3>
+<input type="email" id="userEmail" placeholder="Email"><br>
+<input type="password" id="userPassword" placeholder="Password"><br>
+<button onclick="loginUser()">Login</button>
+<button onclick="registerUser()">Register</button>
+</div>
+
+<!-- USER PANEL -->
+<div id="userPanel" style="display:none">
+<h3>Welcome User</h3>
+<button onclick="logoutUser()">Logout</button>
 </div>
 
 <!-- SEARCH -->
