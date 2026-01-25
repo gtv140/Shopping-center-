@@ -26,6 +26,11 @@ footer{margin-top:20px;text-align:center;padding:15px;background:#ffb74d;color:w
 .sortBtn{margin-left:5px;background:#fff3e0;color:#ff6f00;border:none;padding:5px 10px;border-radius:6px;font-weight:bold;cursor:pointer;transition:.3s;}
 .sortBtn:hover{background:#ff6f00;color:white;}
 .badge{position:absolute;top:10px;left:10px;background:red;color:white;padding:2px 6px;font-size:12px;border-radius:4px;font-weight:bold;}
+#cartSidebar{position:fixed;right:0;top:0;width:280px;height:100%;background:white;box-shadow:-4px 0 12px rgba(0,0,0,0.3);padding:15px;overflow-y:auto;display:none;z-index:999;}
+#cartSidebar h3{color:#ff6f00;}
+#cartSidebar button{margin-top:10px;}
+#newsletterPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.3);display:none;z-index:1000;text-align:center;}
+#newsletterPopup input{width:80%;margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -45,6 +50,7 @@ Sort:
 <button class="sortBtn" onclick="sortProducts('priceAsc')">Price ↑</button>
 <button class="sortBtn" onclick="sortProducts('priceDesc')">Price ↓</button>
 <button class="sortBtn" onclick="sortProducts('ratingDesc')">Rating ↓</button>
+<button class="buyBtn" onclick="toggleCart()">Cart 🛒</button>
 </nav>
 
 <div class="carousel" id="carousel">
@@ -60,8 +66,21 @@ Sort:
 <div id="recommended" class="products"></div>
 <div id="products" class="products"></div>
 
-<div id="previewModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;"></div>
-<div id="orderModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;"></div>
+<div id="previewModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:998;"></div>
+<div id="orderModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:998;"></div>
+
+<div id="cartSidebar">
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<button class="buyBtn" onclick="checkoutCart()">Checkout</button>
+<button onclick="toggleCart()">Close</button>
+</div>
+
+<div id="newsletterPopup">
+<h3>Subscribe to Newsletter</h3>
+<input type="email" id="newsletterEmail" placeholder="Enter email"><br>
+<button class="buyBtn" onclick="subscribeNewsletter()">Subscribe</button>
+</div>
 
 <footer>
 <button onclick="showAdminLogin()">Admin Login</button>
@@ -86,29 +105,19 @@ Sort:
 <a href="https://www.facebook.com/profile.php?id=100084218946114" style="color:white;">Facebook</a> | 
 <a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" style="color:white;">Instagram</a>
 </div>
-</footer>
 
 <script>
+// Users & cart
 let users=JSON.parse(localStorage.getItem("users")||"{}");
 let currentUser=null;
-function showUserAuth(){document.getElementById("userAuth").style.display="block";}
-function signupUser(){let e=document.getElementById("uEmail").value,p=document.getElementById("uPass").value;if(e&&p){users[e]=p;localStorage.setItem("users",JSON.stringify(users));alert("Signup demo successful!");currentUser=e;}}
-function loginUser(){let e=document.getElementById("uEmail").value,p=document.getElementById("uPass").value;if(users[e]===p){alert("Login demo OK!");currentUser=e;}else alert("Invalid demo credentials");}
-function logoutUser(){currentUser=null;alert("Demo user logged out");}
+let cart=[];
 
-/* Full 100+ demo products with real images + badges + Winter/Summer */
+// Full demo products 100+ with badges & real images
 let demoProducts=[
 {name:"Men Casual T-Shirt",price:1200,cat:"Men",image:"https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg",rating:4.5,badge:"Hot"},
 {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8,badge:"New"},
 {name:"Kids Winter Jacket",price:1800,cat:"Kids",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6,badge:"Sale"},
-{name:"Men Winter Jacket",price:3500,cat:"Winter",image:"https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",rating:4.7,badge:"New"},
-{name:"Women Wool Coat",price:4200,cat:"Winter",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8,badge:"Hot"},
-{name:"Kids Wool Sweater",price:1500,cat:"Winter",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6,badge:"Sale"},
-{name:"Men Boots",price:2800,cat:"Winter",image:"https://images.pexels.com/photos/19090/pexels-photo.jpg",rating:4.7,badge:"Hot"},
-{name:"Wool Gloves",price:800,cat:"Winter",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.5,badge:"New"},
-{name:"Woolen Scarf",price:700,cat:"Winter",image:"https://images.pexels.com/photos/2111517/pexels-photo-2111517.jpeg",rating:4.6,badge:"Sale"},
-{name:"Bluetooth Headphones",price:3600,cat:"Electronics",image:"https://images.pexels.com/photos/3394669/pexels-photo-3394669.jpeg",rating:4.7,badge:"Hot"},
-// ... add remaining products to reach 100+ with badges, images per category
+// ... add remaining to reach 100+ products
 ];
 
 function loadProducts(filter=""){
@@ -116,55 +125,39 @@ function loadProducts(filter=""){
   demoProducts.forEach(p=>{
     if(filter && !p.name.toLowerCase().includes(filter.toLowerCase()) && !p.cat.toLowerCase().includes(filter.toLowerCase())) return;
     let card=document.createElement("div"); card.className="card";
-    card.innerHTML=`${p.badge?'<div class="badge">'+p.badge+'</div>':''}<img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')"><h4>${p.name}</h4><p>Rs ${p.price}</p><p>${'⭐'.repeat(Math.round(p.rating))}</p><button class="buyBtn" onclick="buyNow('${p.name}',${p.price})">Buy Now</button>`;
+    card.innerHTML=`${p.badge?'<div class="badge">'+p.badge+'</div>':''}<img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')"><h4>${p.name}</h4><p>Rs ${p.price}</p><p>${'⭐'.repeat(Math.round(p.rating))}</p><button class="buyBtn" onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>`;
     box.appendChild(card);
   });
   document.getElementById("recommended").innerHTML=box.innerHTML;
 }
 
-function sortProducts(type){
-  if(type==='priceAsc') demoProducts.sort((a,b)=>a.price-b.price);
-  else if(type==='priceDesc') demoProducts.sort((a,b)=>b.price-a.price);
-  else if(type==='ratingDesc') demoProducts.sort((a,b)=>b.rating-a.rating);
-  loadProducts();
-}
-
 function searchProducts(){loadProducts(document.getElementById("searchInput").value);}
-window.onload=()=>loadProducts();
+window.onload=()=>{loadProducts();setTimeout(()=>document.getElementById("newsletterPopup").style.display="block",3000);}
 
-function preview(n,p,img){
-  let m=document.getElementById("previewModal"); m.style.display="flex";
-  m.innerHTML=`<div class="modalContent"><span onclick="closePreview()" class="close">&times;</span><img src="${img}" style="width:100%;border-radius:8px;"><h3>${n}</h3><p>Rs ${p}</p><button class="buyBtn" onclick="buyNow('${n}',${p})">Buy Now</button></div>`;
-}
+function toggleCart(){let c=document.getElementById("cartSidebar");c.style.display=(c.style.display=="none")?"block":"none";updateCart();}
+function addToCart(name,price){cart.push({name,price});updateCart();alert("Added to cart!");}
+function updateCart(){let c=document.getElementById("cartItems");c.innerHTML="";cart.forEach((p,i)=>{c.innerHTML+=`<p>${p.name} - Rs ${p.price} <button onclick="removeCart(${i})">Remove</button></p>`;});}
+function removeCart(i){cart.splice(i,1);updateCart();}
+function checkoutCart(){if(cart.length==0){alert("Cart empty");return;}alert("Checkout demo: "+cart.map(p=>p.name).join(", "));cart=[];updateCart();}
+function subscribeNewsletter(){let e=document.getElementById("newsletterEmail").value;if(e){alert("Subscribed: "+e);document.getElementById("newsletterPopup").style.display="none";}else alert("Enter email");}
+function sortProducts(type){if(type==='priceAsc') demoProducts.sort((a,b)=>a.price-b.price);else if(type==='priceDesc') demoProducts.sort((a,b)=>b.price-a.price);else if(type==='ratingDesc') demoProducts.sort((a,b)=>b.rating-a.rating);loadProducts();}
+function preview(n,p,img){let m=document.getElementById("previewModal"); m.style.display="flex"; m.innerHTML=`<div class="modalContent"><span onclick="closePreview()" class="close">&times;</span><img src="${img}" style="width:100%;border-radius:8px;"><h3>${n}</h3><p>Rs ${p}</p><button class="buyBtn" onclick="buyNow('${n}',${p})">Buy Now</button></div>`;}
 function closePreview(){document.getElementById("previewModal").style.display="none";}
-
-function buyNow(name,price){
-  let modal=document.getElementById("orderModal"); modal.style.display="flex";
-  modal.innerHTML=`<div class="modalContent"><span onclick="closeOrder()" class="close">&times;</span>
-  <h3>Order: ${name}</h3><p>Price: Rs ${price}</p>
-  <input id="userName" placeholder="Your Name"><br>
-  <input id="userLocation" placeholder="Address"><br>
-  <input id="userWhatsApp" placeholder="WhatsApp Number"><br>
-  <input id="userContact" placeholder="Contact Number"><br>
-  <select id="paymentMethod"><option value="COD">Cash on Delivery</option><option value="JazzCash">JazzCash (03705519562)</option><option value="EasyPaisa">EasyPaisa (03379827882)</option></select><br>
-  <button class="buyBtn" onclick="submitOrder('${name}',${price})">Submit Order</button><br><br>
-  <p>Contact us for confirmation:</p>
-  <a href="https://www.facebook.com/profile.php?id=100084218946114" target="_blank">Facebook</a> | 
-  <a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" target="_blank">Instagram</a> | 
-  <a href="mailto:rock.earn92@gmail.com">Email</a>
-  </div>`;
-}
+function buyNow(name,price){let modal=document.getElementById("orderModal"); modal.style.display="flex"; modal.innerHTML=`<div class="modalContent"><span onclick="closeOrder()" class="close">&times;</span>
+<h3>Order: ${name}</h3><p>Price: Rs ${price}</p>
+<input id="userName" placeholder="Your Name"><br>
+<input id="userLocation" placeholder="Address"><br>
+<input id="userWhatsApp" placeholder="WhatsApp Number"><br>
+<input id="userContact" placeholder="Contact Number"><br>
+<select id="paymentMethod"><option value="COD">Cash on Delivery</option><option value="JazzCash">JazzCash (03705519562)</option><option value="EasyPaisa">EasyPaisa (03379827882)</option></select><br>
+<button class="buyBtn" onclick="submitOrder('${name}',${price})">Submit Order</button><br><br>
+<p>Contact us for confirmation:</p>
+<a href="https://www.facebook.com/profile.php?id=100084218946114" target="_blank">Facebook</a> | 
+<a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" target="_blank">Instagram</a> | 
+<a href="mailto:rock.earn92@gmail.com">Email</a>
+</div>`;}
 function closeOrder(){document.getElementById("orderModal").style.display="none";}
-function submitOrder(product,price){
-  let name=document.getElementById("userName").value;
-  let loc=document.getElementById("userLocation").value;
-  let whatsapp=document.getElementById("userWhatsApp").value;
-  let contact=document.getElementById("userContact").value;
-  let method=document.getElementById("paymentMethod").value;
-  if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}
-  alert(`Order Submitted!\nProduct: ${product}\nPrice: Rs ${price}\nName: ${name}\nLocation: ${loc}\nWhatsApp: ${whatsapp}\nContact: ${contact}\nPayment: ${method}\n\nCheck Facebook, Instagram or Email for confirmation`);
-  closeOrder();
-}
+function submitOrder(product,price){let name=document.getElementById("userName").value;let loc=document.getElementById("userLocation").value;let whatsapp=document.getElementById("userWhatsApp").value;let contact=document.getElementById("userContact").value;let method=document.getElementById("paymentMethod").value;if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}alert(`Order Submitted!\nProduct: ${product}\nPrice: Rs ${price}\nName: ${name}\nLocation: ${loc}\nWhatsApp: ${whatsapp}\nContact: ${contact}\nPayment: ${method}\n\nCheck Facebook, Instagram or Email for confirmation`);closeOrder();}
 </script>
 </body>
 </html>
