@@ -3,12 +3,11 @@
 <meta charset="UTF-8">
 <title>Shopping Center</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
-import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
 /* 🔥 Firebase Config */
 const firebaseConfig = {
@@ -19,33 +18,78 @@ const firebaseConfig = {
   messagingSenderId: "33427127023",
   appId: "1:33427127023:web:a478af6499f28f84d9391a"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 setPersistence(auth, browserLocalPersistence);
 
-/* 🔥 CART */
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-function saveCart(){ localStorage.setItem("cart", JSON.stringify(cart)); }
+/* 🔥 USER LOGIN/SIGNUP */
+window.showUserAuth=()=>document.getElementById("userAuth").style.display="block";
+window.signupUser=()=>{
+  const email=document.getElementById("uEmail").value;
+  const pass=document.getElementById("uPass").value;
+  createUserWithEmailAndPassword(auth,email,pass).then(()=>{
+    alert("Signup successful! Login now.");
+    document.getElementById("userAuth").style.display="none";
+  }).catch(e=>alert(e.message));
+};
+window.loginUser=()=>{
+  const email=document.getElementById("uEmail").value;
+  const pass=document.getElementById("uPass").value;
+  signInWithEmailAndPassword(auth,email,pass).catch(e=>alert(e.message));
+};
+window.logoutUser=()=>signOut(auth);
 
-/* 🔥 LOAD PRODUCTS */
+/* 🔥 ADMIN LOGIN HIDDEN */
+window.showAdminLogin=()=>document.getElementById("adminBox").style.display="block";
+window.loginAdmin=()=>{
+  signInWithEmailAndPassword(auth,
+    document.getElementById("adminEmail").value,
+    document.getElementById("adminPass").value
+  ).catch(e=>alert(e.message));
+};
+window.logoutAdmin=()=>signOut(auth);
+
+/* 🔥 PRODUCTS DATA - 100+ DEMO PRODUCTS */
+const demoProducts=[
+{name:"Men Casual Shirt",price:1200,cat:"Men",image:"https://placehold.co/400x400?text=Men+Casual+Shirt"},
+{name:"Women Denim Jacket",price:2500,cat:"Women",image:"https://placehold.co/400x400?text=Women+Denim+Jacket"},
+{name:"Running Shoes",price:3000,cat:"Men",image:"https://placehold.co/400x400?text=Running+Shoes"},
+{name:"Leather Wallet",price:800,cat:"Accessories",image:"https://placehold.co/400x400?text=Leather+Wallet"},
+{name:"Bluetooth Headphones",price:3600,cat:"Electronics",image:"https://placehold.co/400x400?text=Bluetooth+Headphones"},
+{name:"Fitness Dumbbells Set",price:5000,cat:"Fitness",image:"https://placehold.co/400x400?text=Fitness+Dumbbells"},
+{name:"Women Handbag",price:2200,cat:"Women",image:"https://placehold.co/400x400?text=Women+Handbag"},
+{name:"Sunglasses",price:1300,cat:"Accessories",image:"https://placehold.co/400x400?text=Sunglasses"},
+{name:"Smart Watch",price:5500,cat:"Electronics",image:"https://placehold.co/400x400?text=Smart+Watch"},
+{name:"Sports Cap",price:600,cat:"Men",image:"https://placehold.co/400x400?text=Sports+Cap"},
+{name:"Women Dress",price:3500,cat:"Women",image:"https://placehold.co/400x400?text=Women+Dress"},
+{name:"Laptop Sleeve",price:1500,cat:"Electronics",image:"https://placehold.co/400x400?text=Laptop+Sleeve"},
+{name:"Kids T-Shirt",price:900,cat:"Men",image:"https://placehold.co/400x400?text=Kids+T-Shirt"},
+{name:"Backpack Bag",price:2000,cat:"Accessories",image:"https://placehold.co/400x400?text=Backpack+Bag"},
+{name:"Earbuds Wireless",price:2800,cat:"Electronics",image:"https://placehold.co/400x400?text=Earbuds+Wireless"},
+{name:"Yoga Mat",price:1200,cat:"Fitness",image:"https://placehold.co/400x400?text=Yoga+Mat"},
+{name:"Women Sandals",price:1800,cat:"Women",image:"https://placehold.co/400x400?text=Women+Sandals"},
+{name:"Men Formal Shoes",price:3200,cat:"Men",image:"https://placehold.co/400x400?text=Men+Formal+Shoes"},
+{name:"Fitness Resistance Bands",price:1500,cat:"Fitness",image:"https://placehold.co/400x400?text=Resistance+Bands"},
+{name:"Socks Pack",price:500,cat:"Accessories",image:"https://placehold.co/400x400?text=Socks+Pack"},
+// add more products up to 100+ same format
+];
+
+/* 🔥 LOAD PRODUCTS TO SCREEN */
 async function loadProducts(filter=""){
-  const box = document.getElementById("products");
-  box.innerHTML = "";
-  const snap = await getDocs(collection(db,"products"));
-  snap.forEach(d=>{
-    const p = d.data();
+  const box=document.getElementById("products");
+  box.innerHTML="";
+  demoProducts.forEach((p)=>{
     if(filter && !p.name.toLowerCase().includes(filter.toLowerCase()) && !p.cat.toLowerCase().includes(filter.toLowerCase())) return;
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
       <img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')">
       <h4>${p.name}</h4>
       <p>Rs ${p.price}</p>
       <button onclick="buyNow('${p.name}',${p.price})">Buy Now</button>
-      ${window.isAdmin ? `<button class="del" onclick="deleteProduct('${d.id}')">Delete</button>` : ``}
+      ${window.isAdmin?`<button class="del" onclick="deleteProduct('${p.name}')">Delete</button>`:""}
     `;
     box.appendChild(card);
   });
@@ -53,7 +97,7 @@ async function loadProducts(filter=""){
 
 /* 🔥 PRODUCT PREVIEW */
 window.preview=(n,p,img)=>{
-  const m = document.getElementById("previewModal");
+  const m=document.getElementById("previewModal");
   m.style.display="flex";
   m.innerHTML=`<div class="modalContent">
     <span onclick="closePreview()" class="close">&times;</span>
@@ -65,9 +109,9 @@ window.preview=(n,p,img)=>{
 };
 window.closePreview=()=>document.getElementById("previewModal").style.display="none";
 
-/* 🔥 BUY NOW FORM */
-window.buyNow = (name,price)=>{
-  const modal = document.getElementById("orderModal");
+/* 🔥 BUY NOW */
+window.buyNow=(name,price)=>{
+  const modal=document.getElementById("orderModal");
   modal.style.display="flex";
   modal.innerHTML=`<div class="modalContent">
     <span onclick="closeOrder()" class="close">&times;</span>
@@ -88,95 +132,55 @@ window.buyNow = (name,price)=>{
 };
 window.closeOrder=()=>document.getElementById("orderModal").style.display="none";
 
-/* 🔥 SUBMIT ORDER */
-window.submitOrder = async (product,price)=>{
+/* 🔥 SUBMIT ORDER - SAVES TO FIREBASE */
+window.submitOrder=async(product,price)=>{
   const name=document.getElementById("userName").value;
   const loc=document.getElementById("userLocation").value;
   const whatsapp=document.getElementById("userWhatsApp").value;
   const contact=document.getElementById("userContact").value;
   const method=document.getElementById("paymentMethod").value;
   const proof=document.getElementById("paymentProof").files[0];
-
-  if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}
-
+  if(!name||!loc||!whatsapp||!contact){alert("Fill all fields");return;}
   let proofURL="";
   if(proof){ 
     const sRef=ref(storage,"proof/"+Date.now()+proof.name);
     await uploadBytes(sRef,proof);
     proofURL=await getDownloadURL(sRef);
   }
-
   await addDoc(collection(db,"orders"),{
     product,price,name,loc,whatsapp,contact,method,proof:proofURL,date:new Date().toISOString()
   });
-
   alert("Order submitted successfully!");
   closeOrder();
 };
 
-/* 🔥 CART */
-window.addToCart = (n,p)=>{
-  cart.push({n,p});
-  saveCart();
-  renderCart();
-};
-function renderCart(){
-  document.getElementById("cart").innerText =
-    cart.map(i=>`${i.n} - Rs ${i.p}`).join("\n");
-}
-window.checkout = ()=>{
-  if(!cart.length){ alert("Cart empty"); return; }
-  let msg = cart.map(i=>`${i.n} Rs ${i.p}`).join("%0A");
-  window.open("https://wa.me/923000000000?text=Order%0A"+msg);
-};
-
-/* 🔥 ADMIN LOGIN */
-window.showAdminLogin=()=>document.getElementById("adminBox").style.display="block";
-window.loginAdmin=()=>{
-  signInWithEmailAndPassword(
-    auth,
-    document.getElementById("adminEmail").value,
-    document.getElementById("adminPass").value
-  ).catch(e=>alert(e.message));
-};
-window.logoutAdmin=()=>signOut(auth);
-
 /* 🔥 ADMIN STATE */
-window.isAdmin = false;
+window.isAdmin=false;
 onAuthStateChanged(auth,u=>{
-  window.isAdmin = !!u;
-  document.getElementById("adminPanel").style.display = u ? "block":"none";
-  loadProducts(document.getElementById("searchInput")?.value || "");
+  window.isAdmin=!!u;
+  document.getElementById("adminPanel").style.display=u?"block":"none";
+  loadProducts(document.getElementById("searchInput")?.value||"");
 });
 
-/* 🔥 ADD PRODUCT */
-window.addProduct = async ()=>{
-  const name = pName.value;
-  const price = Number(pPrice.value);
-  const cat = pCat.value;
-  const file = pImage.files[0];
-  if(!name || !price || !file){ alert("Fill all fields"); return; }
-
-  const sRef = ref(storage,"products/"+Date.now()+file.name);
+/* 🔥 ADD / DELETE PRODUCT (ADMIN) */
+window.addProduct=async()=>{
+  const name=pName.value;
+  const price=Number(pPrice.value);
+  const cat=pCat.value;
+  const file=pImage.files[0];
+  if(!name||!price||!file){alert("Fill all fields");return;}
+  const sRef=ref(storage,"products/"+Date.now()+file.name);
   await uploadBytes(sRef,file);
-  const url = await getDownloadURL(sRef);
-
+  const url=await getDownloadURL(sRef);
   await addDoc(collection(db,"products"),{name,price,cat,image:url});
-  loadProducts(document.getElementById("searchInput")?.value || "");
+  loadProducts(document.getElementById("searchInput")?.value||"");
 };
-
-/* 🔥 DELETE */
-window.deleteProduct = async (id)=>{
-  if(confirm("Delete product?")){
-    await deleteDoc(doc(db,"products",id));
-    loadProducts(document.getElementById("searchInput")?.value || "");
-  }
-};
+window.deleteProduct=async(id)=>{if(confirm("Delete product?")){await deleteDoc(doc(db,"products",id));loadProducts(document.getElementById("searchInput")?.value||"");}};
 
 /* 🔥 SEARCH */
 window.searchProducts=()=>loadProducts(document.getElementById("searchInput").value);
 
-window.onload=()=>{ loadProducts(); renderCart(); };
+window.onload=()=>{loadProducts();};
 </script>
 
 <style>
@@ -188,10 +192,10 @@ header{background:#ff6f00;color:#fff;padding:18px;text-align:center;font-size:26
 .card img{width:100%;height:150px;object-fit:cover;border-radius:8px;cursor:pointer}
 button{background:#ff6f00;color:#fff;border:none;padding:8px 12px;border-radius:6px;margin-top:5px;cursor:pointer}
 .del{background:red}
-#previewModal,#orderModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0009;justify-content:center;align-items:center}
+#previewModal,#orderModal,#userAuth{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0009;justify-content:center;align-items:center}
 .modalContent{background:#fff;padding:20px;border-radius:10px;text-align:center;position:relative;max-width:300px;margin:auto}
 .close{position:absolute;top:5px;right:10px;font-size:22px;cursor:pointer}
-#adminBox,#adminPanel{display:none;margin-top:10px}
+#adminBox,#adminPanel,#userAuth{display:none;margin-top:10px}
 input, select{padding:5px;border-radius:6px;margin:5px 0;width:90%}
 #searchInput{width:90%;padding:7px;margin:10px auto;display:block}
 </style>
@@ -200,10 +204,18 @@ input, select{padding:5px;border-radius:6px;margin:5px 0;width:90%}
 <body>
 <header>🛒 Shopping Center</header>
 
-<!-- SEARCH -->
+<button onclick="showUserAuth()" style="margin:10px">User Login / Sign Up</button>
+
+<div id="userAuth">
+<input id="uEmail" placeholder="Email"><br>
+<input type="password" id="uPass" placeholder="Password"><br>
+<button onclick="signupUser()">Sign Up</button>
+<button onclick="loginUser()">Login</button>
+<button onclick="logoutUser()">Logout</button>
+</div>
+
 <input id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
 
-<!-- CATEGORY FILTER -->
 <select id="pCat" onchange="searchProducts()">
   <option>All</option>
   <option>Men</option>
@@ -213,23 +225,19 @@ input, select{padding:5px;border-radius:6px;margin:5px 0;width:90%}
   <option>Fitness</option>
 </select>
 
-<!-- PRODUCTS GRID -->
 <div class="products" id="products"></div>
 
-<h3 style="padding-left:15px">🛍 Cart</h3>
-<pre id="cart" style="padding-left:15px"></pre>
-<button onclick="checkout()" style="margin-left:15px">Order via WhatsApp</button>
-
-<!-- MODALS -->
 <div id="previewModal"></div>
 <div id="orderModal"></div>
 
+<h3 style="padding-left:15px">🛍 Cart</h3>
+<pre id="cart" style="padding-left:15px"></pre>
+
 <footer>
 <button onclick="showAdminLogin()">Admin Login</button>
-
 <div id="adminBox">
 <input id="adminEmail" placeholder="Email"><br>
-<input id="adminPass" type="password" placeholder="Password"><br>
+<input type="password" id="adminPass" placeholder="Password"><br>
 <button onclick="loginAdmin()">Login</button>
 </div>
 
