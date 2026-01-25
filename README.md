@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +8,7 @@
 <!-- Firebase SDKs -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
@@ -37,7 +38,7 @@ window.loginAdmin = function(){
     .then(() => {
       document.getElementById("adminPanel").style.display="block";
       document.getElementById("adminLoginSection").style.display="none";
-      document.getElementById("userPanel").style.display="none";
+      document.getElementById("userLoginSection").style.display="none";
       loadProducts();
     })
     .catch(e=>alert("Admin Login failed: "+e.message));
@@ -50,7 +51,7 @@ window.logoutAdmin = function(){
   });
 }
 
-// Add Product (Admin)
+// =================== Add Product (Admin) ===================
 window.addProduct = async function(){
   const name = document.getElementById("pName").value;
   const price = document.getElementById("pPrice").value;
@@ -66,10 +67,20 @@ window.addProduct = async function(){
   loadProducts();
 }
 
+// =================== Delete Product (Admin) ===================
+window.deleteProduct = async function(id){
+  if(confirm("Are you sure to delete this product?")){
+    await deleteDoc(doc(db, "products", id));
+    loadProducts();
+  }
+}
+
 // =================== Users Login/Register ===================
 window.registerUser = function(){
-  const email = document.getElementById("userEmail").value;
-  const pass = document.getElementById("userPassword").value;
+  const email = document.getElementById("userEmail").value.trim();
+  const pass = document.getElementById("userPassword").value.trim();
+  if(!email || !pass){ alert("Fill all fields"); return; }
+
   createUserWithEmailAndPassword(auth, email, pass)
     .then(() => {
       alert("User Registered Successfully!");
@@ -81,8 +92,10 @@ window.registerUser = function(){
 }
 
 window.loginUser = function(){
-  const email = document.getElementById("userEmail").value;
-  const pass = document.getElementById("userPassword").value;
+  const email = document.getElementById("userEmail").value.trim();
+  const pass = document.getElementById("userPassword").value.trim();
+  if(!email || !pass){ alert("Fill all fields"); return; }
+
   signInWithEmailAndPassword(auth, email, pass)
     .then(() => {
       document.getElementById("userPanel").style.display="block";
@@ -99,7 +112,7 @@ window.logoutUser = function(){
   });
 }
 
-// =================== Load Products for all ===================
+// =================== Load Products ===================
 window.loadProducts = async function(){
   const searchVal = document.getElementById("search") ? document.getElementById("search").value.toLowerCase() : "";
   const productsDiv = document.getElementById("products");
@@ -116,6 +129,7 @@ window.loadProducts = async function(){
         <h4>${p.name}</h4>
         <p>Rs. ${p.price}</p>
         <button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
+        <button style="background:red" onclick="deleteProduct('${doc.id}')">Delete</button>
       `;
       productsDiv.appendChild(card);
     }
@@ -140,7 +154,6 @@ window.checkout = function(){
 }
 
 window.addEventListener("DOMContentLoaded", loadProducts);
-
 </script>
 
 <style>
