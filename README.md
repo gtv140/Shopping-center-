@@ -107,19 +107,15 @@ Sort:
 </div>
 
 <script>
-// Users & cart
 let users=JSON.parse(localStorage.getItem("users")||"{}");
 let currentUser=null;
 let cart=[];
-
-// Full demo products 100+ with badges & real images
 let demoProducts=[
 {name:"Men Casual T-Shirt",price:1200,cat:"Men",image:"https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg",rating:4.5,badge:"Hot"},
 {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8,badge:"New"},
 {name:"Kids Winter Jacket",price:1800,cat:"Kids",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6,badge:"Sale"},
-// ... add remaining to reach 100+ products
+// Add remaining 100+ real products here with images, badges, ratings
 ];
-
 function loadProducts(filter=""){
   let box=document.getElementById("products"); box.innerHTML="";
   demoProducts.forEach(p=>{
@@ -130,10 +126,8 @@ function loadProducts(filter=""){
   });
   document.getElementById("recommended").innerHTML=box.innerHTML;
 }
-
 function searchProducts(){loadProducts(document.getElementById("searchInput").value);}
 window.onload=()=>{loadProducts();setTimeout(()=>document.getElementById("newsletterPopup").style.display="block",3000);}
-
 function toggleCart(){let c=document.getElementById("cartSidebar");c.style.display=(c.style.display=="none")?"block":"none";updateCart();}
 function addToCart(name,price){cart.push({name,price});updateCart();alert("Added to cart!");}
 function updateCart(){let c=document.getElementById("cartItems");c.innerHTML="";cart.forEach((p,i)=>{c.innerHTML+=`<p>${p.name} - Rs ${p.price} <button onclick="removeCart(${i})">Remove</button></p>`;});}
