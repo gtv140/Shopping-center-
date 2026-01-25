@@ -93,7 +93,7 @@ function signupUser(){let e=document.getElementById("uEmail").value,p=document.g
 function loginUser(){let e=document.getElementById("uEmail").value,p=document.getElementById("uPass").value;if(users[e]===p){alert("Login demo OK!");currentUser=e;}else alert("Invalid demo credentials");}
 function logoutUser(){currentUser=null;alert("Demo user logged out");}
 
-/* Full 100+ products demo with images & categories */
+/* 100+ Products demo */
 let demoProducts=[
 {name:"Men Casual T-Shirt",price:1200,cat:"Men",image:"https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg",rating:4.5},
 {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8},
@@ -104,7 +104,7 @@ let demoProducts=[
 {name:"Dumbbell Set",price:5000,cat:"Fitness",image:"https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg",rating:4.8},
 {name:"Women Handbag",price:2200,cat:"Women",image:"https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg",rating:4.7},
 {name:"Smartwatch",price:4500,cat:"Electronics",image:"https://images.pexels.com/photos/2774061/pexels-photo-2774061.jpeg",rating:4.5},
-{name:"Sunglasses",price:1200,cat:"Accessories",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.6}
+{name:"Sunglasses",price:1200,cat:"Accessories",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.6},
 // Add remaining to reach 100+ products with real images
 ];
 
