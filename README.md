@@ -91,23 +91,6 @@ Sort:
 </div>
 
 <footer>
-<button onclick="showAdminLogin()">Admin Login</button>
-<div id="adminBox" style="display:none;">
-<input id="adminEmail" placeholder="Email"><br>
-<input type="password" id="adminPass" placeholder="Password"><br>
-<button onclick="loginAdmin()">Login</button>
-</div>
-<div id="adminPanel" style="display:none;">
-<h3>Admin Panel</h3>
-<input id="pName" placeholder="Product name"><br>
-<input id="pPrice" type="number" placeholder="Price"><br>
-<select id="pCat">
-<option>Men</option><option>Women</option><option>Kids</option><option>Accessories</option><option>Electronics</option><option>Fitness</option><option>Winter</option><option>Summer</option><option>Shoes</option><option>Watches</option><option>Bags</option>
-</select><br>
-<input id="pImage" type="file"><br>
-<button onclick="addProduct()">Add Product</button><br>
-<button onclick="logoutAdmin()">Logout</button>
-</div>
 <div style="margin-top:15px;">&copy; 2026 Shopping Center | Contact: 
 <a href="mailto:rock.earn92@gmail.com" style="color:#1e90ff;">rock.earn92@gmail.com</a> | 
 <a href="https://www.facebook.com/profile.php?id=100084218946114" style="color:#1e90ff;">Facebook</a> | 
@@ -127,7 +110,7 @@ let demoProducts=[
 {name:"Fitness Dumbbells Set",price:4500,cat:"Fitness",image:"https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg",rating:4.5,badge:"Hot"},
 {name:"Women Handbag",price:2200,cat:"Bags",image:"https://images.pexels.com/photos/4041681/pexels-photo-4041681.jpeg",rating:4.4,badge:"New"},
 {name:"Smart Watch",price:7000,cat:"Watches",image:"https://images.pexels.com/photos/277394/pexels-photo-277394.jpeg",rating:4.9,badge:"Hot"},
-// Add remaining 100+ products here
+// Add more trending products here (100+)
 ];
 
 function loadProducts(filter=""){
@@ -141,7 +124,7 @@ function loadProducts(filter=""){
     <p>Rs ${p.price}</p>
     <p>${'⭐'.repeat(Math.round(p.rating))}</p>
     <button class="buyBtn" onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
-    <button class="shopBtn" onclick="buyNow('${p.name}',${p.price})">Shop Now</button>`;
+    <button class="shopBtn" onclick="buyNow('${p.name}',${p.price})">Buy Now</button>`;
     box.appendChild(card);
   });
   document.getElementById("recommended").innerHTML=box.innerHTML;
@@ -158,21 +141,43 @@ function subscribeNewsletter(){let e=document.getElementById("newsletterEmail").
 function sortProducts(type){if(type==='priceAsc') demoProducts.sort((a,b)=>a.price-b.price);else if(type==='priceDesc') demoProducts.sort((a,b)=>b.price-a.price);else if(type==='ratingDesc') demoProducts.sort((a,b)=>b.rating-a.rating);loadProducts();}
 function preview(n,p,img){let m=document.getElementById("previewModal"); m.style.display="flex"; m.innerHTML=`<div class="modalContent"><span onclick="closePreview()" class="close">&times;</span><img src="${img}" style="width:100%;border-radius:8px;"><h3>${n}</h3><p>Rs ${p}</p><button class="buyBtn" onclick="buyNow('${n}',${p})">Buy Now</button></div>`;}
 function closePreview(){document.getElementById("previewModal").style.display="none";}
-function buyNow(name,price){let modal=document.getElementById("orderModal"); modal.style.display="flex"; modal.innerHTML=`<div class="modalContent"><span onclick="closeOrder()" class="close">&times;</span>
-<h3>Order: ${name}</h3><p>Price: Rs ${price}</p>
-<input id="userName" placeholder="Your Name"><br>
-<input id="userLocation" placeholder="Address"><br>
-<input id="userWhatsApp" placeholder="WhatsApp Number"><br>
-<input id="userContact" placeholder="Contact Number"><br>
-<select id="paymentMethod"><option value="COD">Cash on Delivery</option><option value="JazzCash">JazzCash (03705519562)</option><option value="EasyPaisa">EasyPaisa (03379827882)</option></select><br>
-<button class="buyBtn" onclick="submitOrder('${name}',${price})">Submit Order</button><br><br>
-<p>Contact us for confirmation:</p>
-<a href="https://www.facebook.com/profile.php?id=100084218946114" target="_blank">Facebook</a> | 
-<a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" target="_blank">Instagram</a> | 
-<a href="mailto:rock.earn92@gmail.com">Email</a>
-</div>`;}
+
+function buyNow(name,price){
+  let modal=document.getElementById("orderModal");
+  modal.style.display="flex";
+  modal.innerHTML=`<div class="modalContent">
+  <span onclick="closeOrder()" class="close">&times;</span>
+  <h3>Order: ${name}</h3><p>Price: Rs ${price}</p>
+  <input id="userName" placeholder="Your Name"><br>
+  <input id="userLocation" placeholder="Address"><br>
+  <input id="userWhatsApp" placeholder="WhatsApp Number"><br>
+  <input id="userContact" placeholder="Contact Number"><br>
+  <select id="paymentMethod">
+    <option value="COD">Cash on Delivery</option>
+    <option value="JazzCash">JazzCash (03705519562)</option>
+    <option value="EasyPaisa">EasyPaisa (03379827882)</option>
+  </select><br>
+  <button class="buyBtn" onclick="submitOrder('${name}',${price})">Submit Order</button><br><br>
+  <p>After submission, details are copied to clipboard. Send via:</p>
+  <a href="https://www.facebook.com/profile.php?id=100084218946114" target="_blank">Facebook</a> | 
+  <a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" target="_blank">Instagram</a> | 
+  <a href="mailto:rock.earn92@gmail.com">Email</a>
+  </div>`;
+}
+
 function closeOrder(){document.getElementById("orderModal").style.display="none";}
-function submitOrder(product,price){let name=document.getElementById("userName").value;let loc=document.getElementById("userLocation").value;let whatsapp=document.getElementById("userWhatsApp").value;let contact=document.getElementById("userContact").value;let method=document.getElementById("paymentMethod").value;if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}alert(`Order Submitted!\nProduct: ${product}\nPrice: Rs ${price}\nName: ${name}\nLocation: ${loc}\nWhatsApp: ${whatsapp}\nContact: ${contact}\nPayment: ${method}\n\nCheck Facebook, Instagram or Email for confirmation`);closeOrder();}
+
+function submitOrder(product,price){
+  let name=document.getElementById("userName").value;
+  let loc=document.getElementById("userLocation").value;
+  let whatsapp=document.getElementById("userWhatsApp").value;
+  let contact=document.getElementById("userContact").value;
+  let method=document.getElementById("paymentMethod").value;
+  if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}
+  let details=`Product: ${product}\nPrice: Rs ${price}\nName: ${name}\nLocation: ${loc}\nWhatsApp: ${whatsapp}\nContact: ${contact}\nPayment: ${method}`;
+  navigator.clipboard.writeText(details).then(()=>{alert("Order submitted! ✅\nDetails copied to clipboard.\nSend via Facebook, Instagram, or Email.");});
+  closeOrder();
+}
 </script>
 </body>
 </html>
