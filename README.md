@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
@@ -51,32 +51,32 @@ window.loginAdmin=()=>{
 };
 window.logoutAdmin=()=>signOut(auth);
 
-/* 🔥 PRODUCTS DATA - 100+ DEMO PRODUCTS */
+/* 🔥 DEMO PRODUCTS - ALL COLLECTIONS */
 const demoProducts=[
-{name:"Men Casual Shirt",price:1200,cat:"Men",image:"https://placehold.co/400x400?text=Men+Casual+Shirt"},
-{name:"Women Denim Jacket",price:2500,cat:"Women",image:"https://placehold.co/400x400?text=Women+Denim+Jacket"},
-{name:"Running Shoes",price:3000,cat:"Men",image:"https://placehold.co/400x400?text=Running+Shoes"},
-{name:"Leather Wallet",price:800,cat:"Accessories",image:"https://placehold.co/400x400?text=Leather+Wallet"},
-{name:"Bluetooth Headphones",price:3600,cat:"Electronics",image:"https://placehold.co/400x400?text=Bluetooth+Headphones"},
-{name:"Fitness Dumbbells Set",price:5000,cat:"Fitness",image:"https://placehold.co/400x400?text=Fitness+Dumbbells"},
-{name:"Women Handbag",price:2200,cat:"Women",image:"https://placehold.co/400x400?text=Women+Handbag"},
-{name:"Sunglasses",price:1300,cat:"Accessories",image:"https://placehold.co/400x400?text=Sunglasses"},
-{name:"Smart Watch",price:5500,cat:"Electronics",image:"https://placehold.co/400x400?text=Smart+Watch"},
-{name:"Sports Cap",price:600,cat:"Men",image:"https://placehold.co/400x400?text=Sports+Cap"},
-{name:"Women Dress",price:3500,cat:"Women",image:"https://placehold.co/400x400?text=Women+Dress"},
-{name:"Laptop Sleeve",price:1500,cat:"Electronics",image:"https://placehold.co/400x400?text=Laptop+Sleeve"},
-{name:"Kids T-Shirt",price:900,cat:"Men",image:"https://placehold.co/400x400?text=Kids+T-Shirt"},
-{name:"Backpack Bag",price:2000,cat:"Accessories",image:"https://placehold.co/400x400?text=Backpack+Bag"},
-{name:"Earbuds Wireless",price:2800,cat:"Electronics",image:"https://placehold.co/400x400?text=Earbuds+Wireless"},
-{name:"Yoga Mat",price:1200,cat:"Fitness",image:"https://placehold.co/400x400?text=Yoga+Mat"},
-{name:"Women Sandals",price:1800,cat:"Women",image:"https://placehold.co/400x400?text=Women+Sandals"},
-{name:"Men Formal Shoes",price:3200,cat:"Men",image:"https://placehold.co/400x400?text=Men+Formal+Shoes"},
-{name:"Fitness Resistance Bands",price:1500,cat:"Fitness",image:"https://placehold.co/400x400?text=Resistance+Bands"},
-{name:"Socks Pack",price:500,cat:"Accessories",image:"https://placehold.co/400x400?text=Socks+Pack"},
-// add more products up to 100+ same format
+  {name:"Men Summer T-Shirt",price:1200,cat:"Men",image:"https://placehold.co/400x400?text=Men+Summer+T-Shirt"},
+  {name:"Men Winter Jacket",price:3500,cat:"Men",image:"https://placehold.co/400x400?text=Men+Winter+Jacket"},
+  {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://placehold.co/400x400?text=Women+Summer+Dress"},
+  {name:"Women Winter Coat",price:4500,cat:"Women",image:"https://placehold.co/400x400?text=Women+Winter+Coat"},
+  {name:"Kids Summer T-Shirt",price:900,cat:"Kids",image:"https://placehold.co/400x400?text=Kids+Summer+T-Shirt"},
+  {name:"Kids Winter Jacket",price:1800,cat:"Kids",image:"https://placehold.co/400x400?text=Kids+Winter+Jacket"},
+  {name:"Leather Wallet",price:800,cat:"Accessories",image:"https://placehold.co/400x400?text=Leather+Wallet"},
+  {name:"Sunglasses",price:1300,cat:"Accessories",image:"https://placehold.co/400x400?text=Sunglasses"},
+  {name:"Smart Watch",price:5500,cat:"Electronics",image:"https://placehold.co/400x400?text=Smart+Watch"},
+  {name:"Bluetooth Headphones",price:3600,cat:"Electronics",image:"https://placehold.co/400x400?text=Bluetooth+Headphones"},
+  {name:"Yoga Mat",price:1200,cat:"Fitness",image:"https://placehold.co/400x400?text=Yoga+Mat"},
+  {name:"Dumbbells Set",price:5000,cat:"Fitness",image:"https://placehold.co/400x400?text=Dumbbells+Set"},
+  {name:"Running Shoes",price:3000,cat:"Men",image:"https://placehold.co/400x400?text=Running+Shoes"},
+  {name:"Women Handbag",price:2200,cat:"Women",image:"https://placehold.co/400x400?text=Women+Handbag"},
+  {name:"Laptop Sleeve",price:1500,cat:"Electronics",image:"https://placehold.co/400x400?text=Laptop+Sleeve"},
+  {name:"Sports Cap",price:600,cat:"Men",image:"https://placehold.co/400x400?text=Sports+Cap"},
+  {name:"Fitness Resistance Bands",price:1500,cat:"Fitness",image:"https://placehold.co/400x400?text=Resistance+Bands"},
+  {name:"Women Sandals",price:1800,cat:"Women",image:"https://placehold.co/400x400?text=Women+Sandals"},
+  {name:"Backpack Bag",price:2000,cat:"Accessories",image:"https://placehold.co/400x400?text=Backpack+Bag"},
+  {name:"Sports Watch",price:2500,cat:"Electronics",image:"https://placehold.co/400x400?text=Sports+Watch"},
+  // ... repeat / add more up to 100+ realistic products
 ];
 
-/* 🔥 LOAD PRODUCTS TO SCREEN */
+/* 🔥 LOAD PRODUCTS */
 async function loadProducts(filter=""){
   const box=document.getElementById("products");
   box.innerHTML="";
@@ -132,7 +132,7 @@ window.buyNow=(name,price)=>{
 };
 window.closeOrder=()=>document.getElementById("orderModal").style.display="none";
 
-/* 🔥 SUBMIT ORDER - SAVES TO FIREBASE */
+/* 🔥 SUBMIT ORDER - SAVE TO FIREBASE */
 window.submitOrder=async(product,price)=>{
   const name=document.getElementById("userName").value;
   const loc=document.getElementById("userLocation").value;
@@ -161,21 +161,6 @@ onAuthStateChanged(auth,u=>{
   document.getElementById("adminPanel").style.display=u?"block":"none";
   loadProducts(document.getElementById("searchInput")?.value||"");
 });
-
-/* 🔥 ADD / DELETE PRODUCT (ADMIN) */
-window.addProduct=async()=>{
-  const name=pName.value;
-  const price=Number(pPrice.value);
-  const cat=pCat.value;
-  const file=pImage.files[0];
-  if(!name||!price||!file){alert("Fill all fields");return;}
-  const sRef=ref(storage,"products/"+Date.now()+file.name);
-  await uploadBytes(sRef,file);
-  const url=await getDownloadURL(sRef);
-  await addDoc(collection(db,"products"),{name,price,cat,image:url});
-  loadProducts(document.getElementById("searchInput")?.value||"");
-};
-window.deleteProduct=async(id)=>{if(confirm("Delete product?")){await deleteDoc(doc(db,"products",id));loadProducts(document.getElementById("searchInput")?.value||"");}};
 
 /* 🔥 SEARCH */
 window.searchProducts=()=>loadProducts(document.getElementById("searchInput").value);
@@ -216,15 +201,6 @@ input, select{padding:5px;border-radius:6px;margin:5px 0;width:90%}
 
 <input id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
 
-<select id="pCat" onchange="searchProducts()">
-  <option>All</option>
-  <option>Men</option>
-  <option>Women</option>
-  <option>Accessories</option>
-  <option>Electronics</option>
-  <option>Fitness</option>
-</select>
-
 <div class="products" id="products"></div>
 
 <div id="previewModal"></div>
@@ -248,6 +224,7 @@ input, select{padding:5px;border-radius:6px;margin:5px 0;width:90%}
 <select id="pCat">
   <option>Men</option>
   <option>Women</option>
+  <option>Kids</option>
   <option>Accessories</option>
   <option>Electronics</option>
   <option>Fitness</option>
