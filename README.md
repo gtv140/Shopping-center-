@@ -6,7 +6,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
 import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
@@ -44,7 +44,7 @@ async function loadProducts(filter=""){
       <img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')">
       <h4>${p.name}</h4>
       <p>Rs ${p.price}</p>
-      <button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
+      <button onclick="buyNow('${p.name}',${p.price})">Buy Now</button>
       ${window.isAdmin ? `<button class="del" onclick="deleteProduct('${d.id}')">Delete</button>` : ``}
     `;
     box.appendChild(card);
@@ -54,15 +54,65 @@ async function loadProducts(filter=""){
 /* 🔥 PRODUCT PREVIEW */
 window.preview=(n,p,img)=>{
   const m = document.getElementById("previewModal");
-  m.style.display="block";
+  m.style.display="flex";
   m.innerHTML=`<div class="modalContent">
     <span onclick="closePreview()" class="close">&times;</span>
     <img src="${img}">
     <h3>${n}</h3>
     <p>Rs ${p}</p>
+    <button onclick="buyNow('${n}',${p})">Buy Now</button>
   </div>`;
 };
 window.closePreview=()=>document.getElementById("previewModal").style.display="none";
+
+/* 🔥 BUY NOW FORM */
+window.buyNow = (name,price)=>{
+  const modal = document.getElementById("orderModal");
+  modal.style.display="flex";
+  modal.innerHTML=`<div class="modalContent">
+    <span onclick="closeOrder()" class="close">&times;</span>
+    <h3>Order: ${name}</h3>
+    <p>Price: Rs ${price}</p>
+    <input id="userName" placeholder="Your Name"><br>
+    <input id="userLocation" placeholder="Location / Address"><br>
+    <input id="userWhatsApp" placeholder="WhatsApp Number"><br>
+    <input id="userContact" placeholder="Contact Number"><br>
+    <input type="file" id="paymentProof"><br>
+    <select id="paymentMethod">
+      <option value="COD">Cash on Delivery</option>
+      <option value="JazzCash">JazzCash (03705519562)</option>
+      <option value="EasyPaisa">EasyPaisa (03379827882)</option>
+    </select><br>
+    <button onclick="submitOrder('${name}',${price})">Submit Order</button>
+  </div>`;
+};
+window.closeOrder=()=>document.getElementById("orderModal").style.display="none";
+
+/* 🔥 SUBMIT ORDER */
+window.submitOrder = async (product,price)=>{
+  const name=document.getElementById("userName").value;
+  const loc=document.getElementById("userLocation").value;
+  const whatsapp=document.getElementById("userWhatsApp").value;
+  const contact=document.getElementById("userContact").value;
+  const method=document.getElementById("paymentMethod").value;
+  const proof=document.getElementById("paymentProof").files[0];
+
+  if(!name||!loc||!whatsapp||!contact){alert("Fill all fields"); return;}
+
+  let proofURL="";
+  if(proof){ 
+    const sRef=ref(storage,"proof/"+Date.now()+proof.name);
+    await uploadBytes(sRef,proof);
+    proofURL=await getDownloadURL(sRef);
+  }
+
+  await addDoc(collection(db,"orders"),{
+    product,price,name,loc,whatsapp,contact,method,proof:proofURL,date:new Date().toISOString()
+  });
+
+  alert("Order submitted successfully!");
+  closeOrder();
+};
 
 /* 🔥 CART */
 window.addToCart = (n,p)=>{
@@ -138,11 +188,11 @@ header{background:#ff6f00;color:#fff;padding:18px;text-align:center;font-size:26
 .card img{width:100%;height:150px;object-fit:cover;border-radius:8px;cursor:pointer}
 button{background:#ff6f00;color:#fff;border:none;padding:8px 12px;border-radius:6px;margin-top:5px;cursor:pointer}
 .del{background:red}
-#previewModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0009;justify-content:center;align-items:center}
+#previewModal,#orderModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0009;justify-content:center;align-items:center}
 .modalContent{background:#fff;padding:20px;border-radius:10px;text-align:center;position:relative;max-width:300px;margin:auto}
 .close{position:absolute;top:5px;right:10px;font-size:22px;cursor:pointer}
 #adminBox,#adminPanel{display:none;margin-top:10px}
-input, select{padding:5px;border-radius:6px;margin:5px 0}
+input, select{padding:5px;border-radius:6px;margin:5px 0;width:90%}
 #searchInput{width:90%;padding:7px;margin:10px auto;display:block}
 </style>
 </head>
@@ -170,8 +220,9 @@ input, select{padding:5px;border-radius:6px;margin:5px 0}
 <pre id="cart" style="padding-left:15px"></pre>
 <button onclick="checkout()" style="margin-left:15px">Order via WhatsApp</button>
 
-<!-- PREVIEW MODAL -->
+<!-- MODALS -->
 <div id="previewModal"></div>
+<div id="orderModal"></div>
 
 <footer>
 <button onclick="showAdminLogin()">Admin Login</button>
@@ -186,6 +237,13 @@ input, select{padding:5px;border-radius:6px;margin:5px 0}
 <h3>Admin Panel</h3>
 <input id="pName" placeholder="Product name">
 <input id="pPrice" type="number" placeholder="Price">
+<select id="pCat">
+  <option>Men</option>
+  <option>Women</option>
+  <option>Accessories</option>
+  <option>Electronics</option>
+  <option>Fitness</option>
+</select>
 <input id="pImage" type="file"><br>
 <button onclick="addProduct()">Add Product</button>
 <button onclick="logoutAdmin()">Logout</button>
