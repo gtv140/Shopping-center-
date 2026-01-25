@@ -127,7 +127,7 @@ let demoProducts=[
 {name:"Fitness Dumbbells Set",price:4500,cat:"Fitness",image:"https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg",rating:4.5,badge:"Hot"},
 {name:"Women Handbag",price:2200,cat:"Bags",image:"https://images.pexels.com/photos/4041681/pexels-photo-4041681.jpeg",rating:4.4,badge:"New"},
 {name:"Smart Watch",price:7000,cat:"Watches",image:"https://images.pexels.com/photos/277394/pexels-photo-277394.jpeg",rating:4.9,badge:"Hot"},
-// Add remaining 100+ product images matching actual products
+// Add remaining 100+ products here
 ];
 
 function loadProducts(filter=""){
