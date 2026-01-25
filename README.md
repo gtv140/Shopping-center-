@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shopping Center - Premium Neon</title>
+<title>Shopping Center</title>
 <style>
 body{margin:0;font-family:Arial;background:#0b0b0b;color:#fff}
-header{padding:25px;text-align:center;background:linear-gradient(90deg,#ff003c,#1e90ff);box-shadow:0 0 20px #ff003c;animation:neonGlow 2s infinite alternate}
-@keyframes neonGlow{0%{text-shadow:0 0 5px #ff003c,0 0 10px #1e90ff;}50%{text-shadow:0 0 15px #ff003c,0 0 25px #1e90ff;}100%{text-shadow:0 0 5px #ff003c,0 0 10px #1e90ff;}}
+header{padding:25px;text-align:center;background:#111}
 header h1{margin:0;font-size:32px}
 header p{margin:5px;font-size:16px;color:#ccc}
 .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
@@ -28,6 +27,7 @@ header p{margin:5px;font-size:16px;color:#ccc}
 .features{background:#111;padding:15px;margin:20px;border-radius:12px;box-shadow:0 0 15px #1e90ff}
 .features ul{padding-left:20px}
 footer{text-align:center;padding:15px;background:#111;color:#fff;font-size:14px;box-shadow:0 -2px 10px #ff003c}
+@keyframes neonGlow{0%{box-shadow:0 0 5px #ff003c,0 0 10px #1e90ff;}50%{box-shadow:0 0 15px #ff003c,0 0 25px #1e90ff;}100%{box-shadow:0 0 5px #ff003c,0 0 10px #1e90ff;}}
 </style>
 </head>
 <body>
@@ -81,12 +81,12 @@ footer{text-align:center;padding:15px;background:#111;color:#fff;font-size:14px;
 <footer>Shopping Center © 2026 - All Rights Reserved</footer>
 
 <script>
-// Products with curated Pexels/Pixabay images
+// Products with curated images
 let products=[
 {id:1,name:"Men Shirt 1",category:"Men",type:"Shirt",price:1200,img:"https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg?auto=compress&cs=tinysrgb&w=400",payment:"EasyPaisa"},
 {id:2,name:"Women Dress 1",category:"Women",type:"Dress",price:1500,img:"https://images.pexels.com/photos/296896/pexels-photo-296896.jpeg?auto=compress&cs=tinysrgb&w=400",payment:"JazzCash"},
 {id:3,name:"Kids Jacket 1",category:"Kids",type:"Jacket",price:1800,img:"https://images.pexels.com/photos/163097/fashion-children-boy-girl-163097.jpeg?auto=compress&cs=tinysrgb&w=400",payment:"Bank Transfer"},
-// Add more 50+ products with proper images
+// Add more 50+ products
 ];
 
 let cart=JSON.parse(localStorage.getItem("cart")||"[]");
