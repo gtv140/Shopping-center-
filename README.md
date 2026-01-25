@@ -19,8 +19,8 @@ nav button:hover{background:#1e90ff;color:white;box-shadow:0 0 15px #ff073a,0 0 
 .card img:hover{transform:scale(1.05);box-shadow:0 0 15px #ff073a,0 0 25px #1e90ff;}
 .card h4{margin:8px 0 4px;font-weight:bold;color:#ff073a;text-shadow:0 0 5px #1e90ff;}
 .card p{margin:2px;color:#aaa;}
-button.buyBtn{background:#1e90ff;color:white;border:none;padding:8px 12px;border-radius:6px;margin-top:6px;cursor:pointer;font-weight:bold;transition:.3s;box-shadow:0 0 10px #ff073a,0 0 20px #1e90ff;}
-button.buyBtn:hover{opacity:.9;box-shadow:0 0 20px #ff073a,0 0 30px #1e90ff;}
+button.buyBtn, button.shopBtn{background:#1e90ff;color:white;border:none;padding:8px 12px;border-radius:6px;margin-top:6px;cursor:pointer;font-weight:bold;transition:.3s;box-shadow:0 0 10px #ff073a,0 0 20px #1e90ff;}
+button.buyBtn:hover, button.shopBtn:hover{opacity:.9;box-shadow:0 0 20px #ff073a,0 0 30px #1e90ff;}
 .modalContent{background:#111;padding:20px;border-radius:12px;position:relative;max-width:400px;margin:auto;text-align:center;box-shadow:0 0 20px #ff073a,0 0 40px #1e90ff;}
 .close{position:absolute;top:8px;right:12px;font-size:24px;cursor:pointer;}
 input, select{width:90%;padding:8px;border-radius:8px;margin:6px 0;border:1px solid #1e90ff;background:#0d0d0d;color:white;}
@@ -129,16 +129,24 @@ let demoProducts=[
 {name:"Smart Watch",price:7000,cat:"Watches",image:"https://images.pexels.com/photos/277394/pexels-photo-277394.jpeg",rating:4.9,badge:"Hot"},
 // Add remaining 100+ product images matching actual products
 ];
+
 function loadProducts(filter=""){
   let box=document.getElementById("products"); box.innerHTML="";
   demoProducts.forEach(p=>{
     if(filter && !p.name.toLowerCase().includes(filter.toLowerCase()) && !p.cat.toLowerCase().includes(filter.toLowerCase())) return;
     let card=document.createElement("div"); card.className="card";
-    card.innerHTML=`${p.badge?'<div class="badge">'+p.badge+'</div>':''}<img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')"><h4>${p.name}</h4><p>Rs ${p.price}</p><p>${'⭐'.repeat(Math.round(p.rating))}</p><button class="buyBtn" onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>`;
+    card.innerHTML=`${p.badge?'<div class="badge">'+p.badge+'</div>':''}
+    <img src="${p.image}" onclick="preview('${p.name}','${p.price}','${p.image}')">
+    <h4>${p.name}</h4>
+    <p>Rs ${p.price}</p>
+    <p>${'⭐'.repeat(Math.round(p.rating))}</p>
+    <button class="buyBtn" onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
+    <button class="shopBtn" onclick="buyNow('${p.name}',${p.price})">Shop Now</button>`;
     box.appendChild(card);
   });
   document.getElementById("recommended").innerHTML=box.innerHTML;
 }
+
 function searchProducts(){loadProducts(document.getElementById("searchInput").value);}
 window.onload=()=>{loadProducts();setTimeout(()=>document.getElementById("newsletterPopup").style.display="block",3000);}
 function toggleCart(){let c=document.getElementById("cartSidebar");c.style.display=(c.style.display=="none")?"block":"none";updateCart();}
