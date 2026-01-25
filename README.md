@@ -44,9 +44,13 @@ footer{margin-top:20px;text-align:center;padding:15px;background:#111;color:whit
 <button onclick="loadProducts('Women')">Women</button>
 <button onclick="loadProducts('Kids')">Kids</button>
 <button onclick="loadProducts('Winter')">Winter</button>
+<button onclick="loadProducts('Summer')">Summer</button>
 <button onclick="loadProducts('Accessories')">Accessories</button>
 <button onclick="loadProducts('Electronics')">Electronics</button>
 <button onclick="loadProducts('Fitness')">Fitness</button>
+<button onclick="loadProducts('Shoes')">Shoes</button>
+<button onclick="loadProducts('Watches')">Watches</button>
+<button onclick="loadProducts('Bags')">Bags</button>
 <button onclick="loadProducts('')">All</button>
 Sort: 
 <button class="sortBtn" onclick="sortProducts('priceAsc')">Price ↑</button>
@@ -98,7 +102,7 @@ Sort:
 <input id="pName" placeholder="Product name"><br>
 <input id="pPrice" type="number" placeholder="Price"><br>
 <select id="pCat">
-<option>Men</option><option>Women</option><option>Kids</option><option>Accessories</option><option>Electronics</option><option>Fitness</option><option>Winter</option>
+<option>Men</option><option>Women</option><option>Kids</option><option>Accessories</option><option>Electronics</option><option>Fitness</option><option>Winter</option><option>Summer</option><option>Shoes</option><option>Watches</option><option>Bags</option>
 </select><br>
 <input id="pImage" type="file"><br>
 <button onclick="addProduct()">Add Product</button><br>
@@ -119,7 +123,11 @@ let demoProducts=[
 {name:"Men Casual T-Shirt",price:1200,cat:"Men",image:"https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg",rating:4.5,badge:"Hot"},
 {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8,badge:"New"},
 {name:"Kids Winter Jacket",price:1800,cat:"Kids",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6,badge:"Sale"},
-// Add remaining 100+ product images here matching actual products
+{name:"Men Leather Shoes",price:3500,cat:"Shoes",image:"https://images.pexels.com/photos/19090/pexels-photo.jpg",rating:4.7,badge:"New"},
+{name:"Fitness Dumbbells Set",price:4500,cat:"Fitness",image:"https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg",rating:4.5,badge:"Hot"},
+{name:"Women Handbag",price:2200,cat:"Bags",image:"https://images.pexels.com/photos/4041681/pexels-photo-4041681.jpeg",rating:4.4,badge:"New"},
+{name:"Smart Watch",price:7000,cat:"Watches",image:"https://images.pexels.com/photos/277394/pexels-photo-277394.jpeg",rating:4.9,badge:"Hot"},
+// Add remaining 100+ product images matching actual products
 ];
 function loadProducts(filter=""){
   let box=document.getElementById("products"); box.innerHTML="";
