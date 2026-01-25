@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,7 +9,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -38,7 +37,6 @@ window.loginAdmin = function(){
     .then(() => {
       document.getElementById("adminPanel").style.display="block";
       document.getElementById("adminLoginSection").style.display="none";
-      document.getElementById("userLoginSection").style.display="none";
       loadProducts();
     })
     .catch(e=>alert("Admin Login failed: "+e.message));
@@ -73,43 +71,6 @@ window.deleteProduct = async function(id){
     await deleteDoc(doc(db, "products", id));
     loadProducts();
   }
-}
-
-// =================== Users Login/Register ===================
-window.registerUser = function(){
-  const email = document.getElementById("userEmail").value.trim();
-  const pass = document.getElementById("userPassword").value.trim();
-  if(!email || !pass){ alert("Fill all fields"); return; }
-
-  createUserWithEmailAndPassword(auth, email, pass)
-    .then(() => {
-      alert("User Registered Successfully!");
-      document.getElementById("userPanel").style.display="block";
-      document.getElementById("userLoginSection").style.display="none";
-      loadProducts();
-    })
-    .catch(e=>alert("Register failed: "+e.message));
-}
-
-window.loginUser = function(){
-  const email = document.getElementById("userEmail").value.trim();
-  const pass = document.getElementById("userPassword").value.trim();
-  if(!email || !pass){ alert("Fill all fields"); return; }
-
-  signInWithEmailAndPassword(auth, email, pass)
-    .then(() => {
-      document.getElementById("userPanel").style.display="block";
-      document.getElementById("userLoginSection").style.display="none";
-      loadProducts();
-    })
-    .catch(e=>alert("User Login failed: "+e.message));
-}
-
-window.logoutUser = function(){
-  signOut(auth).then(()=>{
-    document.getElementById("userPanel").style.display="none";
-    document.getElementById("userLoginSection").style.display="block";
-  });
 }
 
 // =================== Load Products ===================
@@ -157,17 +118,17 @@ window.addEventListener("DOMContentLoaded", loadProducts);
 </script>
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4}
-header{background:#ff4500;color:white;padding:20px;text-align:center;font-size:28px}
-.container{max-width:1200px;margin:auto;padding:15px}
-input,select,button{padding:10px;border-radius:6px;border:1px solid #ccc;margin:5px 0}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(120deg,#ffe0b2,#ffccbc);color:#333;}
+header{background:linear-gradient(90deg,#ff4500,#ff8c00);color:white;padding:25px;text-align:center;font-size:32px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+.container{max-width:1200px;margin:auto;padding:20px}
+input,select,button{padding:10px;border-radius:8px;border:1px solid #ccc;margin:8px 0;font-size:16px}
 button{background:#ff4500;color:white;border:none;cursor:pointer;transition:0.3s}
 button:hover{background:#e03e00}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
-.card{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:0.3s}
-.card:hover{transform:scale(1.03)}
-.card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
-#cartList{white-space:pre-line;background:#fff;padding:10px;border-radius:8px;box-shadow:0 1px 5px rgba(0,0,0,0.1)}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:20px}
+.card{background:white;padding:15px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:0.3s;text-align:center}
+.card:hover{transform:scale(1.05)}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:10px}
+#cartList{white-space:pre-line;background:#fff;padding:12px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-top:15px;font-weight:bold}
 </style>
 </head>
 <body>
@@ -178,14 +139,14 @@ button:hover{background:#e03e00}
 
 <!-- ADMIN LOGIN -->
 <div id="adminLoginSection">
-<h3>Admin Login</h3>
+<h3 style="text-align:center;">Admin Login</h3>
 <input type="email" id="adminEmail" placeholder="Admin Email"><br>
 <input type="password" id="adminPassword" placeholder="Password"><br>
 <button onclick="loginAdmin()">Login as Admin</button>
 </div>
 
 <!-- ADMIN PANEL -->
-<div id="adminPanel" style="display:none">
+<div id="adminPanel" style="display:none;margin-top:20px;">
 <h3>Admin Panel</h3>
 <input type="text" id="pName" placeholder="Product Name"><br>
 <input type="number" id="pPrice" placeholder="Price"><br>
@@ -197,21 +158,6 @@ button:hover{background:#e03e00}
 <button onclick="addProduct()">Add Product</button>
 <button onclick="logoutAdmin()">Logout</button>
 <hr>
-</div>
-
-<!-- USER LOGIN/REGISTER -->
-<div id="userLoginSection">
-<h3>User Login / Register</h3>
-<input type="email" id="userEmail" placeholder="Email"><br>
-<input type="password" id="userPassword" placeholder="Password"><br>
-<button onclick="loginUser()">Login</button>
-<button onclick="registerUser()">Register</button>
-</div>
-
-<!-- USER PANEL -->
-<div id="userPanel" style="display:none">
-<h3>Welcome User</h3>
-<button onclick="logoutUser()">Logout</button>
 </div>
 
 <!-- SEARCH -->
