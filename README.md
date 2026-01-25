@@ -104,15 +104,8 @@ let demoProducts=[
 {name:"Dumbbell Set",price:5000,cat:"Fitness",image:"https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg",rating:4.8},
 {name:"Women Handbag",price:2200,cat:"Women",image:"https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg",rating:4.7},
 {name:"Smartwatch",price:4500,cat:"Electronics",image:"https://images.pexels.com/photos/2774061/pexels-photo-2774061.jpeg",rating:4.5},
-{name:"Sunglasses",price:1200,cat:"Accessories",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.6},
-{name:"Women Sneakers",price:3000,cat:"Women",image:"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",rating:4.7},
-{name:"Men Formal Shoes",price:4000,cat:"Men",image:"https://images.pexels.com/photos/2529146/pexels-photo-2529146.jpeg",rating:4.8},
-{name:"Fitness Yoga Mat",price:2000,cat:"Fitness",image:"https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg",rating:4.7},
-{name:"Kids School Bag",price:1500,cat:"Kids",image:"https://images.pexels.com/photos/374756/pexels-photo-374756.jpeg",rating:4.6},
-{name:"Men Leather Belt",price:900,cat:"Men",image:"https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg",rating:4.5},
-{name:"Women Scarf",price:700,cat:"Women",image:"https://images.pexels.com/photos/2929993/pexels-photo-2929993.jpeg",rating:4.5},
-{name:"Kids Toys Set",price:1200,cat:"Kids",image:"https://images.pexels.com/photos/1660903/pexels-photo-1660903.jpeg",rating:4.6}
-// Continue adding remaining to reach 100+ products
+{name:"Sunglasses",price:1200,cat:"Accessories",image:"https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg",rating:4.6}
+// Add remaining to reach 100+ products with real images
 ];
 
 function loadProducts(filter=""){
