@@ -4,33 +4,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopping Center</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#fdf6f0;}
-header{background:linear-gradient(90deg,#ff6f00,#ff8f00);color:white;padding:20px;text-align:center;font-size:28px;font-weight:bold;box-shadow:0 4px 8px rgba(0,0,0,0.2);}
-nav{display:flex;justify-content:center;gap:15px;padding:12px;background:#ffb74d;flex-wrap:wrap;}
-nav button{background:#fff3e0;color:#ff6f00;border:none;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.3s;font-weight:bold;}
-nav button:hover{background:#ff6f00;color:white;}
+body{margin:0;font-family:Arial,sans-serif;background:#0d0d0d;color:white;}
+header{background:linear-gradient(90deg,#ff073a,#1e90ff);color:white;padding:25px;text-align:center;font-size:32px;font-weight:bold;box-shadow:0 0 20px #ff073a,0 0 40px #1e90ff;text-transform:uppercase;}
+nav{display:flex;justify-content:center;gap:15px;padding:12px;background:#111;flex-wrap:wrap;}
+nav button{background:#111;color:#ff073a;border:2px solid #1e90ff;padding:8px 18px;border-radius:10px;cursor:pointer;font-weight:bold;transition:0.3s;box-shadow:0 0 5px #ff073a,0 0 10px #1e90ff;}
+nav button:hover{background:#1e90ff;color:white;box-shadow:0 0 15px #ff073a,0 0 30px #1e90ff;}
 .carousel{display:flex;overflow-x:auto;scroll-behavior:smooth;margin:15px;}
-.carousel img{width:350px;height:180px;margin-right:12px;border-radius:12px;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;padding:15px;}
-.card{background:white;padding:12px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.2);text-align:center;transition:.3s;position:relative;}
-.card:hover{transform:scale(1.05);}
-.card img{width:100%;height:160px;object-fit:cover;border-radius:8px;cursor:pointer;}
-.card h4{margin:8px 0 4px;font-weight:bold;color:#ff6f00;}
-.card p{margin:2px;color:#555;}
-button.buyBtn{background:linear-gradient(90deg,#ff6f00,#ff8f00);color:white;border:none;padding:8px 12px;border-radius:6px;margin-top:6px;cursor:pointer;font-weight:bold;transition:.3s;}
-button.buyBtn:hover{opacity:.9;}
-.modalContent{background:white;padding:20px;border-radius:12px;position:relative;max-width:400px;margin:auto;text-align:center;box-shadow:0 6px 15px rgba(0,0,0,0.3);}
+.carousel img{width:350px;height:180px;margin-right:12px;border-radius:12px;object-fit:cover;box-shadow:0 0 15px #ff073a,0 0 25px #1e90ff;transition:0.5s;}
+.carousel img:hover{transform:scale(1.05);}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;padding:15px;}
+.card{background:#111;padding:12px;border-radius:15px;box-shadow:0 0 10px #ff073a,0 0 20px #1e90ff;text-align:center;transition:.5s;position:relative;}
+.card:hover{transform:scale(1.05);box-shadow:0 0 20px #ff073a,0 0 40px #1e90ff;}
+.card img{width:100%;height:160px;object-fit:cover;border-radius:8px;cursor:pointer;transition:.5s;}
+.card img:hover{transform:scale(1.05);box-shadow:0 0 15px #ff073a,0 0 25px #1e90ff;}
+.card h4{margin:8px 0 4px;font-weight:bold;color:#ff073a;text-shadow:0 0 5px #1e90ff;}
+.card p{margin:2px;color:#aaa;}
+button.buyBtn{background:#1e90ff;color:white;border:none;padding:8px 12px;border-radius:6px;margin-top:6px;cursor:pointer;font-weight:bold;transition:.3s;box-shadow:0 0 10px #ff073a,0 0 20px #1e90ff;}
+button.buyBtn:hover{opacity:.9;box-shadow:0 0 20px #ff073a,0 0 30px #1e90ff;}
+.modalContent{background:#111;padding:20px;border-radius:12px;position:relative;max-width:400px;margin:auto;text-align:center;box-shadow:0 0 20px #ff073a,0 0 40px #1e90ff;}
 .close{position:absolute;top:8px;right:12px;font-size:24px;cursor:pointer;}
-input, select{width:90%;padding:8px;border-radius:8px;margin:6px 0;}
-footer{margin-top:20px;text-align:center;padding:15px;background:#ffb74d;color:white;}
-.sortBtn{margin-left:5px;background:#fff3e0;color:#ff6f00;border:none;padding:5px 10px;border-radius:6px;font-weight:bold;cursor:pointer;transition:.3s;}
-.sortBtn:hover{background:#ff6f00;color:white;}
-.badge{position:absolute;top:10px;left:10px;background:red;color:white;padding:2px 6px;font-size:12px;border-radius:4px;font-weight:bold;}
-#cartSidebar{position:fixed;right:0;top:0;width:280px;height:100%;background:white;box-shadow:-4px 0 12px rgba(0,0,0,0.3);padding:15px;overflow-y:auto;display:none;z-index:999;}
-#cartSidebar h3{color:#ff6f00;}
+input, select{width:90%;padding:8px;border-radius:8px;margin:6px 0;border:1px solid #1e90ff;background:#0d0d0d;color:white;}
+footer{margin-top:20px;text-align:center;padding:15px;background:#111;color:white;box-shadow:0 0 10px #ff073a,0 0 20px #1e90ff inset;}
+.sortBtn{margin-left:5px;background:#111;color:#ff073a;border:none;padding:5px 10px;border-radius:6px;font-weight:bold;cursor:pointer;transition:.3s;box-shadow:0 0 5px #ff073a,0 0 10px #1e90ff;}
+.sortBtn:hover{background:#ff073a;color:white;}
+.badge{position:absolute;top:10px;left:10px;background:#ff073a;color:white;padding:2px 6px;font-size:12px;border-radius:4px;font-weight:bold;text-shadow:0 0 5px #1e90ff;}
+#cartSidebar{position:fixed;right:0;top:0;width:280px;height:100%;background:#111;box-shadow:-4px 0 12px #ff073a,0 0 20px #1e90ff;padding:15px;overflow-y:auto;display:none;z-index:999;}
+#cartSidebar h3{color:#ff073a;text-shadow:0 0 5px #1e90ff;}
 #cartSidebar button{margin-top:10px;}
-#newsletterPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.3);display:none;z-index:1000;text-align:center;}
-#newsletterPopup input{width:80%;margin-bottom:10px;}
+#newsletterPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#111;padding:20px;border-radius:12px;box-shadow:0 0 20px #ff073a,0 0 40px #1e90ff;display:none;z-index:1000;text-align:center;}
+#newsletterPopup input{width:80%;margin-bottom:10px;background:#0d0d0d;color:white;border:1px solid #1e90ff;}
 </style>
 </head>
 <body>
@@ -60,14 +62,16 @@ Sort:
 <img src="https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg">
 </div>
 
-<div style="text-align:center;margin:15px;"><input id="searchInput" placeholder="Search products..." onkeyup="searchProducts()" style="width:90%;padding:10px;border-radius:8px;border:2px solid #ff6f00;"></div>
+<div style="text-align:center;margin:15px;">
+<input id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+</div>
 
 <h3 style="text-align:center;">Recommended for You</h3>
 <div id="recommended" class="products"></div>
 <div id="products" class="products"></div>
 
-<div id="previewModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:998;"></div>
-<div id="orderModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:998;"></div>
+<div id="previewModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:998;"></div>
+<div id="orderModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:998;"></div>
 
 <div id="cartSidebar">
 <h3>Your Cart</h3>
@@ -101,12 +105,13 @@ Sort:
 <button onclick="logoutAdmin()">Logout</button>
 </div>
 <div style="margin-top:15px;">&copy; 2026 Shopping Center | Contact: 
-<a href="mailto:rock.earn92@gmail.com" style="color:white;">rock.earn92@gmail.com</a> | 
-<a href="https://www.facebook.com/profile.php?id=100084218946114" style="color:white;">Facebook</a> | 
-<a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" style="color:white;">Instagram</a>
+<a href="mailto:rock.earn92@gmail.com" style="color:#1e90ff;">rock.earn92@gmail.com</a> | 
+<a href="https://www.facebook.com/profile.php?id=100084218946114" style="color:#1e90ff;">Facebook</a> | 
+<a href="https://www.instagram.com/mr_nazim073?igsh=MXd4d2hmcWNvNjVsdQ==" style="color:#1e90ff;">Instagram</a>
 </div>
 
 <script>
+// Users demo storage
 let users=JSON.parse(localStorage.getItem("users")||"{}");
 let currentUser=null;
 let cart=[];
@@ -114,7 +119,7 @@ let demoProducts=[
 {name:"Men Casual T-Shirt",price:1200,cat:"Men",image:"https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg",rating:4.5,badge:"Hot"},
 {name:"Women Summer Dress",price:2500,cat:"Women",image:"https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",rating:4.8,badge:"New"},
 {name:"Kids Winter Jacket",price:1800,cat:"Kids",image:"https://images.pexels.com/photos/3662633/pexels-photo-3662633.jpeg",rating:4.6,badge:"Sale"},
-// Add remaining 100+ real products here with images, badges, ratings
+// Add remaining 100+ product images here matching actual products
 ];
 function loadProducts(filter=""){
   let box=document.getElementById("products"); box.innerHTML="";
