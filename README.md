@@ -1,12 +1,16 @@
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shopping Center</title>
+<title>Shopping Center - Full Auth + Orders</title>
 <style>
 body{margin:0;font-family:Arial;background:#0b0b0b;color:#fff}
 header{padding:20px;text-align:center;background:linear-gradient(90deg,#ff003c,#1e90ff);box-shadow:0 0 15px #ff003c}
 header h1{margin:0;font-size:28px}
 header p{margin:5px;font-size:16px;color:#ccc}
+.auth{padding:20px;text-align:center;background:#111;margin:20px auto;border-radius:10px;max-width:400px;box-shadow:0 0 15px #ff003c}
+.auth input{width:90%;padding:10px;margin:5px 0;border-radius:6px;border:none}
+.auth button{padding:10px;border:none;border-radius:6px;background:#ff003c;color:#fff;cursor:pointer;margin-top:10px;width:95%}
+#logoutBtn{padding:10px;border:none;border-radius:6px;background:#1e90ff;color:#fff;cursor:pointer;margin:10px}
 .features{padding:15px;background:#111;border-bottom:2px solid #ff003c;border-radius:0 0 10px 10px}
 .features h3{margin-top:0;color:#ffcc00}
 .features ul{list-style:disc;padding-left:20px;color:#ccc}
@@ -17,7 +21,6 @@ header p{margin:5px;font-size:16px;color:#ccc}
 .card h4{margin:5px 0;font-size:16px}
 .card .cat{font-size:14px;color:#ccc}
 .price{color:#00ffcc;font-weight:bold;margin:5px 0}
-button{padding:8px;border:none;border-radius:6px;background:#ff003c;color:#fff;cursor:pointer;margin-top:5px}
 button.secondary{background:#1e90ff}
 #cartBtn{position:fixed;bottom:20px;right:20px;padding:12px;border-radius:50%;background:#1e90ff;cursor:pointer;font-size:18px}
 #cartBox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;z-index:99;overflow:auto}
@@ -35,6 +38,20 @@ footer{text-align:center;padding:15px;background:#111;color:#fff;font-size:14px}
 <h1>Shopping Center</h1>
 <p>Premium Online Store - Verified Products</p>
 </header>
+
+<div id="authDiv" class="auth">
+<h3>Signup / Login</h3>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="signup()">Sign Up</button>
+<button onclick="login()">Login</button>
+<p id="authMsg" style="color:#ff003c"></p>
+</div>
+
+<div id="userDiv" style="display:none; text-align:center;">
+<h3>Welcome, <span id="userEmail"></span></h3>
+<button id="logoutBtn" onclick="logout()">Logout</button>
+</div>
 
 <div class="features">
 <h3>Why Shop With Us?</h3>
@@ -58,9 +75,8 @@ footer{text-align:center;padding:15px;background:#111;color:#fff;font-size:14px}
 <h4>Total: <span id="total">0</span> PKR</h4>
 <h3>Checkout</h3>
 
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="WhatsApp Number">
-<input id="email" placeholder="Email">
+<input id="c_name" placeholder="Name">
+<input id="c_phone" placeholder="WhatsApp Number">
 
 <select id="payment"></select>
 
@@ -87,9 +103,27 @@ Bank IBAN HERE
 
 <footer>Shopping Center © 2026 - All Rights Reserved</footer>
 
-<script>
-// Products with full details
-const products=[];
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+// Firebase config
+const firebaseConfig = {
+apiKey: "AIzaSyAL7_6DTdz14ySlLQ1jjuQC4WdO4mpRZKY",
+authDomain: "shopping-center-9.firebaseapp.com",
+projectId: "shopping-center-9",
+storageBucket: "shopping-center-9.firebasestorage.app",
+messagingSenderId: "33427127023",
+appId: "1:33427127023:web:a478af6499f28f84d9391a"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+
+let products=[];
 const categories=["Men","Women","Kids","Winter","Accessories","Electronics","Shoes"];
 const types=["Shirt","T-Shirt","Jeans","Shoes","Watch","Bag","Jacket"];
 for(let i=1;i<=50;i++){
@@ -163,15 +197,22 @@ pay.appendChild(opt);
 }
 }
 
-// Place order
+// Orders
 function placeOrder(){
+if(!auth.currentUser){alert("Login first!"); return;}
 if(cart.length==0){alert("Cart empty!"); return;}
-let msg="ORDER DETAILS%0A";
-cart.forEach(i=>msg+=`${i.name} - ${i.price} PKR - Payment: ${i.payment}%0A`);
-msg+=`Total: ${document.getElementById("total").innerText} PKR%0A`;
-msg+=`Name: ${name.value}%0APhone: ${phone.value}%0APayment Selected: ${payment.value}%0ATRX: ${trx.value}`;
-window.open("https://wa.me/92XXXXXXXXX?text="+msg,"_blank");
-cart=[];localStorage.setItem("cart",JSON.stringify(cart)); toggleCart();
+const orderData={
+uid:auth.currentUser.uid,
+email:auth.currentUser.email,
+name:document.getElementById("c_name").value,
+phone:document.getElementById("c_phone").value,
+payment:document.getElementById("payment").value,
+trx:document.getElementById("trx").value,
+total:document.getElementById("total").innerText,
+items:cart
+};
+push(ref(db,'orders'),orderData)
+.then(()=>{alert("Order placed & saved!");cart=[];localStorage.setItem("cart",JSON.stringify(cart));toggleCart();});
 }
 
 // Social order buttons
@@ -180,7 +221,7 @@ if(cart.length==0){alert("Cart empty!"); return;}
 let msg=platform+" ORDER%0A";
 cart.forEach(i=>msg+=`${i.name} - ${i.price} PKR - Payment: ${i.payment}%0A`);
 msg+=`Total: ${document.getElementById("total").innerText} PKR%0A`;
-msg+=`Name: ${name.value}%0APhone: ${phone.value}%0APayment Selected: ${payment.value}%0ATRX: ${trx.value}`;
+msg+=`Name: ${c_name.value}%0APhone: ${c_phone.value}%0APayment Selected: ${payment.value}%0ATRX: ${trx.value}`;
 let url="";
 switch(platform){
 case "WhatsApp": url="https://wa.me/92XXXXXXXXX?text="+msg; break;
@@ -191,8 +232,48 @@ case "Facebook": url="https://www.facebook.com/messages/t/?message="+msg; break;
 window.open(url,"_blank");
 }
 
+// Firebase Auth
+function signup(){
+const email=document.getElementById("email").value;
+const pass=document.getElementById("password").value;
+createUserWithEmailAndPassword(auth,email,pass)
+.then(userCred=>{
+sendEmailVerification(userCred.user)
+.then(()=>{document.getElementById("authMsg").innerText="Verification email sent!"})
+.catch(err=>{document.getElementById("authMsg").innerText=err.message});
+})
+.catch(err=>{document.getElementById("authMsg").innerText=err.message});
+}
+
+function login(){
+const email=document.getElementById("email").value;
+const pass=document.getElementById("password").value;
+signInWithEmailAndPassword(auth,email,pass)
+.then(userCred=>{
+if(!userCred.user.emailVerified){alert("Verify your email first!"); return;}
+document.getElementById("authDiv").style.display="none";
+document.getElementById("userDiv").style.display="block";
+document.getElementById("userEmail").innerText=userCred.user.email;
+})
+.catch(err=>{document.getElementById("authMsg").innerText=err.message});
+}
+
+function logout(){
+signOut(auth).then(()=>{document.getElementById("authDiv").style.display="block";document.getElementById("userDiv").style.display="none";});
+}
+
+onAuthStateChanged(auth,user=>{
+if(user && user.emailVerified){
+document.getElementById("authDiv").style.display="none";
+document.getElementById("userDiv").style.display="block";
+document.getElementById("userEmail").innerText=user.email;
+}else{
+document.getElementById("authDiv").style.display="block";
+document.getElementById("userDiv").style.display="none";
+}
+});
+
 renderProducts();
 </script>
-
 </body>
 </html>
